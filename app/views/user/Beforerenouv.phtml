@@ -1,0 +1,350 @@
+<?= $this->assets->outputCss(); ?>
+<div class="infos">
+	<!-- informations latérales -->
+	<h3>Informations</h3><br />
+	<div class="infoscontenues">
+	<?php 
+	if (isset($infos)) {
+		foreach ($infos as $info)
+		{
+			echo $info->getText();
+		}
+	}
+	?>
+	</div>
+</div>
+
+<h1 class="title">FICHE DE RENSEIGNEMENTS	</h1>
+<?= $this->tag->form(['user/inscription', 'method' =>'post', 'enctype'=> "multipart/form-data"]); ?>
+	<label for="name">Nom : </label>
+	<?php if (!empty($firstname)){?>
+	<?= $this->tag->textField([
+		"nom",
+		"value" => $firstname,
+		"readonly" => "true"
+	]);}else{?>
+	<?= $this->tag->textField([
+	"nom",
+	"value" => $firstname
+	]);}?><br />
+
+	<label for="Prenom">Prénom : </label>
+	<?php if(!empty($lastname)){?>
+	<?= $this->tag->textField([
+		"Prenom",
+		"value" => $lastname,
+		"readonly" => "true"
+		
+	]);}else{?>
+		<?= $this->tag->textField([
+		"Prenom",
+		"value" => $lastname
+		]);}?><br />
+
+
+	<label for="Address">Adresse : </label>
+	<?= $this->tag->textField([
+		"Adresse",
+		"value" => $address
+	])?><br />
+
+
+	<label for="Code_postal">Code postal : </label>
+	<?= $this->tag->numericField([
+		"Code_postal",
+		"maxlength" =>5,
+		"minlenght" =>5,
+		"value" =>$postal_code
+	]) ?><br />
+
+	<label for="Ville">Ville : </label>
+	<?= $this->tag->textField([
+		"Ville",
+		"value" =>$city
+	])?><br />
+
+	<label>Sexe : </label>
+	<?php if ($sexe=="Féminin") {?>
+	<?= $this->tag->radioField([
+		"Sexe",
+		"value" => "Féminin",
+		"checked" => "checked"
+	]);
+	}else{?>
+		<?= $this->tag->radioField([
+		"Sexe",
+		"value" => "Féminin"
+	]);
+
+	}
+	?>
+
+	<label for="Sexe" class="sexe">Féminin</label>
+	<?php if ($sexe=="Masculin"){?>
+	<?= $this->tag->radioField([
+		"Sexe",
+		"value" => "Masculin",
+		"checked" => "checked"
+
+	]);
+	}else{?>
+		<?= $this->tag->radioField([
+		"Sexe",
+		"value" => "Masculin"
+	]);
+	}
+	?>
+
+	<label for="Sexe" class="sexe">Masculin</label><br />
+	<label for="Date_de_naissance">Date de naissance : </label>
+	<?= $this->tag->dateField([
+		"Date_de_naissance",
+		"value" => $birthdate
+	])?><br />
+
+	<label for="N°_de_telephone_portable">N° de téléphone portable : </label>
+	<?= $this->tag->numericField([
+		"N°_de_telephone_portable",
+		"maxlength" =>10,
+		"minlenght" =>10,
+		"value" =>$phone_number
+	]) ?><br />
+
+	<label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
+	<?= $this->tag->numericField([
+		"N°_de_telephone_fixe",
+		"maxlength" =>10,
+		"minlenght" =>10,
+		"value" => $fix_number
+	]) ?><br />
+
+	<label for="mail">Mail : </label>
+	<?= $this->tag->emailField([
+		"mail",
+		"value" => $mail
+	])?><br />
+
+
+	<label for="Taille">Taille : </label>
+	<?= $this->tag->numericField([
+		"Taille",
+		"maxlength" =>3,
+		"minlenght" =>3,
+		"min" =>100,
+		"max" =>230,
+		"value" => $taille
+	]) ?><br />
+	<p class="separation">---------------------------------------------------</p>
+<div class="medical">
+ 	<h2>MÉDICAL</h2>
+	<p class="title_medical">Personnes à contacter en cas d'urgence</p>
+	
+
+	<label for="nom_medical">Nom :</label>
+	<?= $this->tag->textField(
+		[
+			"nom_medical",
+			"value" =>$firstname
+		])?>
+
+	
+	<label for="Prenom_medical">Prénom : </label>
+	<?= $this->tag->textField(
+		[
+			"Prenom_medical",
+			"value" => $lastname
+		])?>
+	
+
+	<label for="n°_de_telephone_medical">N° de téléphone : </label>
+	<?= $this->tag->numericField([
+
+		"n°_de_telephone_medical",
+		"value"=>$phone_number,
+		"minlenght" =>10,
+		"maxlength" =>10
+	])?>
+
+	<label for="qualite_medical">Qualité : </label>
+	<?= $this->tag->textField([
+		"qualite",
+		"value"=>$quality
+	])?>
+
+</div>
+<p class="separation">---------------------------------------------------</p>
+<div class="parents">
+
+	<h2>PARENTS</h2>
+	<p>Père</p>
+			
+	<label for="Nom">Nom : </label>
+	<?php if(!empty($nom_du_pere)){?>
+	<?= $this->tag->textField([
+		"NOM_pere",
+		"value"=>$nom_du_pere,
+		"readonly" => "true"
+	]);}else{?>
+		<?= $this->tag->textField([
+		"NOM_pere",
+		"value"=>$nom_du_pere
+		]);}?>
+
+	<label for="Prenom">Prénom : </label>
+	<?php if(!empty($prenom_du_pere)){?>
+		<?= $this->tag->textField([
+		"Prenom_pere",
+		"value"=>$prenom_du_pere,
+		"readonly" => "true"
+	]);}else{?>
+		<?= $this->tag->textField([
+		"Prenom_pere",
+		"value"=>$prenom_du_pere
+	]);}?>
+
+	<label for="mail">e-mail : </label>
+	<?= $this->tag->emailField([
+		"mail_pere",
+		"value"=>$mail_du_pere
+	])?><br />
+				
+	<label for="Profession">Profession : </label>
+	<?= $this->tag->textField([
+		"Profession_pere",
+		"value"=>$profession_du_pere
+	]) ?>
+
+
+	<label for="Entreprise">Entreprise : </label>
+	<?= $this->tag->textField([
+		"Entreprise_pere",
+		"value"=>$entreprise_du_pere
+	])?> 
+
+
+	<p>Mère</p>
+			
+	<label for="Nom">Nom : </label>
+	<?php if(!empty($nom_de_la_mere)){?>
+		<?= $this->tag->textField([
+		"NOM_mere",
+		"value"=>$nom_de_la_mere,
+		"readonly" => "true"
+	]);}else{?>
+		<?= $this->tag->textField([
+		"NOM_mere",
+		"value"=>$nom_de_la_mere
+	]);}?>
+
+	<label for="Prenom">Prénom : </label>
+	<?php if(!empty($prenom_de_la_mere)){?>
+		<?= $this->tag->textField([
+		"Prenom_mere",
+		"value"=>$prenom_de_la_mere,
+		"readonly" => "true"
+	]);}/*else{?>
+		<?= $this->tag->textField([
+		"Prenom_mere",
+		"value"=>$prenom_de_la_mere
+	]);}?>*/?>
+
+	<label for="mail">e-mail : </label>
+	<?= $this->tag->emailField([
+		"mail_mere",
+		"value"=>$mail_de_la_mere
+	])?><br />
+
+
+	<label for="Profession">Profession : </label>
+	<?= $this->tag->textField([
+		"Profession_mere",
+		"value"=>$profession_de_la_mere
+	])?>
+
+	<label for="Entreprise">Entreprise : </label>
+	<?= $this->tag->textField([
+		"Entreprise_mere",
+		"value"=>$entreprise_de_la_mere
+	])?>
+</div>
+<p class="separation">---------------------------------------------------</p>
+	<h2>AUTORISATIONS</h2>
+	<p>J'autorise mon enfant à quitter seul le gymnase</p>
+
+		<label for="a1" class="autorisation">oui</label>
+	<?php if($quitter_le_gymnase=="oui"){?>
+		<?= $this->tag->radioField([
+		"a1",
+		"value" => "oui",
+		"checked" => "checked"
+	]);}else{?>
+		<?= $this->tag->radioField([
+		"a1",
+		"value" => "oui"
+		]);}?>
+		<label for="a1" class="autorisation">non</label>
+	<?php if($quitter_le_gymnase=="non"){?>
+		<?= $this->tag->radioField([
+		"a1",
+		"value" => "non",
+		"checked" => "checked"
+	]);}else{?>
+		<?= $this->tag->radioField([
+		"a1",
+		"value" => "non"
+		]);}?>
+
+	<p>En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes médicalements nécessaire ? </p>
+
+			<label for="b1" class="autorisation">oui</label>
+	<?php if($actes_medical=="oui"){?>
+		<?= $this->tag->radioField([
+		"b1",
+		"value" => "oui",
+		"checked" => "checked"
+	]);}else{?>
+		<?= $this->tag->radioField([
+		"b1",
+		"value" => "oui"
+	]);}?>
+
+	<label for="b1" class="autorisation">non</label>
+	<?php if($actes_medical=="non"){?>
+		<?= $this->tag->radioField([
+		"b1",
+		"value" => "non",
+		"checked"=>"checked"
+	]);}else{?>
+		<?= $this->tag->radioField([
+		"b1",
+		"value" => "non"
+	]);}?>
+	
+
+	<p class="separation">---------------------------------------------------</p>
+	<h2>DOCUMENTS</h2>	
+
+	<p> certificat médical : </p>
+
+	<?= $this->tag->fileField("certificat_medical")?>
+
+
+	<p> photo </p>
+
+	<?= $this->tag->fileField("photo")?>
+
+	<?= $this->tag->hiddenField([
+	"id",
+	"value" => $id
+	])?>
+
+
+	<?= $this->tag->submitButton([
+		"envoyer",
+		"class" => "btn btn_primary"
+	])?>
+
+	<?= $this->tag->endForm();?>
+	<?= $this->tag->linkTo([
+		"bordereau.pdf",
+		"télécharger le fichier"])?>

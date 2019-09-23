@@ -1,0 +1,83 @@
+form 
+{
+    height: 1782px;
+    width: 1139px;
+    margin-top: -9px;
+}
+
+.dropdown-menu.show
+{
+    top: 93px !important;
+    width: 1140px;
+    margin-left: -25px;
+}
+.container
+{
+    height: 103px;
+}
+.btn
+{
+    margin-top: -3px;
+}
+.infos
+{
+   height: 1233px;
+}
+input
+{
+    margin-left: 80px;
+}
+input#Code_postal
+{
+    margin-left: 100px;
+    width: 60px;
+}
+input#Ville
+{
+    width: 174px;
+}
+label.feminin
+{
+    margin-left: 23px;
+}
+label.masculin
+{
+    float: left;
+    margin-left: 154px;
+}
+input#Masculin
+{
+    margin-left: 138px;
+}
+input#Feminin 
+{
+    margin-left: 50px;
+}
+input#Date_de_naissance
+{
+    margin-left: 144px;
+    width: 141px;
+}
+input#N°_de_telephone_portable
+{
+margin-left: 193px;
+width: 110px;
+}
+input#N°_de_telephone_fixe
+{
+    margin-left: 163px;
+    width: 110px;
+}
+input#mail
+{
+    width: 245px;
+}
+input#Taille
+{
+    width: 43px;
+}
+input#n°_de_telephone_medical
+{
+    margin-left: 131px;
+    width: 105px;
+}

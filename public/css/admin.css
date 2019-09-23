@@ -1,0 +1,39 @@
+*, body
+{
+	background-color: rgb(206, 206, 206);
+	margin-top: 0.3%;
+
+}
+h3
+{
+	display: inline-block;
+}
+.created
+{
+	font-size: 90%;
+	margin-left: 63%;
+	font-style: italic;
+}
+.logo2
+{
+	margin-left: 72%;
+}
+#myCategorieTable_wrapper
+{
+	margin-top: 5%;
+	width: 50%;
+	float: left;
+}
+th, tr, td
+{
+	border : 2px solid black;
+}
+#chart_div
+{
+	float: right;
+	margin-top: 11%;
+}
+rect
+{
+	display: none;
+}

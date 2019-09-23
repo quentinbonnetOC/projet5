@@ -1,0 +1,31 @@
+<form method='post'>
+
+<label>Identifiant : </label>
+<?php echo $form->render('identifiant');?>
+<br>
+
+<label>Nom : </label>
+<?php echo $form->render('lastname');?>
+<br>
+
+<label>Prénom : </label>
+<?php echo $form->render('firstname');?>
+<br>
+
+<label>Mot de passe : </label>
+<?php echo $form->render('password');?>
+<br>
+
+<label>Fonction : </label>
+<?php echo $form->render('fonction');?>
+<br>
+<label>Email : </label>
+<?php echo $form->render('email');?>
+<br>
+
+<label>N° de téléphone</label>
+<?php echo $form->render('phone_number');?>
+<br>
+
+<input type='submit' value='envoyer' name='envoyer' />
+</form>

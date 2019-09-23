@@ -1,0 +1,27 @@
+#dropdownMenuOffset
+{
+	font-size: 100%;
+	border : 1px solid #285e8e;
+	background-color: #3071a9 !important;
+	/*box-shadow: 6px 6px 6px black;*/ 
+	color: white;
+}
+#dropdownMenuOffset:hover
+{
+	
+	border : 1px solid #357ebd;
+	background-color: #428bca !important;
+	color : white;
+	/*box-shadow: 6px 6px 6px black; */
+}
+.dropdown-item
+{
+	color: black;
+}
+.dropdown-item:hover
+{
+	text-decoration: none;
+	color: blue;
+	border: 1px solid black;
+	border-radius: 5px;
+}

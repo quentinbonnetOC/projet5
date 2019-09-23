@@ -1,0 +1,23 @@
+#dropdownMenuOffset
+{
+	border : 1px solid black;
+	background-color: grey !important;
+    color: white;
+    width: 1120px;
+}
+#dropdownMenuOffset:hover
+{
+	border : 1px solid #357ebd;
+	background-color: #428bca !important;
+	color : white;
+}
+#dropdownMenuOffset:focus
+{
+	border : 1px solid #357ebd;
+	background-color: #428bca !important;
+	color : white;
+}
+.container
+{
+    background-color: white;
+}

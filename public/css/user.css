@@ -1,0 +1,22 @@
+td, body
+{
+	background-color: rgb(206, 206, 206);
+}
+body
+{
+	margin-left: -35% !important;
+	margin-top: 5% !important;
+}
+img
+{
+	width: 50%;
+	margin-left: 37%;
+}
+h5, h6
+{
+	font-weight: bold;
+}
+.fields
+{
+	text-decoration: underline; 
+}

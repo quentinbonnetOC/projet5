@@ -1,0 +1,345 @@
+<?= $this->assets->outputCss(); ?>
+<?= $this->assets->outputJs(); ?>
+<?php
+if(!empty($user)){?>
+    <div class="accordion" id="accordionExample">
+    <?php
+        $x = 0;
+        foreach ($user as $users) {?>
+            <div class="card">
+                <div class="card-header" id="headingOne<?php echo($x);?>">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo($x);?>" aria-expanded="true" aria-controls="collapseOne">
+                            <?php
+                                echo $users->lastname;
+                                echo " ";
+                                echo $users->firstname; 
+                            ?>
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseOne<?php echo($x);?>" class="collapse" aria-labelledby="headingOne<?php echo($x);?>" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <?php
+                            $licencie = 1;
+                        ?>
+                        <div id="example-vertical<?php echo $x; ?>">
+                        
+                            <h3>Identité</h3>
+                            <section>
+                                <label for="name">Nom : </label>
+                                <?php 
+                                    echo $form->render('nom');
+                                ?>
+                        <label for="Prenom">Prénom : </label>
+                        <?php echo $form->render('Prenom');?>
+                        
+                        <label for="Address">Adresse : </label>
+                        <?php echo $form->render('Adresse');?>
+                      
+                        <label for="Code_postal">Code postal : </label>
+                        <?php echo $form->render('Code_postal');?>
+                      
+                        <label for="Ville">Ville : </label>
+                        <?php echo $form->render('Ville');?>
+                       
+                        <label>Sexe : </label>
+                    
+                        <label for="Sexe" class="feminin">Féminin</label>
+                        <?php echo $form->render('Feminin');?>
+                 
+                        <label for="Sexe" class="masculin">Masculin</label>
+                        <?php echo $form->render('Masculin');?><br />
+                       
+                        <label for="Date_de_naissance">Date de naissance : </label>
+                        <?php echo $form->render('Date_de_naissance');?>
+                       
+                        <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
+                        <?php echo $form->render('N°_de_telephone_portable');?>
+                      
+                        <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
+                        <?php echo $form->render('N°_de_telephone_fixe');?>
+                       
+                        <label for="mail">Mail : </label>
+                        <?php echo $form->render('mail');?>
+                     
+                        <label for="Taille">Taille : </label>
+                        <?php echo $form->render('Taille');?>
+                     
+                    </section>
+                    <h3>Médical</h3>
+                    <section>
+                        <div class="medical">
+                            <h2>MÉDICAL</h2>
+                            <?php $medical = $users->getMedical(); ?>
+                            <p class="title_medical">Personnes à contacter en cas d'urgence</p>
+
+                            <label for="nom_medical">Nom :</label>
+                            <?php echo $form->render('nom_medical');?>
+                         
+                            <label for="Prenom_medical">Prénom : </label>
+                            <?php echo $form->render('Prenom_medical');?>
+                        
+                            <label for="n°_de_telephone_medical">N° de téléphone : </label>
+                            <?php echo $form->render('n°_de_telephone_medical');?>
+                          
+                            <label for="qualite_medical">Qualité : </label>
+                            <?php echo $form->render('qualite_medical');?>  
+                        </div>
+                    </section>
+                    <h3>Parents</h3>
+                    <section>
+                        <div class="parents" style="display:block">
+                            <h2>PARENTS</h2>
+                            <p>Père</p>
+                            <?php $parents = $users->getParents(); ?>
+
+                            <label for="Nom">Nom : </label>
+                            <?php echo $form->render('NOM_pere');?>
+                           
+                            <label for="Prenom">Prénom : </label>
+                            <?php echo $form->render('Prenom_pere');?>
+
+                            <label for="mail">e-mail : </label>
+                            <?php echo $form->render('mail_pere');?>
+                         
+                            <label for="Profession">Profession : </label>
+                            <?php echo $form->render('Profession_pere');?>
+                         
+                            <label for="Entreprise">Entreprise : </label>
+                            <?php echo $form->render('Entreprise_pere');?>
+                         
+                            <p>Mère</p>
+
+                            <label for="Nom">Nom : </label>
+                            <?php echo $form->render('NOM_mere');?>
+                         
+                            <label for="Prenom">Prénom : </label>
+                            <?php echo $form->render('Prenom_mere');?>
+                           
+                            <label for="mail">e-mail : </label>
+                            <?php echo $form->render('mail_mere');?>
+                           
+                            <label for="Profession">Profession : </label>
+                            <?php echo $form->render('Profession_mere');?>
+
+                            <label for="Entreprise">Entreprise : </label>
+                            <?php echo $form->render('Entreprise_mere');?>
+                        </div>
+                    </section>
+                    <h3>Autorisations</h3>
+                    <section>
+                        <h2>AUTORISATIONS</h2>
+                        <p>J'autorise mon enfant à quitter seul le gymnase</p>
+                        <?php $autorisations = $users->getAutorisation(); ?>
+
+                        <label for="a1" class="autorisation">oui</label>
+                        <?php echo $form->render('quitter_le_gymnase_oui');?>
+                      
+                        <label for="a1" class="autorisation">non</label>
+                        <?php echo $form->render('quitter_le_gymnase_non');?>
+                     
+                        <p>En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes
+                            médicalements
+                            nécessaire ? </p>
+                        <label for="b1" class="autorisation">oui</label>
+                        <?php echo $form->render('actes_medical_oui');?>
+
+                        <label for="b1" class="autorisation">non</label>
+                        <?php echo $form->render('actes_medical_non');?>
+                    </section>
+                    <h3>Documents</h3>
+                    <section>
+                        <h2>DOCUMENTS</h2>
+                        <p> certificat médical : </p>
+
+                        <?= $this->tag->fileField("certificat_medical")?>
+
+                        <p> photo </p>
+
+                        <?= $this->tag->fileField("photo")?><br>
+        
+                        <?= $this->tag->endForm(); ?>
+                        <?= $this->tag->linkTo(
+                            [
+                                "bordereau.pdf",
+                                "télécharger le fichier"
+                            ]
+                        )?>
+                    </section>
+                </div>
+                <script>
+                    $("#example-vertical<?php echo $x; ?>").steps({
+                        headerTag: "h3",
+                        bodyTag: "section",
+                        transitionEffect: "slideLeft",
+                        stepsOrientation: "vertical",
+                        onFinished :function(event, currentIndex){
+                            alert('toto');
+                            $('form[name=formRenouv<?php echo $x; ?>]').submit();
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+    <?php
+    $x++;
+                }?>
+</div>
+<?php
+            }else{ ?>
+                <!-- informations latérales -->
+                <link rel="stylesheet" href="/css/renouvbis.css">
+<div class="infos">
+    <h3>Informations</h3><br />
+    <div class="infoscontenues">
+        <?php
+            if (isset($infos)) {
+                echo"<ul>";
+                foreach ($infos as $info) {
+                    echo"<li>";
+                    echo $info->getText();
+                    echo"</li>";
+                    echo"</br>";
+                }
+                echo"</ul>";
+            } ?>
+    </div>
+</div>
+<!-- -->
+<h1 class="title">FICHE DE RENSEIGNEMENTS </h1>
+<form method='post'>
+    <label></label><br />
+    <label for="name">Nom : </label>
+    <?php echo $form->render('nom'); ?>
+    <br />
+    <label for="Prenom">Prénom : </label>
+    <?php echo $form->render('Prenom'); ?>
+    <br />
+    <label for="Address">Adresse : </label>
+    <?php echo $form->render('Adresse'); ?>
+    <br />
+    <label for="Code_postal">Code postal : </label>
+    <?php echo $form->render('Code_postal'); ?>
+    <br />
+    <label for="Ville">Ville : </label>
+    <?php echo $form->render('Ville'); ?>
+    <br />
+    <label>Sexe : </label>
+    <label for="masculin" class="masculin">Masculin</label>
+    <?php echo $form->render('Masculin'); ?>
+    <label class="feminin">Féminin</label>
+    <?php echo $form->render('Feminin'); ?><br />
+    <label for="Date_de_naissance">Date de naissance : </label>
+    <?php echo $form->render('Date_de_naissance'); ?>
+    <br />
+    <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
+    <?php echo $form->render('N°_de_telephone_portable'); ?>
+    <br />
+    <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
+    <?php echo $form->render('N°_de_telephone_fixe'); ?>
+    <br />
+    <label for="mail">Mail : </label>
+    <?php echo $form->render('mail'); ?>
+    <br />
+    <label for="Taille">Taille : </label>
+    <?php echo $form->render('Taille'); ?>
+    <br />
+    <div class="medical">
+    <p class="separation">---------------------------------------------------</p>
+        <h2>MÉDICAL</h2>
+        <p class="title_medical">Personnes à contacter en cas d'urgence</p>
+
+        <label for="nom_medical">Nom :</label>
+        <?php echo $form->render('nom_medical'); ?>
+
+        <label for="Prenom_medical">Prénom : </label>
+        <?php echo $form->render('Prenom_medical'); ?>
+
+
+        <label for="n°_de_telephone_medical">N° de téléphone : </label>
+        <?php echo $form->render('n°_de_telephone_medical'); ?>
+
+
+        <label for="qualite_medical">Qualité : </label>
+        <?php echo $form->render('qualite_medical'); ?>
+
+        <label> Problème médical, Traitement en cours, ...</label>
+        <?php echo $form->render('probleme_medical'); ?>
+
+    </div>
+    <div class="parents">
+    <p class="separation">---------------------------------------------------</p>
+        <h2>PARENTS</h2>
+        <p>Père</p>
+
+        <label for="NOM_pere">Nom : </label>
+        <?php echo $form->render('NOM_pere'); ?>
+
+        <label for="Prenom_pere">Prénom : </label>
+        <?php echo $form->render('Prenom_pere'); ?>
+
+        <label for="mail">e-mail : </label>
+        <?php echo $form->render('mail_pere'); ?>
+        <br />
+
+        <label for="Profession">Profession : </label>
+        <?php echo $form->render('Profession_pere'); ?>
+
+        <label for="Entreprise">Entreprise : </label>
+        <?php echo $form->render('Entreprise_pere'); ?>
+
+
+        <p>Mère</p>
+
+        <label for="NOM_mere">Nom : </label>
+        <?php echo $form->render('NOM_mere'); ?>
+
+        <label for="Prenom_mere">Prénom : </label>
+        <?php echo $form->render('Prenom_mere'); ?>
+
+        <label for="mail_mere">e-mail : </label>
+        <?php echo $form->render('mail_mere'); ?>
+        <br />
+
+        <label for="Profession_mere">Profession : </label>
+        <?php echo $form->render('Profession_mere'); ?>
+
+        <label for="Entreprise_mere">Entreprise : </label>
+        <?php echo $form->render('Entreprise_mere'); ?>
+
+    </div>
+    <div class='autorisations'>
+    <p class="separation">---------------------------------------------------</p>
+        <h2>AUTORISATIONS</h2>
+        <p>J'autorise mon enfant à quitter seul le gymnase</p>
+
+        <label for="a1_oui" class="autorisation">oui</label>
+        <?php echo $form->render('quitter_le_gymnase_oui'); ?>
+
+        <label for="a1_non" class="autorisation">non</label>
+        <?php echo $form->render('quitter_le_gymnase_non'); ?>
+
+        <p>En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes médicalements
+            nécessaire ? </p>
+
+        <label for="b1" class="autorisation">oui</label>
+        <?php echo $form->render('actes_medical_oui'); ?>
+
+        <label for="b1" class="autorisation">non</label>
+        <?php echo $form->render('actes_medical_non'); ?>
+    </div>
+    <div class="document">
+        <h2>DOCUMENTS</h2>
+        <p class="separation">---------------------------------------------------</p>
+        <p class="certif"> certificat médical :  <?php echo $form->render('certificat_medical'); ?></p>
+        <p> photo <?php echo $form->render('photo'); ?> </p>
+    </div>
+    <?php echo $form->render('id'); ?>
+
+    <input type='submit' value='envoyer' name='envoyer' />
+</form>
+<?php
+            }
+?>

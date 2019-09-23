@@ -1,0 +1,69 @@
+<?php $this->assets->outputCss(); ?>
+<div class="card-deck">
+  <div class="card">
+    <img class="card-img-top" src="img/inscription.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Inscription</h5>
+      <p class="card-text">Inscription ouverte du <?php echo $date1;?>
+        au <?php echo $date2;?>
+      </p>
+      <div class="bouton">
+        <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
+        <?= $this->tag->submitButton(
+          [
+            'name'=>"creation",
+            "S'inscrire",
+            'class' => 'btn btn-primary'
+          ]
+        ); ?>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="img/renouv.jpg" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Renouvellement</h5>
+      <p class="card-text">Pour ceux qui était déjà licenciés l'année précédente, merci de renseigner votre adresse
+        email pour vous ré-inscrire</p>
+
+      <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
+      <?= $this->tag->emailField("email"); ?>
+      <div class="bouton">
+        <?= $this->tag->submitButton(
+          [
+            'name'=>"renouvellement",
+            'Renouveller',
+            'class' => 'btn btn-primary'
+          ]
+        ); ?>
+        <?= $this->tag->endForm(); ?>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <img class="card-img-top" src="/img/admin.png" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Administrateur</h5>
+      <p class="card-text"></p>
+      <div class="errorMessages">
+        <p><?php $this->flashSession->output() ?>
+        </p>
+      </div>
+      <?= $this->tag->form(['admin', 'method' => 'post']); ?>
+      <label for="idt">identifiant : </label><br />
+      <?= $this->tag->textField("identifiant"); ?><br />
+      <label for="mdp">mot de passe : </label><br />
+      <?= $this->tag->passwordField("motdepasse"); ?>
+      <a href="/admin/mdp_forget?new=false">Mot de passe oublié</a>
+      <div class="bouton">
+        <?= $this->tag->submitButton(
+          [
+            's\'identifier',
+            'class' => 'btn btn-primary'
+          ]
+        ); ?>
+        <?= $this->tag->endForm(); ?>
+      </div>
+    </div>
+  </div>
+</div>

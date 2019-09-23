@@ -1,0 +1,1 @@
+Sat 28 12:49:27 pc-quentin php: [ERROR] E_ERROR: Call to a member function path() on null in D:\phalcon-tools\scripts\Phalcon\Builder\Scaffold.php on line 91

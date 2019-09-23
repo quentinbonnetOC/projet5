@@ -1,0 +1,72 @@
+body
+{
+	background-color: rgb(206, 206, 206);
+}
+
+
+.home_content
+{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    height: 90%;
+    background-color: #ccc;
+}
+
+.card-deck 
+{
+	position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 75%;
+    height: 60%;
+    background-color: #ccc;
+}
+
+.card
+{   
+    width: 10%;
+    height: 75%;
+    display: inline-grid;
+}
+.card-title
+{
+	font-weight: bold;
+	text-align: center;	
+}
+.card-text
+{
+	font-style: italic;
+	margin-left: 10px;
+	text-align: center;
+}
+.card-img-top
+{
+	width: 200px;
+	margin: auto;
+}
+
+
+.bouton
+{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+input#email
+{
+    width: 400px;
+}
+input#identifiant
+{
+    width: 300px;
+}
+
+

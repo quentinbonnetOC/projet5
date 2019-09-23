@@ -1,0 +1,8 @@
+*, body
+{
+	background-color: rgb(206, 206, 206);
+}
+input, textarea
+{
+	background-color: white;
+}

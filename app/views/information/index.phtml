@@ -1,0 +1,40 @@
+<?php $this->assets->outputCss(); ?>
+<?php $this->assets->outputCss(); ?>
+<h1>Mes informations</h1>
+<div class="d-flex">
+  <div class="dropdown mr-1">
+    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+      <a class="dropdown-item" href="/admin">Accueil</a>
+      <a class="dropdown-item" href="/user">Mes adhérants</a>
+      <a class="dropdown-item" href="/information">Mes informations</a>
+      <a class="dropdown-item" href="/parametres">Mes parametres</a>
+      <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
+    </div>
+  </div>
+ </div>
+
+ <?= $this->tag->form(['information/traitement', 'method' => 'post']);?>
+ <label for="msg">Veuillez entrer les informations que vos adhérants véront lors de leur inscription</label><br />
+ <?= $this->tag->textArea(
+  [
+    "text"
+  ]
+);?>
+<?= $this->tag->submitButton(
+  [
+    'envoyer',
+    "class" => "btn btn_primary"
+  ]
+);?>
+<?= $this->tag->endForm();?>
+<?php 
+if (isset($view)) {
+  foreach ($view as $show) {
+  echo $show->getText(); ?>
+  <a href="delete?id=<?php echo $show->getId();?>">x</a><br />
+  <?php
+  }
+}
+?>

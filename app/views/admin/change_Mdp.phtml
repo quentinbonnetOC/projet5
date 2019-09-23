@@ -1,0 +1,18 @@
+<form method='post'>
+
+<label>Mot de passe actuel : </label>
+<?php echo $form->render('old_Mdp');?>
+<br>
+
+<label>Nouveau mot de passe : </label>
+<?php echo $form->render('new_Mdp');?>
+<br>
+
+<label>Confirmer le nouveau mot de passe : </label>
+<?php echo $form->render('confirm_New_Mdp');?>
+<br>
+
+<input type='submit' value='envoyer' name='envoyer' />
+</form>
+
+
