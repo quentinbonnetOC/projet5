@@ -145,45 +145,46 @@ class UserController extends ControllerBase
           $renouvUser = Users::findFirst([
             "conditions" =>  "id = :id: ",
             "bind" => [
-              "id" => $this->request->getPost('id')   ]
-                ]);
+              "id" => htmlspecialchars($this->request->getPost('id'))
+            ]
+          ]);
           
-          $renouvUser->setAddress($this->request->getPost('Adresse'));
-          $renouvUser->setPostalCode($this->request->getPost('Code_postal'));
-          $renouvUser->setCity($this->request->getPost('Ville'));
-          $renouvUser->setPhoneNumber($this->request->getPost('N°_de_telephone_portable'));
-          $renouvUser->setFixNumber($this->request->getPost('N°_de_telephone_fixe'));
-          $renouvUser->setMail($this->request->getPost('mail'));
-          $renouvUser->setTaille($this->request->getPost('Taille'));
+          $renouvUser->setAddress(htmlspecialchars($this->request->getPost('Adresse')));
+          $renouvUser->setPostalCode(htmlspecialchars($this->request->getPost('Code_postal')));
+          $renouvUser->setCity(htmlspecialchars($this->request->getPost('Ville')));
+          $renouvUser->setPhoneNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_portable')));
+          $renouvUser->setFixNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_fixe')));
+          $renouvUser->setMail(htmlspecialchars($this->request->getPost('mail')));
+          $renouvUser->setTaille(htmlspecialchars($this->request->getPost('Taille')));
 
           $renouvUser->update();
 
           $renouvUser->getMedical()->update([
 
-          $this->request->getPost('nom_medical'),
-          $this->request->getPost('Prenom_medical'),
-          $this->request->getPost('n°_de_telephone_medical'),
-          $this->request->getPost('qualité')
+            htmlspecialchars($this->request->getPost('nom_medical')),
+            htmlspecialchars($this->request->getPost('Prenom_medical')),
+            htmlspecialchars($this->request->getPost('n°_de_telephone_medical')),
+            htmlspecialchars($this->request->getPost('qualité'))
           ]);
 
           $renouvUser->getParents()->update([
 
-          $this->request->getPost('NOM_pere'),
-          $this->request->getPost('Prenom_pere'),
-          $this->request->getPost('mail_pere'),
-          $this->request->getPost('Profession_pere'),
-          $this->request->getPost('Entreprise_pere'),
-          $this->request->getPost('NOM_mere'),
-          $this->request->getPost('Prenom_mere'),
-          $this->request->getPost('mail_mere'),
-          $this->request->getPost('Profession_mere'),
-          $this->request->getPost('Entreprise_mere')
+          htmlspecialchars($this->request->getPost('NOM_pere')),
+          htmlspecialchars($this->request->getPost('Prenom_pere')),
+          htmlspecialchars($this->request->getPost('mail_pere')),
+          htmlspecialchars($this->request->getPost('Profession_pere')),
+          htmlspecialchars($this->request->getPost('Entreprise_pere')),
+          htmlspecialchars($this->request->getPost('NOM_mere')),
+          htmlspecialchars($this->request->getPost('Prenom_mere')),
+          htmlspecialchars($this->request->getPost('mail_mere')),
+          htmlspecialchars($this->request->getPost('Profession_mere')),
+          htmlspecialchars($this->request->getPost('Entreprise_mere'))
           ]);
 
           $renouvUser->getAutorisation()->update([
 
-          $this->request->getPost('a1'),
-          $this->request->getPost('b1')
+          htmlspecialchars($this->request->getPost('a1')),
+          htmlspecialchars($this->request->getPost('b1'))
           ]);   
 
 
@@ -191,14 +192,14 @@ class UserController extends ControllerBase
       
           $user = new Users();
       
-          $user->setLastname($this->request->getPost('nom'));
-          $user->setFirstname($this->request->getPost('Prenom'));
-          $user->setAddress($this->request->getPost('Adresse'));
-          $user->setPostalCode($this->request->getPost('Code_postal'));
-          $user->setCity($this->request->getPost('Ville'));
-          $user->setSexe($this->request->getPost('Sexe'));
-          $user->setBirthdate($this->request->getPost('Date_de_naissance'));
-          $birthdate = $this->request->getPost('Date_de_naissance');
+          $user->setLastname(htmlspecialchars($this->request->getPost('nom')));
+          $user->setFirstname(htmlspecialchars($this->request->getPost('Prenom')));
+          $user->setAddress(htmlspecialchars($this->request->getPost('Adresse')));
+          $user->setPostalCode(htmlspecialchars($this->request->getPost('Code_postal')));
+          $user->setCity(htmlspecialchars($this->request->getPost('Ville')));
+          $user->setSexe(htmlspecialchars($this->request->getPost('Sexe')));
+          $user->setBirthdate(htmlspecialchars($this->request->getPost('Date_de_naissance')));
+          $birthdate = htmlspecialchars($this->request->getPost('Date_de_naissance'));
           $annee_de_naissance = substr($birthdate, 0, 4);
           $cat = date("Y") - $annee_de_naissance;
           if ($cat>19) {
@@ -257,42 +258,42 @@ class UserController extends ControllerBase
               break;
           }
         }
-          $user->setPhoneNumber($this->request->getPost('N°_de_telephone_portable'));
-          $user->setFixNumber($this->request->getPost('N°_de_telephone_fixe'));
-          $user->setMail($this->request->getPost('mail'));
-          $user->setTaille($this->request->getPost('Taille'));
+          $user->setPhoneNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_portable')));
+          $user->setFixNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_fixe')));
+          $user->setMail(htmlspecialchars($this->request->getPost('mail')));
+          $user->setTaille(htmlspecialchars($this->request->getPost('Taille')));
 
           $user_medical = new Medical();
 
           $user_medical->setUserId($user->getId());
-          $user_medical->setFirstname($this->request->getPost('nom_medical'));
-          $user_medical->setLastname($this->request->getPost('Prenom_medical'));
-          $user_medical->setPhoneNumber($this->request->getPost('n°_de_telephone_medical'));
-          $user_medical->setQuality($this->request->getPost('qualité'));
+          $user_medical->setFirstname(htmlspecialchars($this->request->getPost('nom_medical')));
+          $user_medical->setLastname(htmlspecialchars($this->request->getPost('Prenom_medical')));
+          $user_medical->setPhoneNumber(htmlspecialchars($this->request->getPost('n°_de_telephone_medical')));
+          $user_medical->setQuality(htmlspecialchars($this->request->getPost('qualité')));
 
           $user->Medical = $user_medical;
 
 
           $user_parents = new Parents();
           $user_parents->setUserId($user->getId());
-          $user_parents->setNomDuPere($this->request->getPost('NOM_pere'));
-          $user_parents->setPrenomDuPere($this->request->getPost('Prenom_pere'));
-          $user_parents->setMailDuPere($this->request->getPost('mail_pere'));
-          $user_parents->setProfessionDuPere($this->request->getPost('Profession_pere'));
-          $user_parents->setEntrepriseDuPere($this->request->getPost('Entreprise_pere'));
-          $user_parents->setNomDeLaMere($this->request->getPost('NOM_mere'));
-          $user_parents->setPrenomDeLaMere($this->request->getPost('Prenom_mere'));
-          $user_parents->setMailDeLaMere($this->request->getPost('mail_mere'));
-          $user_parents->setProfessionDeLaMere($this->request->getPost('Profession_mere'));
-          $user_parents->setEntrepriseDeLaMere($this->request->getPost('Entreprise_mere'));
+          $user_parents->setNomDuPere(htmlspecialchars($this->request->getPost('NOM_pere')));
+          $user_parents->setPrenomDuPere(htmlspecialchars($this->request->getPost('Prenom_pere')));
+          $user_parents->setMailDuPere(htmlspecialchars($this->request->getPost('mail_pere')));
+          $user_parents->setProfessionDuPere(htmlspecialchars($this->request->getPost('Profession_pere')));
+          $user_parents->setEntrepriseDuPere(htmlspecialchars($this->request->getPost('Entreprise_pere')));
+          $user_parents->setNomDeLaMere(htmlspecialchars($this->request->getPost('NOM_mere')));
+          $user_parents->setPrenomDeLaMere(htmlspecialchars($this->request->getPost('Prenom_mere')));
+          $user_parents->setMailDeLaMere(htmlspecialchars($this->request->getPost('mail_mere')));
+          $user_parents->setProfessionDeLaMere(htmlspecialchars($this->request->getPost('Profession_mere')));
+          $user_parents->setEntrepriseDeLaMere(htmlspecialchars($this->request->getPost('Entreprise_mere')));
 
           $user->Parents = $user_parents;
 
           $user_autorisation = new Autorisation();
 
           $user_autorisation->setUserId($user->getId());
-          $user_autorisation->setQuitterLeGymnase($this->request->getPost('a1'));
-          $user_autorisation->setActesMedical($this->request->getPost('b1'));
+          $user_autorisation->setQuitterLeGymnase(htmlspecialchars($this->request->getPost('a1')));
+          $user_autorisation->setActesMedical(htmlspecialchars($this->request->getPost('b1')));
 
           $user->Autorisation = $user_autorisation;
 
@@ -362,20 +363,20 @@ class UserController extends ControllerBase
       $updatetraitement = Users::findFirst([
         "conditions" =>  "id = :id: ",
         "bind" => [
-          "id" => $this->request->getPost('id')   
+          "id" => htmlspecialchars($this->request->getPost('id'))  
         ]
       ]);
-      $updatetraitement->setLastname($this->request->getPost('nom'));
-      $updatetraitement->setFirstname($this->request->getPost('Prenom'));
-      $updatetraitement->setAddress($this->request->getPost('Adresse'));
-      $updatetraitement->setPostalCode($this->request->getPost('Code_postal'));
-      $updatetraitement->setCity($this->request->getPost('Ville'));
-      $updatetraitement->setSexe($this->request->getPost('Sexe'));
-      $updatetraitement->setBirthdate($this->request->getPost('Date_de_naissance'));
-      $updatetraitement->setPhoneNumber($this->request->getPost('N°_de_telephone_portable'));
-      $updatetraitement->setFixNumber($this->request->getPost('N°_de_telephone_fixe'));
-      $updatetraitement->setMail($this->request->getPost('mail'));
-      $updatetraitement->setTaille($this->request->getPost('Taille'));
+      $updatetraitement->setLastname(htmlspecialchars($this->request->getPost('nom')));
+      $updatetraitement->setFirstname(htmlspecialchars($this->request->getPost('Prenom')));
+      $updatetraitement->setAddress(htmlspecialchars($this->request->getPost('Adresse')));
+      $updatetraitement->setPostalCode(htmlspecialchars($this->request->getPost('Code_postal')));
+      $updatetraitement->setCity(htmlspecialchars($this->request->getPost('Ville')));
+      $updatetraitement->setSexe(htmlspecialchars($this->request->getPost('Sexe')));
+      $updatetraitement->setBirthdate(htmlspecialchars($this->request->getPost('Date_de_naissance')));
+      $updatetraitement->setPhoneNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_portable')));
+      $updatetraitement->setFixNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_fixe')));
+      $updatetraitement->setMail(htmlspecialchars($this->request->getPost('mail')));
+      $updatetraitement->setTaille(htmlspecialchars($this->request->getPost('Taille')));
 
       $updatetraitement->update();
       return $this->response->redirect('user/index');
@@ -404,7 +405,7 @@ class UserController extends ControllerBase
     $mdp = $this->session->get('mdp');
     if(isset($identifiant)&&isset($mdp))
     {
-      $id = $this->request->getPost('id');
+      $id = htmlspecialchars($this->request->getPost('id'));
       $modifcat = Users::findFirstById($id);
 
       if (isset($_POST['categorie']))

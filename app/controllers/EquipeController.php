@@ -28,7 +28,7 @@ class EquipeController extends \Phalcon\Mvc\Controller
     public function newequipeAction()
     {
     	$equipe = new equipes();
-    	$equipe->setName($this->request->getPost('nom'));
+    	$equipe->setName(htmlspecialchars($this->request->getPost('nom')));
     	$equipe->save();
     	return $this->response->redirect('user'); 
     }

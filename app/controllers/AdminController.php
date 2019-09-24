@@ -35,14 +35,14 @@ class AdminController extends ControllerBase
 				$admin = Admin::findFirst([
 					"conditions" =>  "identifiant = :identifiant:",
 					"bind" => [
-						"identifiant" => $this->request->getPost('identifiant'),
+						"identifiant" => htmlspecialchars($this->request->getPost('identifiant')),
 					]
 				]);
 				$password = $this->request->getPost('motdepasse');
 				if ($admin) {
 					if ($this->security->checkHash($password, $admin->mdp)) {
-						$this->session->set('identifiant', $this->request->getPost('identifiant'));
-						$this->session->set('mdp', $this->request->getPost('motdepasse'));
+						$this->session->set('identifiant', htmlspecialchars($this->request->getPost('identifiant')));
+						$this->session->set('mdp', htmlspecialchars($this->request->getPost('motdepasse')));
 						$this->session->set('name', $admin->getNom());
 						$this->session->set('fonction', $admin->getFonction());
 						$identifiant = $this->session->get('identifiant');
@@ -109,10 +109,10 @@ class AdminController extends ControllerBase
 	{
 		$id = $_POST['id'];
 		$modification = Admin::findFirstById($id);
-		$modification->setNom($this->request->getPost("nom"));
-		$modification->setPrenom($this->request->getPost("prenom"));
-		$modification->setIdentifiant($this->request->getPost("identifiant"));
-		$password = $this->request->getPost("mdp");
+		$modification->setNom(htmlspecialchars($this->request->getPost("nom")));
+		$modification->setPrenom(htmlspecialchars($this->request->getPost("prenom")));
+		$modification->setIdentifiant(htmlspecialchars($this->request->getPost("identifiant")));
+		$password = htmlspecialchars($this->request->getPost("mdp"));
 		$modification->setMdp($this->security->hash($password));
 
 		$modification->update();
@@ -133,15 +133,15 @@ class AdminController extends ControllerBase
 	public function ajouterAction()
 	{
 		$ajouter = new Admin();
-		$ajouter->setIdentifiant($this->request->getPost('identifiant'));
-		$ajouter->setNom($this->request->getPost('nom'));
-		$ajouter->setPrenom($this->request->getPost('prenom'));
+		$ajouter->setIdentifiant(htmlspecialchars($this->request->getPost('identifiant')));
+		$ajouter->setNom(htmlspecialchars($this->request->getPost('nom')));
+		$ajouter->setPrenom(htmlspecialchars($this->request->getPost('prenom')));
 	
 		$password = $this->request->getPost('mdp');
-		$ajouter->setMdp($this->security->hash($password));
-		$ajouter->setFonction($this->request->getPost('fonction'));
-		$ajouter->setEmail($this->request->getPost('email'));
-		$ajouter->setPhoneNumber($this->request->getPost('phone_number'));
+		$ajouter->setMdp(htmlspecialchars($this->security->hash($password)));
+		$ajouter->setFonction(htmlspecialchars($this->request->getPost('fonction')));
+		$ajouter->setEmail(htmlspecialchars($this->request->getPost('email')));
+		$ajouter->setPhoneNumber(htmlspecialchars($this->request->getPost('phone_number')));
 
 		$ajouter->save();
 		return $this->response->redirect('admin/utilisateurs');
@@ -244,10 +244,7 @@ class AdminController extends ControllerBase
 							],
 						]
 						);
-					
-					//$mdp_hash=$this->security->hash($new_Mdp);
-					$new_password->setMdp($this->security->hash($this->request->getPost('password'))); 
-					//$modif_mdp->setMdp($this->request->getPost('new_Mdp')); 
+					$new_password->setMdp($this->security->hash(htmlspecialchars($this->request->getPost('password')))); 
 					$new_password->update();
 					if($new_password->update()){
 						$this->flashSession->succes("Votre mot de passe a bien été modifié");
@@ -308,9 +305,7 @@ class AdminController extends ControllerBase
 					]
 					);
 				if ($this->security->checkHash($mdp_saisi, $modif_mdp->getMdp())) {
-					//$mdp_hash=$this->security->hash($new_Mdp);
-					$modif_mdp->setMdp($this->security->hash($this->request->getPost('new_Mdp'))); 
-					//$modif_mdp->setMdp($this->request->getPost('new_Mdp')); 
+					$modif_mdp->setMdp($this->security->hash(htmlspecialchars($this->request->getPost('new_Mdp')))); 
 					$modif_mdp->update();
 					if($modif_mdp->update()){
 						$this->flashSession->succes("Votre mot de passe a bien été modifié");

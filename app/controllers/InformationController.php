@@ -15,7 +15,7 @@ class InformationController extends \Phalcon\Mvc\Controller
     	/*$text = $this->request->getPost('text');
     	if (isset($text)) {*/
     	$informations = new Informations();
-    	$informations->setText($this->request->getPost('text'));
+    	$informations->setText(htmlspecialchars($this->request->getPost('text')));
     	$informations->save();
         return $this->response->redirect('information/index');
     	/*}*/

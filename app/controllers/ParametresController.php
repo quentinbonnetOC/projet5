@@ -28,10 +28,10 @@ class ParametresController extends \Phalcon\Mvc\Controller
     public function traitementdateinscAction()
     {
     	$dateinsc1 = new Dateinsc();
-    	$dateinsc1->setDate($this->request->getPost("date1"));
+    	$dateinsc1->setDate(htmlspecialchars($this->request->getPost("date1")));
     	$dateinsc1->save();
     	$dateinsc2 = new Dateinsc();
-    	$dateinsc2->setDate($this->request->getPost("date2"));
+    	$dateinsc2->setDate(htmlspecialchars($this->request->getPost("date2")));
 		$dateinsc2->save();
 		$this->flashSession->succes("La modification des dates a été prise en compte");
 		return $this->response->redirect('/admin');
