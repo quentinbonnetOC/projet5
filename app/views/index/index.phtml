@@ -26,7 +26,12 @@
       <p class="card-text">Pour ceux qui était déjà licenciés l'année précédente, merci de renseigner votre adresse
         email pour vous ré-inscrire</p>
       <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
-      <?= $this->tag->emailField("email"); ?>
+      <div class="form-group">
+        <?= $this->tag->emailField([
+          "email",
+          'class' => 'form-control'
+        ]); ?>
+        </div>
       <div class="bouton">
         <?= $this->tag->submitButton(
           [
@@ -49,10 +54,20 @@
         </p>
       </div>
       <?= $this->tag->form(['admin', 'method' => 'post']); ?>
-      <label for="idt">identifiant : </label><br />
-      <?= $this->tag->textField("identifiant"); ?><br />
-      <label for="mdp">mot de passe : </label><br />
-      <?= $this->tag->passwordField("motdepasse"); ?>
+      <div class="form-group">
+        <label for="idt">identifiant : </label><br />
+        <?= $this->tag->textField([
+          "identifiant",
+          'class' => 'form-control'
+        ]); ?>
+      </div><br />
+      <div class="form-group">
+        <label for="mdp">mot de passe : </label><br />
+        <?= $this->tag->passwordField([
+          "motdepasse",
+          'class' => 'form-control'
+        ]); ?>
+      </div>
       <a href="/admin/mdp_forget?new=false">Mot de passe oublié</a>
       <div class="bouton">
         <?= $this->tag->submitButton(
