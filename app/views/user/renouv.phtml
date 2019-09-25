@@ -42,15 +42,15 @@ if(!empty($user)){?>
                       
                         <label for="Ville">Ville : </label>
                         <?php echo $form->render('Ville');?>
-                       
-                        <label>Sexe : </label>
+                        <div class="form-check">
+                            <label>Sexe : </label>
+                        
+                            <label for="Sexe" class="form-check label feminin">Féminin</label>
+                            <?php echo $form->render('Feminin');?>
                     
-                        <label for="Sexe" class="feminin">Féminin</label>
-                        <?php echo $form->render('Feminin');?>
-                 
-                        <label for="Sexe" class="masculin">Masculin</label>
-                        <?php echo $form->render('Masculin');?><br />
-                       
+                            <label for="Sexe" class="form-check label masculin">Masculin</label>
+                            <?php echo $form->render('Masculin');?><br />
+                        </div>
                         <label for="Date_de_naissance">Date de naissance : </label>
                         <?php echo $form->render('Date_de_naissance');?>
                        
@@ -211,130 +211,165 @@ if(!empty($user)){?>
 <h1 class="title">FICHE DE RENSEIGNEMENTS </h1>
 <form method='post'>
     <label></label><br />
-    <label for="name">Nom : </label>
-    <?php echo $form->render('nom'); ?>
+    <div class="form-group">
+        <label for="nom">Nom : </label>
+        <?php echo $form->render('nom'); ?>
+    </div>
     <br />
-    <label for="Prenom">Prénom : </label>
-    <?php echo $form->render('Prenom'); ?>
+    <div class="form-group">
+        <label for="Prenom">Prénom : </label>
+        <?php echo $form->render('Prenom'); ?>
+    </div>
     <br />
-    <label for="Address">Adresse : </label>
-    <?php echo $form->render('Adresse'); ?>
+    <div class="form-group">
+        <label for="Address">Adresse : </label>
+        <?php echo $form->render('Adresse'); ?>
+    </div>
     <br />
-    <label for="Code_postal">Code postal : </label>
-    <?php echo $form->render('Code_postal'); ?>
+    <div class="form-group">
+        <label for="Code_postal">Code postal : </label>
+        <?php echo $form->render('Code_postal'); ?>
+    </div>
     <br />
-    <label for="Ville">Ville : </label>
-    <?php echo $form->render('Ville'); ?>
+    <div class="form-group">
+        <label for="Ville">Ville : </label>
+        <?php echo $form->render('Ville'); ?>
+    </div>
     <br />
     <label>Sexe : </label>
-    <label for="masculin" class="masculin">Masculin</label>
-    <?php echo $form->render('Masculin'); ?>
-    <label class="feminin">Féminin</label>
-    <?php echo $form->render('Feminin'); ?><br />
-    <label for="Date_de_naissance">Date de naissance : </label>
-    <?php echo $form->render('Date_de_naissance'); ?>
-    <br />
-    <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
-    <?php echo $form->render('N°_de_telephone_portable'); ?>
-    <br />
-    <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
-    <?php echo $form->render('N°_de_telephone_fixe'); ?>
-    <br />
-    <label for="mail">Mail : </label>
-    <?php echo $form->render('mail'); ?>
-    <br />
-    <label for="Taille">Taille : </label>
-    <?php echo $form->render('Taille'); ?>
-    <br />
+    <div class="form-check">
+        <?php echo $form->render('Masculin'); ?>
+        <label for="Masculin" class="form-check-label masculin">Masculin</label>
+    </div>
+    <div class="form-check">
+        <?php echo $form->render('Feminin'); ?>
+        <label for="Feminin" class="form-check-label feminin">Féminin</label>
+    </div><br />
+    <div class="form-group">
+        <label for="Date_de_naissance">Date de naissance : </label>
+        <?php echo $form->render('Date_de_naissance'); ?>
+    </div><br />
+    <div class="form-group">
+        <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
+        <?php echo $form->render('N°_de_telephone_portable'); ?>
+    </div><br />
+    <div class="form-group">
+        <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
+        <?php echo $form->render('N°_de_telephone_fixe'); ?>
+    </div><br />
+    <div class="form-group">
+        <label for="mail">Mail : </label>
+        <?php echo $form->render('mail'); ?>
+    </div><br />
+    <div class="form-group">
+        <label for="Taille">Taille : </label>
+        <?php echo $form->render('Taille'); ?>
+    </div><br />
     <div class="medical">
-    <p class="separation">---------------------------------------------------</p>
-        <h2>MÉDICAL</h2>
-        <p class="title_medical">Personnes à contacter en cas d'urgence</p>
-
-        <label for="nom_medical">Nom :</label>
-        <?php echo $form->render('nom_medical'); ?>
-
-        <label for="Prenom_medical">Prénom : </label>
-        <?php echo $form->render('Prenom_medical'); ?>
-
-
-        <label for="n°_de_telephone_medical">N° de téléphone : </label>
-        <?php echo $form->render('n°_de_telephone_medical'); ?>
-
-
-        <label for="qualite_medical">Qualité : </label>
-        <?php echo $form->render('qualite_medical'); ?>
-
-        <label> Problème médical, Traitement en cours, ...</label>
-        <?php echo $form->render('probleme_medical'); ?>
-
+        <p class="separation">---------------------------------------------------</p>
+            <h2>MÉDICAL</h2>
+            <p class="title_medical">Personnes à contacter en cas d'urgence</p>
+        <div class="form-group">
+            <label for="nom_medical">Nom :</label>
+            <?php echo $form->render('nom_medical'); ?>
+        </div>
+        <div class="form-group">
+            <label for="Prenom_medical">Prénom : </label>
+            <?php echo $form->render('Prenom_medical'); ?>
+        </div>
+        <div class="form-group">
+            <label for="n°_de_telephone_medical">N° de téléphone : </label>
+            <?php echo $form->render('n°_de_telephone_medical'); ?>
+        </div>
+        <div class="form-group">
+            <label for="qualite_medical">Qualité : </label>
+            <?php echo $form->render('qualite_medical'); ?>
+        </div>
+        <div class="form-group">
+            <label> Problème médical, Traitement en cours, ...</label>
+            <?php echo $form->render('probleme_medical'); ?>
+        </div>
     </div>
     <div class="parents">
-    <p class="separation">---------------------------------------------------</p>
+        <p class="separation">---------------------------------------------------</p>
         <h2>PARENTS</h2>
         <p>Père</p>
-
-        <label for="NOM_pere">Nom : </label>
-        <?php echo $form->render('NOM_pere'); ?>
-
-        <label for="Prenom_pere">Prénom : </label>
-        <?php echo $form->render('Prenom_pere'); ?>
-
-        <label for="mail">e-mail : </label>
-        <?php echo $form->render('mail_pere'); ?>
-        <br />
-
-        <label for="Profession">Profession : </label>
-        <?php echo $form->render('Profession_pere'); ?>
-
-        <label for="Entreprise">Entreprise : </label>
-        <?php echo $form->render('Entreprise_pere'); ?>
-
-
+        <div class="form-group">
+            <label for="NOM_pere">Nom : </label>
+            <?php echo $form->render('NOM_pere'); ?>
+        </div>
+        <div class="form-group">
+            <label for="Prenom_pere">Prénom : </label>
+            <?php echo $form->render('Prenom_pere'); ?>
+        </div>
+        <div class="form-group">
+            <label for="mail">e-mail : </label>
+            <?php echo $form->render('mail_pere'); ?>
+        </div><br />
+        <div class="form-group">
+            <label for="Profession">Profession : </label>
+            <?php echo $form->render('Profession_pere'); ?>
+        </div>
+        <div class="form-group">
+            <label for="Entreprise">Entreprise : </label>
+            <?php echo $form->render('Entreprise_pere'); ?>
+        </div>
         <p>Mère</p>
-
-        <label for="NOM_mere">Nom : </label>
-        <?php echo $form->render('NOM_mere'); ?>
-
-        <label for="Prenom_mere">Prénom : </label>
-        <?php echo $form->render('Prenom_mere'); ?>
-
-        <label for="mail_mere">e-mail : </label>
-        <?php echo $form->render('mail_mere'); ?>
-        <br />
-
-        <label for="Profession_mere">Profession : </label>
-        <?php echo $form->render('Profession_mere'); ?>
-
-        <label for="Entreprise_mere">Entreprise : </label>
-        <?php echo $form->render('Entreprise_mere'); ?>
-
+        <div class="form-group">
+            <label for="NOM_mere">Nom : </label>
+            <?php echo $form->render('NOM_mere'); ?>
+        </div>
+        <div class="form-group">
+            <label for="Prenom_mere">Prénom : </label>
+            <?php echo $form->render('Prenom_mere'); ?>
+        </div>
+        <div class="form-group">
+            <label for="mail_mere">e-mail : </label>
+            <?php echo $form->render('mail_mere'); ?>
+        </div><br />
+        <div class="form-group">
+            <label for="Profession_mere">Profession : </label>
+            <?php echo $form->render('Profession_mere'); ?>
+        </div>
+        <div class="form-group">
+            <label for="Entreprise_mere">Entreprise : </label>
+            <?php echo $form->render('Entreprise_mere'); ?>
+        </div>
     </div>
     <div class='autorisations'>
-    <p class="separation">---------------------------------------------------</p>
+        <p class="separation">---------------------------------------------------</p>
         <h2>AUTORISATIONS</h2>
         <p>J'autorise mon enfant à quitter seul le gymnase</p>
-
-        <label for="a1_oui" class="autorisation">oui</label>
-        <?php echo $form->render('quitter_le_gymnase_oui'); ?>
-
-        <label for="a1_non" class="autorisation">non</label>
-        <?php echo $form->render('quitter_le_gymnase_non'); ?>
-
+        <div class="form-check">
+            <label for="a1_oui" class="form-check-label autorisation">oui</label>
+            <?php echo $form->render('quitter_le_gymnase_oui'); ?>
+        </div>
+        <div class="form-check">
+            <label for="a1_non" class="form-check-label autorisation">non</label>
+            <?php echo $form->render('quitter_le_gymnase_non'); ?>
+        </div>
         <p>En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes médicalements
             nécessaire ? </p>
-
-        <label for="b1" class="autorisation">oui</label>
-        <?php echo $form->render('actes_medical_oui'); ?>
-
-        <label for="b1" class="autorisation">non</label>
-        <?php echo $form->render('actes_medical_non'); ?>
+        <div class="form-check">
+            <label for="b1" class="form-check-label autorisation">oui</label>
+            <?php echo $form->render('actes_medical_oui'); ?>
+        </div>
+        <div class="form-check">
+            <label for="b1" class="form-check-label autorisation">non</label>
+            <?php echo $form->render('actes_medical_non'); ?>
+        </div>
     </div>
     <div class="document">
         <h2>DOCUMENTS</h2>
         <p class="separation">---------------------------------------------------</p>
-        <p class="certif"> certificat médical :  <?php echo $form->render('certificat_medical'); ?></p>
-        <p> photo <?php echo $form->render('photo'); ?> </p>
+        <div class="form-group">
+            <label class="certif"> certificat médical :</label>
+            <?php echo $form->render('certificat_medical'); ?>
+        </div>
+        <div class="form-group">
+            <label> photo </label>
+            <?php echo $form->render('photo'); ?>
+        </div>
     </div>
     <?php echo $form->render('id'); ?>
 

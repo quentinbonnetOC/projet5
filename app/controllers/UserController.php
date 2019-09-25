@@ -64,31 +64,46 @@ class UserController extends ControllerBase
     //formulaire commun creation et renouvellement
     $form = new Form();
       $nom = new text(
-        'nom'
+        'nom',
+        [
+          'class' => 'form-control'
+        ]
       );
       $nom->setAttribute('required', 'required');             
       $form->add($nom);
 
       $Prenom = new text(
-        'Prenom'
+        'Prenom',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Prenom->setAttribute('required', 'required');
       $form->add($Prenom);
 
       $Adresse = new text(
-        "Adresse"
+        "Adresse",
+        [
+          'class' => 'form-control'
+        ]
       );
       $Adresse->setAttribute('required', 'required');
       $form->add($Adresse);
 
       $Code_postal = new numeric(
-        'Code_postal'
+        'Code_postal',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Code_postal->setAttribute('required', 'required');
       $form->add($Code_postal);
     
       $Ville = new text(
-        'Ville'
+        'Ville',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Ville->setAttribute('required', 'required');
       $form->add($Ville);
@@ -96,6 +111,7 @@ class UserController extends ControllerBase
       $Sexe = new radio(
         'Masculin',
         [
+          'class' => 'form-check-input',
           'name' => 'Sexe',
           'value' => 'Masculin'
         ]
@@ -104,6 +120,7 @@ class UserController extends ControllerBase
       $Sexe = new radio(
         'Feminin',
         [
+          'class' => 'form-check-input',
           'name' => 'Sexe',
           'value' => 'Feminin'
         ]
@@ -111,121 +128,182 @@ class UserController extends ControllerBase
       $form->add($Sexe);
 
       $Date_de_naissance =  new date(
-        'Date_de_naissance'
+        'Date_de_naissance',
+        [
+          'class' =>'form-control'
+        ]
       );
       $Date_de_naissance->setAttribute('required', 'required');
       $form->add($Date_de_naissance);
     
       $N°_de_telephone_portable = new numeric(
-        'N°_de_telephone_portable'
+        'N°_de_telephone_portable',
+        [
+          'class' => 'form-control'
+        ]
       );
       $N°_de_telephone_portable->setAttribute('required', 'required');
       $form->add($N°_de_telephone_portable);
     
       $N°_de_telephone_fixe = new numeric(
-        'N°_de_telephone_fixe'
+        'N°_de_telephone_fixe',
+        [
+          'class' => 'form-control'
+        ]
       );
       $N°_de_telephone_fixe->setAttribute('required', 'required');
       $form->add($N°_de_telephone_fixe);
        
       $mail = new text(
-        'mail'
+        'mail',
+        [
+          'class' => 'form-control'
+        ]
       );
       $mail->setAttribute('required', 'required');
       $form->add($mail);
 
       $Taille = new numeric(
-        'Taille'
+        'Taille',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Taille->setAttribute('required', 'required');
       $form->add($Taille);
     
       $nom_medical = new text(
-        'nom_medical'
+        'nom_medical',
+        [
+          'class' => 'form-control'
+        ]
       );
       $nom_medical->setAttribute('required', 'required');
       $form->add($nom_medical);
 
       $Prenom_medical = new text(
-        'Prenom_medical'
+        'Prenom_medical',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Prenom_medical->setAttribute('required', 'required');
       $form->add($Prenom_medical);
 
       $n°_de_telephone_medical = new numeric(
-        'n°_de_telephone_medical'
+        'n°_de_telephone_medical',
+        [
+          'class' => 'form-control'
+        ]
       );
       $n°_de_telephone_medical->setAttribute('required', 'required');
       $form->add($n°_de_telephone_medical);
     
       $qualite_medical = new text(
-        'qualite_medical'
+        'qualite_medical',
+        [
+          'class' => 'form-control'
+        ]
       );
       $qualite_medical->setAttribute('required', 'required');
       $form->add($qualite_medical);
 
       $probleme_medical = new text(
-        'probleme_medical'
+        'probleme_medical',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($probleme_medical);
 
       $NOM_pere = new text(
-        'NOM_pere'
+        'NOM_pere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $NOM_pere->setAttribute('required', 'required');
       $form->add($NOM_pere);
 
       $Prenom_pere = new text(
-        'Prenom_pere'
+        'Prenom_pere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Prenom_pere->setAttribute('required', 'required');
       $form->add($Prenom_pere);
 
       $mail_pere = new text(
-        'mail_pere'
+        'mail_pere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($mail_pere);
 
       $Profession_pere = new text(
-        'Profession_pere'
+        'Profession_pere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($Profession_pere);
 
       $Entreprise_pere = new text(
-        'Entreprise_pere'
+        'Entreprise_pere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($Entreprise_pere);
 
       $NOM_mere = new text(
-        'NOM_mere'
+        'NOM_mere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $NOM_mere->setAttribute('required', 'required');
       $form->add($NOM_mere);
 
       $Prenom_mere = new text(
-        'Prenom_mere'
+        'Prenom_mere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $Prenom_mere->setAttribute('required', 'required');
       $form->add($Prenom_mere);
 
       $mail_mere = new text(
-        'mail_mere'
+        'mail_mere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($mail_mere);
 
       $Profession_mere = new text(
-        'Profession_mere'
+        'Profession_mere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($Profession_mere);
 
       $Entreprise_mere = new text(
-        'Entreprise_mere'
+        'Entreprise_mere',
+        [
+          'class' => 'form-control'
+        ]
       );
       $form->add($Entreprise_mere);
       
       $quitter_le_gymnase = new radio(
         'quitter_le_gymnase_oui',
         [
+          'class' => 'form-check-input',
           'name' => 'quitter_le_gymnase',
           'value' => 'oui'
         ]
@@ -235,6 +313,7 @@ class UserController extends ControllerBase
       $quitter_le_gymnase = new radio(
         'quitter_le_gymnase_non',
         [
+          'class' => 'form-check-input',
           'name' => 'quitter_le_gymnase',
           'value' => 'non'
         ]
@@ -244,6 +323,7 @@ class UserController extends ControllerBase
       $actes_medical = new radio(
         'actes_medical_oui',
         [
+          'class' => 'form-check-input',
           'name' => 'actes_medical',
           'value' => 'oui'
         ]
@@ -253,18 +333,25 @@ class UserController extends ControllerBase
       $actes_medical = new radio(
         'actes_medical_non',
         [
+          'class' => 'form-check-input',
           'name' => 'actes_medical',
           'value' => 'non'
         ]
       );
       $form->add($actes_medical);
       $certificat_medical = new file(
-        'certificat_medical'
+        'certificat_medical',
+        [
+          'class' => 'form-group-file'
+        ]
       );
       $form->add($certificat_medical);
     
       $photo = new file(
-        'photo'
+        'photo',
+        [
+          'class' => 'form-group-file'
+        ]
           );
       $form->add($photo);
 
