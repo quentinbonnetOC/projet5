@@ -1,0 +1,26 @@
+{
+    "remotePath": "/var/www/html/projet5",
+    "host": "51.158.68.28",
+    "username": "root",
+    "port": 22,
+    "secure": true,
+    "protocol": "ftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": "C:\\Users\\Celena\\keyPutty.ppk",
+    "passphrase": "keypassword",
+    "agent": null,
+    "allow": [],
+    "ignore": [
+        "\\.vscode",
+        "\\.git",
+        "\\.DS_Store"
+    ],
+    "generatedFiles": {
+        "extensionsToInclude": [
+            ""
+        ],
+        "path": ""
+    }
+}

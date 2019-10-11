@@ -51,12 +51,13 @@ class UserController extends ControllerBase
   }
   public function renouvAction()
   {
-    $this->assets->addCss('css/renouv.css');
-    $this->assets->addCss('css/main.css');
-    $this->assets->addCss('css/dropdown.css');
-    $this->assets->addCss('css/normalizes.css');
-    $this->assets->addCss('css/mainbis.css');
-    $this->assets->addCss('css/jquery.steps.css');
+    $request_uri = $_SESSION['request_uri'];
+    $this->assets->addCss(''.$request_uri.'css/renouv.css');
+    $this->assets->addCss(''.$request_uri.'css/main.css');
+    $this->assets->addCss(''.$request_uri.'css/dropdown.css');
+    $this->assets->addCss(''.$request_uri.'css/normalizes.css');
+    $this->assets->addCss(''.$request_uri.'css/mainbis.css');
+    $this->assets->addCss(''.$request_uri.'css/jquery.steps.css');
     $this->assets->addJs('https://code.jquery.com/jquery-3.3.1.js');
     $this->assets->addJs("https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js");
     $this->assets->addJs('https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.js');
@@ -364,16 +365,16 @@ class UserController extends ControllerBase
       $form->add($id);
       //  
       //envoie du formulaire à la vue
-      $this->view->form = $form;
-      //
-      //informations latérales
-      $infos = informations::find();
-      $this->view->infos = $infos;
-      //
-      // Cas du renouvellement
-      if ($this->request->hasPost('renouvellement')) {
-        $this->assets->addJs('js/removeAttribute.js');
-        $imail = $this->request->getPost('email');
+    $this->view->form = $form;
+    ///
+    //informations latérales
+    $infos = Informations::find();
+    $this->view->infos = $infos;
+    ///
+    // Cas du renouvellement
+    if ($this->request->hasPost('renouvellement')) {
+      $this->assets->addJs('js/removeAttribute.js');
+      $imail = $this->request->getPost('email');
             
         //récupération des données
         if (!empty($imail)) {
@@ -855,9 +856,9 @@ class UserController extends ControllerBase
   }
   public function updateAction()
   {
-    $this->assets->addCss('css/renouv');
-    $this->assets->addJs('js/removeAttribute.js');
-    $this->assets->addJs('js/birthdate.js');
+    $this->assets->addCss(''.$request_uri.'css/renouv');
+    $this->assets->addJs(''.$request_uri.'js/removeAttribute.js');
+    $this->assets->addJs(''.$request_uri.'js/birthdate.js');
     $identifiant = $this->session->get('identifiant');
     $mdp = $this->session->get('mdp');
     if(isset($identifiant)&&isset($mdp)) {

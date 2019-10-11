@@ -2,9 +2,7 @@ body
 {
 	background-color: rgb(206, 206, 206);
 }
-
-
-.home_content
+/* .home_content
 {
     position: absolute;
     margin: auto;
@@ -15,8 +13,7 @@ body
     width: 50%;
     height: 90%;
     background-color: #ccc;
-}
-
+} */
 .card-deck 
 {
 	position: absolute;
@@ -26,20 +23,16 @@ body
     bottom: 0;
     left: 0;
     width: 75%;
-    height: 60%;
-    background-color: #ccc;
-}
-
-.card
-{   
-    width: 10%;
-    height: 75%;
-    display: inline-grid;
+    height: 90%;
 }
 .card-title
 {
 	font-weight: bold;
 	text-align: center;	
+}
+.card-body
+{
+    padding: 1.25rem 1.25rem 0 1.25rem;
 }
 .card-text
 {
@@ -52,21 +45,21 @@ body
 	width: 200px;
 	margin: auto;
 }
-
-
-.bouton
+.button
 {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	text-align: center;
 }
-input#email
+.form-group
+{
+    margin-bottom: unset !important;
+}
+/* input#email
 {
     width: 400px;
 }
 input#identifiant
 {
     width: 300px;
-}
-
-
+} */

@@ -1,8 +1,8 @@
-*
+/* *
 {
 	background-color: rgb(206,206,206);
-}
-ul, li, .infos, .infoscontenues
+} */
+.infos, .infoscontenues, .infoscontenues ul, .infoscontenues ul li
 {
 	background-color: blue;
 }

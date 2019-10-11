@@ -7,11 +7,8 @@ p
 	font-size: 20px;
 	font-weight: bold;
 }
-.separation
-{
-	font-size: 30px;
-}
-input
+
+/* input
 {
 	background-color: white;
 	margin-left: 15px;
@@ -74,14 +71,14 @@ label
 .sexe, .autorisation, .feminin, .masculin
 {
 	text-decoration: none;
-}
-.infos {
-    display: block;
-    float: left;
-    margin-left: -34%;
-    margin-top: 5%;
-	height: 913px;
-    width: 31%;
+} */
+@media screen and (min-width: 768px){
+	.infos {
+		display: block;
+		float: left;
+		height: 913px;
+		width: 25%;
+	}
 }
 h3, .infoscontenues, .title, .separation
 {
@@ -96,21 +93,49 @@ input:read-only
 {
 	background-color : grey;	
 }
-.parents, .autorisations
+/*.parents, .autorisations
 {
 	display: none;
-}
-form
+}*/
+ form
 {
-	height: 1056px;
-	margin-top: -8px;
-}
-input#certificat_medical, input#photo
+	width: 75%;
+    margin-left: 25%;
+} 
+/* input#certificat_medical, input#photo
 {
 	font-size: 15px;
 	height: 27px;
-}
+} */
 p.certif
 {
 	height: 40px;
+}
+@media screen and (max-width: 768px){
+	.infos
+	{
+		display: unset;
+		float: unset;
+		height: unset;
+		width: unset;
+	}
+	form
+	{
+		width: unset;
+		margin-left: unset;
+	}
+	.steps
+	{
+		display: none !important;
+	}
+	.content
+	{
+		width: 100% !important;
+	}
+}
+@media screen and (max-width: 400px){
+	h1
+	{
+		font-size: 30px;
+	}
 }

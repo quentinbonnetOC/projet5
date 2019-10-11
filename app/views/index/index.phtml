@@ -7,7 +7,7 @@
       <p class="card-text">Inscription ouverte du <?php echo $date1;?>
         au <?php echo $date2;?>
       </p>
-      <div class="bouton">
+      <div class="button">
         <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
         <?= $this->tag->submitButton(
           [
@@ -16,6 +16,7 @@
             'class' => 'btn btn-primary'
           ]
         ); ?>
+        <?= $this->tag->endForm(); ?>
       </div>
     </div>
   </div>
@@ -32,7 +33,7 @@
           'class' => 'form-control'
         ]); ?>
         </div>
-      <div class="bouton">
+      <div class="button">
         <?= $this->tag->submitButton(
           [
             'name'=>"renouvellement",
@@ -45,7 +46,7 @@
     </div>
   </div>
   <div class="card">
-    <img class="card-img-top" src="/img/admin.png" alt="Card image cap">
+    <img class="card-img-top" src="img/admin.png" alt="Card image cap">
     <div class="card-body">
       <h5 class="card-title">Administrateur</h5>
       <p class="card-text"></p>
@@ -69,7 +70,7 @@
         ]); ?>
       </div>
       <a href="/admin/mdp_forget?new=false">Mot de passe oublié</a>
-      <div class="bouton">
+      <div class="button">
         <?= $this->tag->submitButton(
           [
             's\'identifier',

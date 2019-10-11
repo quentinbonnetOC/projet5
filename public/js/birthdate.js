@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function (event) {
+/*document.addEventListener("DOMContentLoaded", function (event) {
       var element = document.getElementById('Date_de_naissance');
       var birthdate = "";
       element.addEventListener('blur', function (event) {
@@ -18,11 +18,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                   var body = document.querySelector("body");
                   body.style.height = '1795px';
                   var form = document.querySelector("form");
-                  form.style.height = '1732px';
+                  form.style.height = '1732px';*/
                   /*var obj = document.getElementById('.infos');
                   console.log(obj);
                    obj.style.height = "502px";*/
-            } else {
+           /* } else {
                   var b = document.getElementById("NOM_pere");
                   b.removeAttribute('required', 'required');
                   var b = document.getElementById("Prenom_pere");
@@ -48,4 +48,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
 
       });
-});
+}); */

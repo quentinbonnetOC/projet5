@@ -4,8 +4,9 @@ class IndexController extends ControllerBase
 {
 	public function indexAction()
 	{
-		/*Ceci charge la page d'acceueil (view/index/index) */
-		$this->assets->addCss('css/accueil.css');
+		/*Ceci charge la page d'acceueil (view/index/index) */		
+		$request_uri = $_SESSION['request_uri'];
+		$this->assets->addCss(''.$request_uri.'css/accueil.css');
 		$lastId = Dateinsc::maximum(
             [
                 "column" => "id"
