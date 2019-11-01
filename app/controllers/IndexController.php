@@ -5,7 +5,6 @@ class IndexController extends ControllerBase
 	public function indexAction()
 	{
 		/*Ceci charge la page d'acceueil (view/index/index) */		
-		$request_uri = $_SESSION['request_uri'];
 		$this->assets->addCss(''.$_SESSION['URL'].'public/css/accueil.css');
 		$lastId = Dateinsc::maximum(
             [

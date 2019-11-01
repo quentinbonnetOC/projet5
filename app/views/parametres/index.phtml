@@ -1,41 +1,45 @@
 <?= $this->assets->outputCss();?>
 <?= $this->assets->outputCss();?>
 <h1>PARAMETRES</h1>
-<div class="d-flex">
-  <div class="dropdown mr-1">
-    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-      <a class="dropdown-item" href="/admin">Accueil</a>
-      <a class="dropdown-item" href="/user">Mes adhérants</a>
-      <a class="dropdown-item" href="/information">Mes informations</a>
-      <a class="dropdown-item" href="/parametres">Mes parametres</a>
-      <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
+<nav>
+  <div class="d-flex">
+    <div class="dropdown mr-1">
+      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+        <a class="dropdown-item" href="/admin">Accueil</a>
+        <a class="dropdown-item" href="/user">Mes adhérants</a>
+        <a class="dropdown-item" href="/information">Mes informations</a>
+        <a class="dropdown-item" href="/parametres">Mes parametres</a>
+        <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
+      </div>
     </div>
   </div>
- </div>
-<!--Date d'inscription -->
-<p>Veuillez choisir les dates de la période d'inscription :</p>
+</nav>
+<section>
+  <!--Date d'inscription -->
+  <p>Veuillez choisir les dates de la période d'inscription :</p>
 
-<?= $this->tag->form(['parametres/traitementdateinsc', 'method' => 'post'])?>
-<label>Les inscriptions sont ouvertes du </label>
-<?= $this->tag->dateField(
-	[
-		'date1',
-		"value" => $date1	
-  ]
-);?>
-<label>au</label>
-<?= $this->tag->dateField(
-	[
-		'date2',
-		"value" => $date2
-  ]
-);?>
-<?= $this->tag->submitButton(
-	[
-		"envoyer"/*,
-		"class" =>*/
-  ]
-);?>
-<?= $this->tag->endForm();?>
+  <?= $this->tag->form(['parametres/traitementdateinsc', 'method' => 'post'])?>
+    <label>Les inscriptions sont ouvertes du </label>
+    <?= $this->tag->dateField(
+      [
+        'date1',
+        "value" => $date1	
+      ]
+    );?>
+    <label>au</label>
+    <?= $this->tag->dateField(
+      [
+        'date2',
+        "value" => $date2
+      ]
+    );?>
+    <?= $this->tag->submitButton(
+      [
+        "envoyer"/*,
+        "class" =>*/
+      ]
+    );?>
+  <?= $this->tag->endForm();?>
+</section>

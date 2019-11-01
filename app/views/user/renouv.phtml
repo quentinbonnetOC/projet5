@@ -1,421 +1,447 @@
 <?= $this->assets->outputCss(); ?>
 <?= $this->assets->outputJs(); ?>
+<?php 
+$x = 0;
+foreach ($user as $users) { $x++;?>
+
+    <form method="post" id="example-form<?php echo $x;?>" enctype="multipart/form-data">
+    <div class="tata">
+        <h3>Identité</h3>
+        <section id="identite">
+            <label for="name">Nom : </label>
+            <?php echo $form->render("nom".$x.""); ?>
+        </section>
+    </div>
+            </form>
+<?php };die();?>
 <?php if(!empty($user)){ ?>
 <div class="accordion" id="accordionExample">
-    <?php $x = 0;
-    foreach ($user as $users) {
-    ?>
-    <div class="card">
-        <div class="card-header" id="headingOne<?php echo($x);?>">
-            <h5 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo($x);?>" aria-expanded="true" aria-controls="collapseOne">
-                <?php
-                    echo $users->lastname;
-                    echo " ";
-                    echo $users->firstname; 
-                ?>
-                </button>
-            </h5>
-        </div>
-        <div id="collapseOne<?php echo($x);?>" class="collapse" aria-labelledby="headingOne<?php echo($x);?>" data-parent="#accordionExample">
-            <div class="card-body">
-                <?php
-                    $licencie = 1;
-                ?>
-                <form method="post" id="example-form<?php echo $x;?>">
-                    <div class="tata">
-                        <h3>Identité</h3>
-                        <section id="identite">
-                            <label for="name">Nom : </label>
-                            <?php echo $form->render("nom"); ?>
-                            <label for="Prenom">Prénom : </label>
-                            <?php echo $form->render("Prenom"); ?>                
-                            <label for="Address">Adresse : </label>
-                            <?php echo $form->render("Adresse"); ?>            
-                            <label for="Code_postal">Code postal : </label>
-                            <?php echo $form->render("Code_postal"); ?>   
-                            <label for="Ville">Ville : </label>
-                            <?php echo $form->render("Ville"); ?>
-                            <div class="form-check">
+    <?php 
+    foreach ($user as $users) { ?>
+        <div class="card">
+            <div class="card-header" id="headingOne<?php echo($x);?>">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo($x);?>" aria-expanded="true" aria-controls="collapseOne">
+                    <?php
+                        echo $users->lastname;
+                        echo " ";
+                        echo $users->firstname; 
+                    ?>
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseOne<?php echo($x);?>" class="collapse" aria-labelledby="headingOne<?php echo($x);?>" data-parent="#accordionExample">
+                <div class="card-body">
+                    <?php
+                        $licencie = 1;
+                    ?>
+                    <form method="post" id="example-form<?php echo $x;?>" enctype="multipart/form-data">
+                        <div class="tata">
+                            <h3>Identité</h3>
+                            <section id="identite">
+                                <label for="name">Nom : </label>
+                                <?php echo $form->render("nom"); ?>
+                                <label for="Prenom">Prénom : </label>
+                                <?php echo $form->render("Prenom"); ?>                
+                                <label for="Address">Adresse : </label>
+                                <?php echo $form->render("Adresse"); ?>            
+                                <label for="Code_postal">Code postal : </label>
+                                <?php echo $form->render("Code_postal"); ?>   
+                                <label for="Ville">Ville : </label>
+                                <?php echo $form->render("Ville"); ?>
                                 <label>Sexe : </label>         
-                                <label for="Sexe" class="form-check label feminin">Féminin</label>
-                                <?php echo $form->render("Feminin"); ?>      
-                                <label for="Sexe" class="form-check label masculin">Masculin</label>
-                                <?php echo $form->render("Masculin"); ?>
-                            </div>
-                        </section>
-                        <h3>Identité (Suite)</h3>
-                        <section id="identite_suite">
-                            <label for="Date_de_naissance">Date de naissance : </label>
-                            <?php echo $form->render("Date_de_naissance"); ?>        
-                            <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
-                            <?php echo $form->render("N°_de_telephone_portable"); ?>     
-                            <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
-                            <?php echo $form->render("N°_de_telephone_fixe"); ?>
-                            <label for="mail">Mail : </label>
-                            <?php echo $form->render("mail"); ?>
-                            <label for="Taille">Taille : </label>
-                            <?php echo $form->render("Taille"); ?>
-                        </section>
-                        <h3>Médical</h3>
-                        <section id="medical">
-                            <h2>MÉDICAL</h2>
-                            <?php $medical = $users->getMedical(); ?>
-                            <p class="title_medical">Personnes à contacter en cas d"urgence</p>
-                            <label for="nom_medical">Nom :</label>
-                            <?php echo $form->render("nom_medical"); ?>
-                            <label for="Prenom_medical">Prénom : </label>
-                            <?php echo $form->render("Prenom_medical"); ?>
-                            <label for="n°_de_telephone_medical">N° de téléphone : </label>
-                            <?php echo $form->render("n°_de_telephone_medical"); ?>
-                            <label for="qualite_medical">Qualité : </label>
-                            <?php echo $form->render("qualite_medical"); ?>  
-                        </section>
-                        <h3>Parents (Père)</h3>
-                        <section id="parents_pere">
-                            <h2>PARENTS</h2>
-                            <p>Père</p>
-                            <?php $parents = $users->getParents(); ?>
+                                <div class="form-check">
+                                    <?php echo $form->render("Feminin"); ?>
+                                    <label for="Feminin" class="form-check-label feminin">Féminin</label>
+                                </div>
+                                <div class="form-check">
+                                    <?php echo $form->render("Masculin"); ?>
+                                    <label for="Masculin" class="form-check-label masculin">Masculin</label>
+                                </div>
+                            </section>
+                            <h3>Identité (Suite)</h3>
+                            <section id="identite_suite">
+                                <label for="Date_de_naissance">Date de naissance : </label>
+                                <?php echo $form->render("Date_de_naissance"); ?>        
+                                <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
+                                <?php echo $form->render("N°_de_telephone_portable"); ?>     
+                                <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
+                                <?php echo $form->render("N°_de_telephone_fixe"); ?>
+                                <label for="mail">Mail : </label>
+                                <?php echo $form->render("mail"); ?>
+                                <label for="Taille">Taille : </label>
+                                <?php echo $form->render("Taille"); ?>
+                            </section>
+                            <h3>Médical</h3>
+                            <section id="medical">
+                                <h2>MÉDICAL</h2>
+                                <?php $medical = $users->getMedical(); ?>
+                                <p class="title_medical">Personnes à contacter en cas d"urgence</p>
+                                <label for="nom_medical">Nom :</label>
+                                <?php echo $form->render("nom_medical"); ?>
+                                <label for="Prenom_medical">Prénom : </label>
+                                <?php echo $form->render("Prenom_medical"); ?>
+                                <label for="n°_de_telephone_medical">N° de téléphone : </label>
+                                <?php echo $form->render("n°_de_telephone_medical"); ?>
+                                <label for="qualite_medical">Qualité : </label>
+                                <?php echo $form->render("qualite_medical"); ?>  
+                            </section>
+                            <h3>Parents (Père)</h3>
+                            <section id="parents_pere">
+                                <h2>PARENTS</h2>
+                                <p>Père</p>
+                                <?php $parents = $users->getParents(); ?>
 
-                            <label for="Nom">Nom : </label>
-                            <?php echo $form->render("NOM_pere");?>
-                                        
-                            <label for="Prenom">Prénom : </label>
-                            <?php echo $form->render("Prenom_pere");?>
+                                <label for="Nom">Nom : </label>
+                                <?php echo $form->render("NOM_pere");?>
+                                            
+                                <label for="Prenom">Prénom : </label>
+                                <?php echo $form->render("Prenom_pere");?>
 
-                            <label for="mail">e-mail : </label>
-                            <?php echo $form->render("mail_pere");?>
-                                        
-                            <label for="Profession">Profession : </label>
-                            <?php echo $form->render("Profession_pere");?>
-                                        
-                            <label for="Entreprise">Entreprise : </label>
-                            <?php echo $form->render("Entreprise_pere");?>
-                        </section>
-                        <h3>Parents (Mère)</h3>
-                        <section id="parents_mere">
-                            <p>Mère</p>
+                                <label for="mail">e-mail : </label>
+                                <?php echo $form->render("mail_pere");?>
+                                            
+                                <label for="Profession">Profession : </label>
+                                <?php echo $form->render("Profession_pere");?>
+                                            
+                                <label for="Entreprise">Entreprise : </label>
+                                <?php echo $form->render("Entreprise_pere");?>
+                            </section>
+                            <h3>Parents (Mère)</h3>
+                            <section id="parents_mere">
+                                <p>Mère</p>
 
-                            <label for="Nom">Nom : </label>
-                            <?php echo $form->render("NOM_mere");?>
-                                        
-                            <label for="Prenom">Prénom : </label>
-                            <?php echo $form->render("Prenom_mere");?>
-                                        
-                            <label for="mail">e-mail : </label>
-                            <?php echo $form->render("mail_mere");?>
-                                        
-                            <label for="Profession">Profession : </label>
-                            <?php echo $form->render("Profession_mere");?>
+                                <label for="Nom">Nom : </label>
+                                <?php echo $form->render("NOM_mere");?>
+                                            
+                                <label for="Prenom">Prénom : </label>
+                                <?php echo $form->render("Prenom_mere");?>
+                                            
+                                <label for="mail">e-mail : </label>
+                                <?php echo $form->render("mail_mere");?>
+                                            
+                                <label for="Profession">Profession : </label>
+                                <?php echo $form->render("Profession_mere");?>
 
-                            <label for="Entreprise">Entreprise : </label>
-                            <?php echo $form->render("Entreprise_mere");?>
-                        </section>
-                        <h3>Autorisations</h3>
-                        <section>
-                            <h2>AUTORISATIONS</h2>
-                            <p>J"autorise mon enfant à quitter seul le gymnase</p>
-                            <?php $autorisations = $users->getAutorisation(); ?>
+                                <label for="Entreprise">Entreprise : </label>
+                                <?php echo $form->render("Entreprise_mere");?>
+                            </section>
+                            <h3>Autorisations</h3>
+                            <section>
+                                <h2>AUTORISATIONS</h2>
+                                <p>J'autorise mon enfant à quitter seul le gymnase</p>
+                                <?php $autorisations = $users->getAutorisation(); ?>
+                                <div class="form-check">
+                                    <?php echo $form->render("quitter_le_gymnase_oui");?>
+                                    <label for="quitter_le_gymnase_oui" class="form-check-label autorisation">oui</label>
+                                </div>
+                                <div class="form-check">   
+                                    <?php echo $form->render("quitter_le_gymnase_non");?>
+                                    <label for="quitter_le_gymnase_non" class="form-check-label autorisation">non</label>
+                                </div>        
+                                <p>En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes
+                                                médicalements
+                                                nécessaire ? </p>
+                                <div class="form-check">
+                                    <?php echo $form->render("actes_medical_oui");?>
+                                    <label for="actes_medical_oui" class="autorisation">oui</label>
+                                </div>
+                                <div class="form-check">
+                                    <?php echo $form->render("actes_medical_non");?>
+                                    <label for="actes_medical_non" class="autorisation">non</label>
+                                </div>
+                            </section>
+                            <h3>Documents</h3>
+                            <section>
+                                <h2>DOCUMENTS</h2>
+                                <p> certificat médical : </p>
 
-                            <label for="a1" class="autorisation">oui</label>
-                            <?php echo $form->render("quitter_le_gymnase_oui");?>
-                                    
-                            <label for="a1" class="autorisation">non</label>
-                            <?php echo $form->render("quitter_le_gymnase_non");?>
-                                    
-                            <p>En cas d"urgence, j"autorise les responsable de l"ASUL Basket à faire pratiquer tous actes
-                                            médicalements
-                                            nécessaire ? </p>
-                            <label for="b1" class="autorisation">oui</label>
-                            <?php echo $form->render("actes_medical_oui");?>
+                                <?= $this->tag->fileField("certificat_medical")?>
 
-                            <label for="b1" class="autorisation">non</label>
-                            <?php echo $form->render("actes_medical_non");?>
-                        </section>
-                        <h3>Documents</h3>
-                        <section>
-                            <h2>DOCUMENTS</h2>
-                            <p> certificat médical : </p>
+                                <p> photo </p>
 
-                            <?= $this->tag->fileField("certificat_medical")?>
-
-                            <p> photo </p>
-
-                            <?= $this->tag->fileField("photo")?><br>
-                        
-                            <?= $this->tag->endForm(); ?>
-                            <?= $this->tag->linkTo(
-                                [
-                                    "bordereau.pdf",
-                                    "télécharger le fichier"
-                                ]
-                            )?>
-                        </section>
-                    </div>
-                </form>
+                                <?= $this->tag->fileField("photo")?><br>
+                            
+                                <?= $this->tag->endForm(); ?>
+                                <?= $this->tag->linkTo(
+                                    [
+                                        "bordereau.pdf",
+                                        "télécharger le fichier"
+                                    ]
+                                )?>
+                            </section>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    <script>
-        var string1 = "";
-        var form1 = $("#example-form<?php echo($x);?>");
-        form1.children(".tata").steps({
-            headerTag: "h3",
-            bodyTag: "section",
-            transitionEffect: "slideLeft",
-            stepsOrientation: "vertical",
-            onStepChanged: function(event, currentIndex, priorIndex){
-                switch (currentIndex+1) {
-                    case 1:
-                        $("div.progress > div.progress-bar").css("width", "15%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "15");
-                        $("div.progress > div.progress-bar").text("15%");
-                        break;
-                    case 2:
-                        $("div.progress > div.progress-bar").css("width", "30%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "30");
-                        $("div.progress > div.progress-bar").text("30%");
-                        break;
-                    case 3:
-                        $("div.progress > div.progress-bar").css("width", "45%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "45");
-                        $("div.progress > div.progress-bar").text("45%");
-                        break;
-                     case 4:
-                        $("div.progress > div.progress-bar").css("width", "60%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "60");
-                        $("div.progress > div.progress-bar").text("60%");
-                        break;
-                    case 5:
-                        $("div.progress > div.progress-bar").css("width", "75%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "75");
-                        $("div.progress > div.progress-bar").text("75%");
-                        break;
-                    case 6:
-                        $("div.progress > div.progress-bar").css("width", "90%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "90");
-                        $("div.progress > div.progress-bar").text("90%");
-                        break;
-                    case 7:
-                        $("div.progress > div.progress-bar").css("width", "100%");
-                        $("div.progress > div.progress-bar").attr("aria-valuenow", "100");
-                        $("div.progress > div.progress-bar").text("100%");
-                        break;
-                    default:
-                        break;
-                }        
-            },
-            onFinished :function(event, currentIndex){
-                alert("toto");
-                $("form[name=formRenouv<?php echo $x; ?>]").submit();
-            }
-        });
-    </script>
-    <?php $x++;?>
+        <script>
+            var string1 = "";
+            var form1 = $("#example-form<?php echo($x);?>");
+            form1.children(".tata").steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "slideLeft",
+                stepsOrientation: "vertical",
+                onStepChanged: function(event, currentIndex, priorIndex){
+                    switch (currentIndex+1) {
+                        case 1:
+                            $("div.progress > div.progress-bar").css("width", "15%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "15");
+                            $("div.progress > div.progress-bar").text("15%");
+                            break;
+                        case 2:
+                            $("div.progress > div.progress-bar").css("width", "30%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "30");
+                            $("div.progress > div.progress-bar").text("30%");
+                            break;
+                        case 3:
+                            $("div.progress > div.progress-bar").css("width", "45%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "45");
+                            $("div.progress > div.progress-bar").text("45%");
+                            break;
+                        case 4:
+                            $("div.progress > div.progress-bar").css("width", "60%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "60");
+                            $("div.progress > div.progress-bar").text("60%");
+                            break;
+                        case 5:
+                            $("div.progress > div.progress-bar").css("width", "75%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "75");
+                            $("div.progress > div.progress-bar").text("75%");
+                            break;
+                        case 6:
+                            $("div.progress > div.progress-bar").css("width", "90%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "90");
+                            $("div.progress > div.progress-bar").text("90%");
+                            break;
+                        case 7:
+                            $("div.progress > div.progress-bar").css("width", "100%");
+                            $("div.progress > div.progress-bar").attr("aria-valuenow", "100");
+                            $("div.progress > div.progress-bar").text("100%");
+                            break;
+                        default:
+                            break;
+                    }        
+                },
+                onFinished :function(event, currentIndex){
+                    alert("toto");
+                    $("form[name=formRenouv<?php echo $x; ?>]").submit();
+                }
+            });
+        </script>
+        <?php $x++;?>
 
     <?php }?>
 </div>
 <?php }else{ ?>
-<h1 class="title">
-    FICHE DE RENSEIGNEMENTS 
-</h1>
-<!-- informations latérales -->
-<link rel="stylesheet" href="public/css/renouvbis.css">
-<div class="infos">
-    <h3>Informations</h3>
-    <div class="infoscontenues">
-        <?php if (isset($infos)) {
-            echo"<ul>";
-            foreach ($infos as $info) {
-                echo"<li>";
-                echo $info->getText();
-                echo"</li>";
-                echo"</br>";
+    <h1 class="title">FICHE DE RENSEIGNEMENTS </h1>
+    <!-- informations latérales -->
+    <link rel="stylesheet" href="public/css/renouvbis.css">
+    <div class="infos">
+        <h3>Informations</h3>
+        <div class="infoscontenues">
+            <?php if (isset($infos)) {
+                echo"<ul>";
+                foreach ($infos as $info) {
+                    echo"<li>";
+                    echo $info->getText();
+                    echo"</li>";
+                    echo"</br>";
+                }
+                echo"</ul>";
+            } ?>
+        </div>
+    </div>
+    <!-- -->
+    <form method="post" id="example-form" name="formRenouv" enctype="multipart/form-data">
+        <div class="tata" id="tata">
+            <h3>
+                Identité
+            </h3>
+            <section>
+                <div class="form-group">
+                    <label for="nom">Nom : </label>
+                    <?php echo $form->render("nom"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Prenom">Prénom : </label>
+                    <?php echo $form->render("Prenom"); ?>
+                </div>  
+                <div class="form-group">
+                    <label for="Address">Adresse : </label>
+                    <?php echo $form->render("Adresse"); ?>
+                </div>         
+                <div class="form-group">
+                    <label for="Code_postal">Code postal : </label>
+                    <?php echo $form->render("Code_postal"); ?>
+                </div>           
+                <div class="form-group">
+                    <label for="Ville">Ville : </label>
+                    <?php echo $form->render("Ville"); ?>
+                </div>        
+                <label>Sexe : </label>
+                <div class="form-check">
+                    <?php echo $form->render("Masculin"); ?>
+                    <label for="Masculin" class="form-check-label masculin">Masculin</label>
+                </div>
+                <div class="form-check">
+                    <?php echo $form->render("Feminin"); ?>
+                    <label for="Feminin" class="form-check-label feminin">Féminin</label>
+                </div>
+            </section>
+            <h3>Identité (Suite)</h3>
+            <section>
+                <div class="form-group">
+                    <label for="Date_de_naissance">Date de naissance : </label>
+                    <?php echo $form->render("Date_de_naissance"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
+                    <?php echo $form->render("N°_de_telephone_portable"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
+                    <?php echo $form->render("N°_de_telephone_fixe"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="mail">Mail : </label>
+                    <?php echo $form->render("mail"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Taille">Taille : </label>
+                    <?php echo $form->render("Taille"); ?>
+                </div>
+            </section>
+            <h3>Médical</h3>
+            <section>
+                <div class="medical">
+                    <p class="title_medical">Personnes à contacter en cas d"urgence</p>
+                    <div class="form-group">
+                        <label for="nom_medical">Nom :</label>
+                        <?php echo $form->render("nom_medical"); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="Prenom_medical">Prénom : </label>
+                        <?php echo $form->render("Prenom_medical"); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="n°_de_telephone_medical">N° de téléphone : </label>
+                        <?php echo $form->render("n°_de_telephone_medical"); ?>
+                    </div>
+                    <div class="form-group">
+                        <label for="qualite_medical">Qualité : </label>
+                        <?php echo $form->render("qualite_medical"); ?>
+                    </div>
+                    <div class="form-group">
+                        <label> Problème médical, Traitement en cours, ...</label>
+                        <?php echo $form->render("probleme_medical"); ?>
+                    </div>
+                </div>
+            </section>
+            <!-- <div id="test"></div> -->
+            <h3 id="parents">Parents (Père)</h3>
+            <section id="parent">
+                <p>Père</p>
+                <div class="form-group">
+                    <label for="NOM_pere">Nom : </label>
+                    <?php echo $form->render("NOM_pere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Prenom_pere">Prénom : </label>
+                    <?php echo $form->render("Prenom_pere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="mail">e-mail : </label>
+                    <?php echo $form->render("mail_pere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Profession">Profession : </label>
+                    <?php echo $form->render("Profession_pere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Entreprise">Entreprise : </label>
+                    <?php echo $form->render("Entreprise_pere"); ?>
+                </div>
+            </section>
+            <h3>Parents (Mère)</h3>
+            <section>
+                <p>Mère</p>
+                <div class="form-group">
+                    <label for="NOM_mere">Nom : </label>
+                    <?php echo $form->render("NOM_mere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Prenom_mere">Prénom : </label>
+                    <?php echo $form->render("Prenom_mere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="mail_mere">e-mail : </label>
+                    <?php echo $form->render("mail_mere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Profession_mere">Profession : </label>
+                    <?php echo $form->render("Profession_mere"); ?>
+                </div>
+                <div class="form-group">
+                    <label for="Entreprise_mere">Entreprise : </label>
+                    <?php echo $form->render("Entreprise_mere"); ?>
+                </div>
+            </section>
+            <h3>Autorisations</h3>
+            <section>
+                <div class="autorisations">
+                    <p>J"autorise mon enfant à quitter seul le gymnase</p>
+                    <div class="form-check">
+                        <?php echo $form->render("quitter_le_gymnase_oui"); ?>
+                        <label for="quitter_le_gymnase_oui" class="form-check-label autorisation">oui</label>
+                    </div>
+                    <div class="form-check">
+                        <?php echo $form->render("quitter_le_gymnase_non"); ?>
+                        <label for="quitter_le_gymnase_non" class="form-check-label autorisation">non</label>
+                    </div>
+                    <p>
+                        En cas d"urgence, j"autorise les responsable de l"ASUL Basket à faire pratiquer tous actes médicalements
+                        nécessaire ? 
+                    </p>
+                    <div class="form-check">
+                        <?php echo $form->render("actes_medical_oui"); ?>
+                        <label for="b1" class="form-check-label autorisation">oui</label>
+                    </div>
+                    <div class="form-check">
+                        <?php echo $form->render("actes_medical_non"); ?>
+                        <label for="b1" class="form-check-label autorisation">non</label>
+                    </div>
+                </div>
+            </section>
+            <h3>Documents</h3>
+            <section>
+                <div class="document">
+                    <div class="form-group">
+                        <label class="certif"> Certificat médical : </label>
+                        <?php echo $form->render("certificat_medical"); ?>
+                    </div>
+                    <div class="form-group">
+                        <label> Photo : </label>
+                        <?php echo $form->render("photo"); ?>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <?php echo $form->render("id"); ?>
+    </form>
+    <?php
+    if(isset($messages))
+    {
+        if (count($messages)) {
+            foreach ($messages as $message) {
+                echo $message, '<br>';
             }
-            echo"</ul>";
-        } ?>
+        }
+    }?>
+    <div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
     </div>
-</div>
-<!-- -->
-<form method="post" id="example-form">
-    <div class="tata" id="tata">
-        <h3>
-            Identité
-        </h3>
-        <section>
-            <div class="form-group">
-                <label for="nom">Nom : </label>
-                <?php echo $form->render("nom"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Prenom">Prénom : </label>
-                <?php echo $form->render("Prenom"); ?>
-            </div>  
-            <div class="form-group">
-                <label for="Address">Adresse : </label>
-                <?php echo $form->render("Adresse"); ?>
-            </div>         
-            <div class="form-group">
-                <label for="Code_postal">Code postal : </label>
-                <?php echo $form->render("Code_postal"); ?>
-            </div>           
-            <div class="form-group">
-                <label for="Ville">Ville : </label>
-                <?php echo $form->render("Ville"); ?>
-            </div>        
-            <label>Sexe : </label>
-            <div class="form-check">
-                <?php echo $form->render("Masculin"); ?>
-                <label for="Masculin" class="form-check-label masculin">Masculin</label>
-            </div>
-            <div class="form-check">
-                <?php echo $form->render("Feminin"); ?>
-                <label for="Feminin" class="form-check-label feminin">Féminin</label>
-            </div>
-        </section>
-        <h3>Identité (Suite)</h3>
-        <section>
-            <div class="form-group">
-                <label for="Date_de_naissance">Date de naissance : </label>
-                <?php echo $form->render("Date_de_naissance"); ?>
-            </div>
-            <div class="form-group">
-                <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
-                <?php echo $form->render("N°_de_telephone_portable"); ?>
-            </div>
-            <div class="form-group">
-                <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
-                <?php echo $form->render("N°_de_telephone_fixe"); ?>
-            </div>
-            <div class="form-group">
-                <label for="mail">Mail : </label>
-                <?php echo $form->render("mail"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Taille">Taille : </label>
-                <?php echo $form->render("Taille"); ?>
-            </div>
-        </section>
-        <h3>Médical</h3>
-        <section>
-            <div class="medical">
-                <p class="title_medical">Personnes à contacter en cas d"urgence</p>
-                <div class="form-group">
-                    <label for="nom_medical">Nom :</label>
-                    <?php echo $form->render("nom_medical"); ?>
-                </div>
-                <div class="form-group">
-                    <label for="Prenom_medical">Prénom : </label>
-                    <?php echo $form->render("Prenom_medical"); ?>
-                </div>
-                <div class="form-group">
-                    <label for="n°_de_telephone_medical">N° de téléphone : </label>
-                    <?php echo $form->render("n°_de_telephone_medical"); ?>
-                </div>
-                <div class="form-group">
-                    <label for="qualite_medical">Qualité : </label>
-                    <?php echo $form->render("qualite_medical"); ?>
-                </div>
-                <div class="form-group">
-                    <label> Problème médical, Traitement en cours, ...</label>
-                    <?php echo $form->render("probleme_medical"); ?>
-                </div>
-            </div>
-        </section>
-        <!-- <div id="test"></div> -->
-         <h3 id="parents">Parents (Père)</h3>
-        <section id="parent">
-            <p>Père</p>
-            <div class="form-group">
-                <label for="NOM_pere">Nom : </label>
-                <?php echo $form->render("NOM_pere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Prenom_pere">Prénom : </label>
-                <?php echo $form->render("Prenom_pere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="mail">e-mail : </label>
-                <?php echo $form->render("mail_pere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Profession">Profession : </label>
-                <?php echo $form->render("Profession_pere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Entreprise">Entreprise : </label>
-                <?php echo $form->render("Entreprise_pere"); ?>
-            </div>
-        </section>
-        <h3>Parents (Mère)</h3>
-        <section>
-            <p>Mère</p>
-            <div class="form-group">
-                <label for="NOM_mere">Nom : </label>
-                <?php echo $form->render("NOM_mere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Prenom_mere">Prénom : </label>
-                <?php echo $form->render("Prenom_mere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="mail_mere">e-mail : </label>
-                <?php echo $form->render("mail_mere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Profession_mere">Profession : </label>
-                <?php echo $form->render("Profession_mere"); ?>
-            </div>
-            <div class="form-group">
-                <label for="Entreprise_mere">Entreprise : </label>
-                <?php echo $form->render("Entreprise_mere"); ?>
-            </div>
-        </section>
-        <h3>Autorisations</h3>
-        <section>
-            <div class="autorisations">
-                <p>J"autorise mon enfant à quitter seul le gymnase</p>
-                <div class="form-check">
-                    <?php echo $form->render("quitter_le_gymnase_oui"); ?>
-                    <label for="quitter_le_gymnase_oui" class="form-check-label autorisation">oui</label>
-                </div>
-                <div class="form-check">
-                    <?php echo $form->render("quitter_le_gymnase_non"); ?>
-                    <label for="quitter_le_gymnase_non" class="form-check-label autorisation">non</label>
-                </div>
-                <p>
-                    En cas d"urgence, j"autorise les responsable de l"ASUL Basket à faire pratiquer tous actes médicalements
-                    nécessaire ? 
-                </p>
-                <div class="form-check">
-                    <?php echo $form->render("actes_medical_oui"); ?>
-                    <label for="b1" class="form-check-label autorisation">oui</label>
-                </div>
-                <div class="form-check">
-                    <?php echo $form->render("actes_medical_non"); ?>
-                    <label for="b1" class="form-check-label autorisation">non</label>
-                </div>
-            </div>
-        </section>
-        <h3>Documents</h3>
-        <section>
-            <div class="document">
-                <div class="form-group">
-                    <label class="certif"> Certificat médical : </label>
-                    <?php echo $form->render("certificat_medical"); ?>
-                </div>
-                <div class="form-group">
-                    <label> Photo : </label>
-                    <?php echo $form->render("photo"); ?>
-                </div>
-            </div>
-        </section>
-    </div>
-    <?php echo $form->render("id"); ?>
-</form>
-<div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">15%</div>
-</div>
 <?php } ?>
 <script>
     var string2 = "";
@@ -454,7 +480,6 @@
                     birthdate = parseInt(birthdate);
                     var diff = yearNow - birthdate;
                     if (diff > 18) {
-                        document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
                         document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
                         document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
                         document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();

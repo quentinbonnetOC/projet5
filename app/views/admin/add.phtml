@@ -1,33 +1,34 @@
-<?= $this->tag->form(['admin/ajouter', 'method' =>'post', 'enctype' =>"multipart/form-data"]); ?>
-
-<label>NOM :</label>
-<?= $this->tag->textField("nom");?>
-<label>PRENOM :</label>
-<?= $this->tag->textField("prenom");?>
-<label>IDENTIFIANT : </label>
-<?= $this->tag->textField("identifiant");?>
-<label>MOT DE PASSE :</label>
-<?= $this->tag->passwordField("mdp");?>
-<label>FONCTION : </label>
-<?= $this->tag->selectStatic(
-	[
-		"fonction",
+<main>
+	<?= $this->tag->form(['admin/ajouter', 'method' =>'post', 'enctype' =>"multipart/form-data"]); ?>
+	<label>NOM :</label>
+	<?= $this->tag->textField("nom");?>
+	<label>PRENOM :</label>
+	<?= $this->tag->textField("prenom");?>
+	<label>IDENTIFIANT : </label>
+	<?= $this->tag->textField("identifiant");?>
+	<label>MOT DE PASSE :</label>
+	<?= $this->tag->passwordField("mdp");?>
+	<label>FONCTION : </label>
+	<?= $this->tag->selectStatic(
 		[
-			"admin" => "admin",
-			"entraineur" => "entraineur"
-		],
-	]
-);?>
-<label>EMAIL : </label>
-<?= $this->tag->textField("email");?>
-<label>N° de téléphone</label>
-<?= $this->tag->textField("phone_number");?>
+			"fonction",
+			[
+				"admin" => "admin",
+				"entraineur" => "entraineur"
+			],
+		]
+	);?>
+	<label>EMAIL : </label>
+	<?= $this->tag->textField("email");?>
+	<label>N° de téléphone</label>
+	<?= $this->tag->textField("phone_number");?>
 
 
-<?= $this->tag->submitButton(
-	[
-		"envoyer",
-		"class" => "btn btn_primary"
-	]
-);?>
-<?= $this->tag->endForm();?>
+	<?= $this->tag->submitButton(
+		[
+			"envoyer",
+			"class" => "btn btn_primary"
+		]
+	);?>
+	<?= $this->tag->endForm();?>
+</main>

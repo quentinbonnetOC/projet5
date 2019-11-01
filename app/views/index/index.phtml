@@ -1,84 +1,94 @@
-<?php $this->assets->outputCss(); ?>
-<div class="card-deck">
-  <div class="card">
-    <img class="card-img-top" src="img/inscription.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Inscription</h5>
-      <p class="card-text">Inscription ouverte du <?php echo $date1;?>
-        au <?php echo $date2;?>
-      </p>
-      <div class="button">
-        <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
-        <?= $this->tag->submitButton(
-          [
-            'name'=>"creation",
-            "S'inscrire",
-            'class' => 'btn btn-primary'
-          ]
-        ); ?>
-        <?= $this->tag->endForm(); ?>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="img/renouv.jpg" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Renouvellement</h5>
-      <p class="card-text">Pour ceux qui était déjà licenciés l'année précédente, merci de renseigner votre adresse
-        email pour vous ré-inscrire</p>
-      <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
-      <div class="form-group">
-        <?= $this->tag->emailField([
-          "email",
-          'class' => 'form-control'
-        ]); ?>
-        </div>
-      <div class="button">
-        <?= $this->tag->submitButton(
-          [
-            'name'=>"renouvellement",
-            'Renouveller',
-            'class' => 'btn btn-primary'
-          ]
-        ); ?>
-        <?= $this->tag->endForm(); ?>
-      </div>
-    </div>
-  </div>
-  <div class="card">
-    <img class="card-img-top" src="img/admin.png" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Administrateur</h5>
-      <p class="card-text"></p>
-      <div class="errorMessages">
-        <p><?php $this->flashSession->output() ?>
+<?php $this->assets->outputCss();
+$flashSession = isset($_SESSION['flashSession']) ? $_SESSION['flashSession'] : null; ?>
+<main>
+  <div class="card-deck">
+    <section class="card">
+      <h1 style="display:none">Inscription</h1>
+      <img class="card-img-top" src="img/inscription.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Inscription</h5>
+        <p class="card-text">Inscription ouverte du <?php echo $date1;?>
+          au <?php echo $date2;?>
         </p>
+        <div class="button">
+          <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
+          <?= $this->tag->submitButton(
+            [
+              'name'=>"creation",
+              "S'inscrire",
+              'class' => 'btn btn-primary'
+            ]
+          ); ?>
+          <?= $this->tag->endForm(); ?>
+        </div>
       </div>
-      <?= $this->tag->form([''.$_SESSION['URL'].'admin', 'method' => 'post']); ?>
-      <div class="form-group">
-        <label for="idt">identifiant : </label><br />
-        <?= $this->tag->textField([
-          "identifiant",
-          'class' => 'form-control'
-        ]); ?>
-      </div><br />
-      <div class="form-group">
-        <label for="mdp">mot de passe : </label><br />
-        <?= $this->tag->passwordField([
-          "motdepasse",
-          'class' => 'form-control'
-        ]); ?>
-      </div>
-      <a href="<?php echo($_SESSION['URL']);?>admin/mdp_forget?new=false">Mot de passe oublié</a>
-      <div class="button">
-        <?= $this->tag->submitButton(
-          [
-            's\'identifier',
-            'class' => 'btn btn-primary'
-          ]
-        ); ?>
+    </section>
+    <section class="card">
+      <h1 style="display:none">Renouvellement</h1>
+      <img class="card-img-top" src="img/renouv.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Renouvellement</h5>
+        <p class="card-text">Pour ceux qui était déjà licenciés l'année précédente, merci de renseigner votre adresse
+          email pour vous ré-inscrire</p>
+        <?php if($flashSession=="l'email est invalide"){ ?>
+        <p><?php $this->flashSession->output();?></p>
+        <?php } ?>
+        <?= $this->tag->form(['user/renouv', 'method' => 'post']); ?>
+        <div class="form-group">
+          <?= $this->tag->emailField([
+            "email",
+            'class' => 'form-control'
+          ]); ?>
+        </div>
+        <div class="button">
+          <?= $this->tag->submitButton(
+            [
+              'name'=>"renouvellement",
+              'Renouveller',
+              'class' => 'btn btn-primary'
+            ]
+          ); ?>
+        </div>
+        <?= $this->tag->endForm(); ?>
+      </div> 
+    </section>
+    <section class="card">
+      <h1 style="display:none">Backoffice</h1>
+      <img class="card-img-top" src="img/admin.png" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Administrateur</h5>
+        <p class="card-text"></p>
+        <?php if($flashSession=="Erreur de mot de passe"||"Erreur d'identifiant"||"Veuillez saisir un identifiant et un mot de passe"){ ?>
+        <div class="errorMessages">
+          <p><?php $this->flashSession->output() ?></p>
+        </div>
+        <?php } ?>
+        <?= $this->tag->form([''.$_SESSION['URL'].'admin', 'method' => 'post']); ?>
+        <div class="form-group">
+          <label for="identifiant">identifiant : </label><br />
+          <?= $this->tag->textField([
+            "identifiant",
+            'class' => 'form-control'
+          ]); ?>
+        </div><br />
+        <div class="form-group">
+          <label for="motdepasse">mot de passe : </label><br />
+          <?= $this->tag->passwordField([
+            "motdepasse",
+            'class' => 'form-control'
+          ]); ?>
+        </div>
+        <a href="<?php echo($_SESSION['URL']);?>admin/mdp_forget?new=false">Mot de passe oublié</a>
+        <div class="button">
+          <?= $this->tag->submitButton(
+            [
+              's\'identifier',
+              'class' => 'btn btn-primary'
+            ]
+          ); ?>
+        </div>
         <?= $this->tag->endForm(); ?>
       </div>
-    </div>
+    </section>
   </div>
-</div>
+</main>

@@ -51,18 +51,18 @@ class UserController extends ControllerBase
   }
   public function renouvAction()
   {
-    $request_uri = $_SESSION['request_uri'];
-    $this->assets->addCss(''.$request_uri.'css/renouv.css');
-    $this->assets->addCss(''.$request_uri.'css/main.css');
-    $this->assets->addCss(''.$request_uri.'css/dropdown.css');
-    $this->assets->addCss(''.$request_uri.'css/normalizes.css');
-    $this->assets->addCss(''.$request_uri.'css/mainbis.css');
-    $this->assets->addCss(''.$request_uri.'css/jquery.steps.css');
+    $URL = $_SESSION['URL'];
+    $this->assets->addCss(''.$URL.'public/css/main.css');
+    $this->assets->addCss(''.$URL.'public/css/dropdown.css');
+    $this->assets->addCss(''.$URL.'public/css/normalizes.css');
+    $this->assets->addCss(''.$URL.'public/css/mainbis.css');
+    $this->assets->addCss(''.$URL.'public/css/jquery.steps.css');
     $this->assets->addJs('https://code.jquery.com/jquery-3.3.1.js');
     $this->assets->addJs("https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js");
     $this->assets->addJs('https://cdnjs.cloudflare.com/ajax/libs/jquery-steps/1.1.0/jquery.steps.js');
       
     //formulaire commun creation et renouvellement
+    $validate = new validation();
     $form = new Form();
       $nom = new text(
         'nom',
@@ -70,6 +70,15 @@ class UserController extends ControllerBase
           'class' => 'form-control'
         ]
       );
+      $validate->add(
+        'nom',
+        new PresenceOf(
+          [
+            'message' => 'veuillez saisir votre nom'
+          ]
+        )
+      );
+      
       $nom->setAttribute('required', 'required');             
       $form->add($nom);
 
@@ -365,122 +374,56 @@ class UserController extends ControllerBase
       $form->add($id);
       //  
       //envoie du formulaire à la vue
-    $this->view->form = $form;
-    ///
+    // $this->view->form = $form;
+    ///formulaire commun creation et renouvellement
     //informations latérales
     $infos = Informations::find();
     $this->view->infos = $infos;
-    ///
+    ///informations latérales
     // Cas du renouvellement
     if ($this->request->hasPost('renouvellement')) {
       $this->assets->addJs('js/removeAttribute.js');
-      $imail = $this->request->getPost('email');
-            
-        //récupération des données
-        if (!empty($imail)) {
-          $user = Users::find(
-            [
-              'conditions' => 'mail = :mail:',
-              'bind'       => [
-                "mail" => $imail,
-              ]
+      $imail = $this->request->getPost('email');      
+      //récupération des données
+      if (!empty($imail)) {
+        $user = Users::find(
+          [
+            'conditions' => 'mail = :mail:',
+            'bind'       => [
+              "mail" => $imail,
             ]
-          );
-          if(empty($user[0])) { 
-            $this->flashSession->warning("l'email est invalid");
-            return $this->response->redirect('/');
-          }
-          $nb = count($user);
-          $this->view->nb = $nb;
-          //Cas de plusieurs licenciés avec la même adresse mail
-          if(count($user)>1) {
-            $this->assets->addCss('css/manyrenouv.css');
-            $this->assets->addJs('js/manyrenouv.js');
-
-            foreach($user as $users){
-              $nom->setDefault($users->lastname);
-              $Prenom->setDefault($users->firstname);
-              $Adresse->setDefault($users->address);
-              $Code_postal->setDefault($users->postal_code);
-              $Ville->setDefault($users->city);
-              if($user[0]->Sexe=="Masculin") {
-                $Sexe = new radio(
-                  'Masculin',
-                  [
-                    'name' => 'Sexe',
-                    'value' => 'Masculin',
-                    'checked'=>'checked'
-                  ]
-                );
-                $form->add($Sexe);
-              } else {
-                $Sexe = new radio(
-                  'Masculin',
-                  [
-                    'name' => 'Sexe',
-                    'value' => 'Masculin'
-                  ]
-                );
-                $form->add($Sexe);
-              }
-              if($user[0]->Sexe=="Féminin") {
-                $Sexe = new radio(
-                  'Feminin',
-                  [
-                    'name' => 'Sexe',
-                    'value' => 'Feminin',
-                    'checked'=>'checked'
-                  ]
-                );
-                $Sexe->setAttribute('required', 'required');
-                $Sexe->setAttribute('readonly', 'readonly');
-                $form->add($Sexe);
-              } else {
-                $Sexe = new radio(
-                  'Feminin',
-                  [
-                    'name' => 'Sexe',
-                    'value' => 'Feminin'
-                  ]
-                );
-                $Sexe->setAttribute('required', 'required');
-                $Sexe->setAttribute('readonly', 'readonly');
-                $form->add($Sexe);
-              }
-                    
-              $Date_de_naissance->setDefault($users->birthdate);
-              $N°_de_telephone_portable->setDefault($users->phone_number);
-              $N°_de_telephone_fixe->setDefault($users->fix_number);
-              $mail->setDefault($users->mail);
-              $Taille->setDefault($users->taille);
-              $medical = $users->getMedical();
-              $nom_medical->setDefault($medical->firstname);
-              $Prenom_medical->setDefault($medical->lastname);
-              $n°_de_telephone_medical->setDefault($medical->phone_number);
-              $qualite_medical->setDefault($medical->quality);
-              $probleme_medical->setDefault($medical->probleme);
-            }
-            $this->view->user = $user;    
-            //
-          } else {
-            $nom->setDefault($user[0]->lastname);
-            $nom->setAttribute('readonly', 'readonly');
-
-            $Prenom->setDefault($user[0]->firstname);
-            $Prenom->setAttribute('readonly', 'readonly');
-
-            $Adresse->setDefault($user[0]->address);
-
-            $Code_postal->setDefault($user[0]->postal_code);
-
-            $Ville->setDefault($user[0]->city);
-            if ($user[0]->Sexe=="Masculin") {
+          ]
+        );
+        ///récupération des données
+        //email invalid
+        if(empty($user[0])) {
+          $_SESSION["flashSession"] = "l'email est invalide";
+          $this->flashSession->warning("l'email est invalide");
+          return $this->response->redirect('/');
+        }
+        ///email invalid
+        $nb = count($user);
+        $this->view->nb = $nb;
+        //Cas de plusieurs licenciés avec la même adresse mail
+        if(count($user)>1) 
+        {
+          $nom->setAttribute('id', 1);
+          // $this->assets->addCss('css/manyrenouv.css');
+          // $this->assets->addJs('js/manyrenouv.js');
+          foreach($user as $users){
+            $nom->setDefault($users->lastname);
+            $Prenom->setDefault($users->firstname);
+            $Adresse->setDefault($users->address);
+            $Code_postal->setDefault($users->postal_code);
+            $Ville->setDefault($users->city);
+            if($users->Sexe=="Masculin") {
               $Sexe = new radio(
                 'Masculin',
                 [
                   'name' => 'Sexe',
                   'value' => 'Masculin',
-                  'checked'=>'checked'
+                  'checked'=>'checked',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($Sexe);
@@ -489,18 +432,20 @@ class UserController extends ControllerBase
                 'Masculin',
                 [
                   'name' => 'Sexe',
-                  'value' => 'Masculin'
+                  'value' => 'Masculin',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($Sexe);
             }
-            if ($user[0]->Sexe=="Féminin") {
+            if($users->Sexe=="Féminin") {
               $Sexe = new radio(
                 'Feminin',
                 [
                   'name' => 'Sexe',
                   'value' => 'Feminin',
-                  'checked'=>'checked'
+                  'checked'=>'checked',
+                  'class' => 'form-check-input'
                 ]
               );
               $Sexe->setAttribute('required', 'required');
@@ -511,37 +456,29 @@ class UserController extends ControllerBase
                 'Feminin',
                 [
                   'name' => 'Sexe',
-                  'value' => 'Feminin'
+                  'value' => 'Feminin',
+                  'class' => 'form-check-input'
                 ]
               );
               $Sexe->setAttribute('required', 'required');
               $Sexe->setAttribute('readonly', 'readonly');
               $form->add($Sexe);
             }
-            $Date_de_naissance->setDefault($user[0]->birthdate);
-            $Date_de_naissance->setAttribute('readonly', 'readonly');
-
-            $N°_de_telephone_portable->setDefault($user[0]->phone_number);
-
-            $N°_de_telephone_fixe->setDefault($user[0]->fix_number);
-            
-            $mail->setDefault($user[0]->mail);
-
-            $Taille->setDefault($user[0]->taille);
-
-            $medical = $user[0]->getMedical();
-
+                      
+            $Date_de_naissance->setDefault($users->birthdate);
+            $N°_de_telephone_portable->setDefault($users->phone_number);
+            $N°_de_telephone_fixe->setDefault($users->fix_number);
+            $mail->setDefault($users->mail);
+            $Taille->setDefault($users->taille);
+            $medical = $users->getMedical();
             $nom_medical->setDefault($medical->firstname);
-
             $Prenom_medical->setDefault($medical->lastname);
-
             $n°_de_telephone_medical->setDefault($medical->phone_number);
-
             $qualite_medical->setDefault($medical->quality);
-
             $probleme_medical->setDefault($medical->probleme);
 
-            $parents = $user[0]->getParents();
+
+            $parents = $users->getParents();
 
             $NOM_pere->setDefault($parents->nom_du_pere);
             $NOM_pere->setAttribute('readonly', 'readonly');
@@ -567,7 +504,7 @@ class UserController extends ControllerBase
 
             $Entreprise_mere->setDefault($parents->entreprise_de_la_mere);
 
-            $autorisation = $user[0]->getAutorisation();
+            $autorisation = $users->getAutorisation();
 
             if($autorisation->quitter_le_gymnase=="oui") {
               $quitter_le_gymnase = new radio(
@@ -575,7 +512,8 @@ class UserController extends ControllerBase
                 [
                   'name' => 'quitter_le_gymnase',
                   'value' => 'oui',
-                  'checked'=>'checked'
+                  'checked'=>'checked',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($quitter_le_gymnase);
@@ -584,7 +522,8 @@ class UserController extends ControllerBase
                 'quitter_le_gymnase_oui',
                 [
                   'name' => 'quitter_le_gymnase',
-                  'value' => 'oui'
+                  'value' => 'oui',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($quitter_le_gymnase);
@@ -595,7 +534,8 @@ class UserController extends ControllerBase
                 [
                   'name' => 'quitter_le_gymnase',
                   'value' => 'non',
-                  'checked'=>'checked'
+                  'checked'=>'checked',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($quitter_le_gymnase);
@@ -604,7 +544,8 @@ class UserController extends ControllerBase
                 'quitter_le_gymnase_non',
                 [
                   'name' => 'quitter_le_gymnase',
-                  'value' => 'non'
+                  'value' => 'non',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($quitter_le_gymnase);
@@ -615,7 +556,8 @@ class UserController extends ControllerBase
                 [
                   'name' => 'actes_medical',
                   'value' => 'oui',
-                  'checked'=>'checked'
+                  'checked'=>'checked',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($actes_medical);
@@ -624,7 +566,8 @@ class UserController extends ControllerBase
                 'actes_medical_oui',
                 [
                   'name' => 'actes_medical',
-                  'value' => 'oui'
+                  'value' => 'oui',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($actes_medical);
@@ -635,7 +578,8 @@ class UserController extends ControllerBase
                 [
                   'name' => 'actes_medical',
                   'value' => 'non',
-                  'checked'=>'checked'
+                  'checked'=>'checked',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($actes_medical);
@@ -644,77 +588,291 @@ class UserController extends ControllerBase
                 'actes_medical_non',
                 [
                   'name' => 'actes_medical',
-                  'value' => 'non'
+                  'value' => 'non',
+                  'class' => 'form-check-input'
                 ]
               );
               $form->add($actes_medical);
             }
-            $id->setDefault($user[0]->id);
-            $form->add($id);
-            $this->view->form = $form;
+
           }
+          $this->view->form = $form;
+
+          $this->view->user = $user;    
+          //
+        } else 
+        {
+          $nom->setDefault($user[0]->lastname);
+          $nom->setAttribute('readonly', 'readonly');
+
+          $Prenom->setDefault($user[0]->firstname);
+          $Prenom->setAttribute('readonly', 'readonly');
+
+          $Adresse->setDefault($user[0]->address);
+
+          $Code_postal->setDefault($user[0]->postal_code);
+
+          $Ville->setDefault($user[0]->city);
+          if ($user[0]->Sexe=="Masculin") {
+            $Sexe = new radio(
+              'Masculin',
+              [
+                'name' => 'Sexe',
+                'value' => 'Masculin',
+                'checked'=>'checked',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($Sexe);
+          } else {
+            $Sexe = new radio(
+              'Masculin',
+              [
+                'name' => 'Sexe',
+                'value' => 'Masculin',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($Sexe);
+          }
+          if ($user[0]->Sexe=="Feminin") {
+            $Sexe = new radio(
+              'Feminin',
+              [
+                'name' => 'Sexe',
+                'value' => 'Feminin',
+                'checked'=>'checked',
+                'class' => 'form-check-input'
+
+              ]
+            );
+            $Sexe->setAttribute('required', 'required');
+            $Sexe->setAttribute('readonly', 'readonly');
+            $form->add($Sexe);
+          } else {
+            $Sexe = new radio(
+              'Feminin',
+              [
+                'name' => 'Sexe',
+                'value' => 'Feminin',
+                'class' => 'form-check-input'
+              ]
+            );
+            $Sexe->setAttribute('required', 'required');
+            $Sexe->setAttribute('readonly', 'readonly');
+            $form->add($Sexe);
+          }
+          $Date_de_naissance->setDefault($user[0]->birthdate);
+          $Date_de_naissance->setAttribute('readonly', 'readonly');
+
+          $N°_de_telephone_portable->setDefault($user[0]->phone_number);
+
+          $N°_de_telephone_fixe->setDefault($user[0]->fix_number);
+          
+          $mail->setDefault($user[0]->mail);
+
+          $Taille->setDefault($user[0]->taille);
+
+          $medical = $user[0]->getMedical();
+
+          $nom_medical->setDefault($medical->firstname);
+
+          $Prenom_medical->setDefault($medical->lastname);
+
+          $n°_de_telephone_medical->setDefault($medical->phone_number);
+
+          $qualite_medical->setDefault($medical->quality);
+
+          $probleme_medical->setDefault($medical->probleme);
+
+          $parents = $user[0]->getParents();
+
+          $NOM_pere->setDefault($parents->nom_du_pere);
+          $NOM_pere->setAttribute('readonly', 'readonly');
+
+          $Prenom_pere->setDefault($parents->prenom_du_pere);
+          $Prenom_pere->setAttribute('readonly', 'readonly');
+
+          $mail_pere->setDefault($parents->mail_du_pere);
+
+          $Profession_pere->setDefault($parents->profession_du_pere);
+
+          $Entreprise_pere->setDefault($parents->entreprise_du_pere);
+
+          $NOM_mere->setDefault($parents->nom_de_la_mere);
+          $NOM_mere->setAttribute('readonly', 'readonly');
+
+          $Prenom_mere->setDefault($parents->prenom_de_la_mere);
+          $Prenom_mere->setAttribute('readonly', 'readonly');
+
+          $mail_mere->setDefault($parents->mail_de_la_mere);
+
+          $Profession_mere->setDefault($parents->profession_de_la_mere);
+
+          $Entreprise_mere->setDefault($parents->entreprise_de_la_mere);
+
+          $autorisation = $user[0]->getAutorisation();
+
+          if($autorisation->quitter_le_gymnase=="oui") {
+            $quitter_le_gymnase = new radio(
+              'quitter_le_gymnase_oui',
+              [
+                'name' => 'quitter_le_gymnase',
+                'value' => 'oui',
+                'checked'=>'checked',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($quitter_le_gymnase);
+          } else {
+            $quitter_le_gymnase = new radio(
+              'quitter_le_gymnase_oui',
+              [
+                'name' => 'quitter_le_gymnase',
+                'value' => 'oui',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($quitter_le_gymnase);
+          }
+          if($autorisation->quitter_le_gymnase=="non") {
+            $quitter_le_gymnase = new radio(
+              'quitter_le_gymnase_non',
+              [
+                'name' => 'quitter_le_gymnase',
+                'value' => 'non',
+                'checked'=>'checked',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($quitter_le_gymnase);
+          } else {
+            $quitter_le_gymnase = new radio(
+              'quitter_le_gymnase_non',
+              [
+                'name' => 'quitter_le_gymnase',
+                'value' => 'non',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($quitter_le_gymnase);
+          }
+          if($autorisation->actes_medical=="oui") {
+            $actes_medical = new radio(
+              'actes_medical_oui',
+              [
+                'name' => 'actes_medical',
+                'value' => 'oui',
+                'checked'=>'checked',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($actes_medical);
+          } else {
+            $actes_medical = new radio(
+              'actes_medical_oui',
+              [
+                'name' => 'actes_medical',
+                'value' => 'oui',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($actes_medical);
+          }
+          if($autorisation->actes_medical=="non") {
+            $actes_medical = new radio(
+              'actes_medical_non',
+              [
+                'name' => 'actes_medical',
+                'value' => 'non',
+                'checked'=>'checked',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($actes_medical);
+          } else {
+            $actes_medical = new radio(
+              'actes_medical_non',
+              [
+                'name' => 'actes_medical',
+                'value' => 'non',
+                'class' => 'form-check-input'
+              ]
+            );
+            $form->add($actes_medical);
+          }
+          $id->setDefault($user[0]->id);
+          $form->add($id);
+          $this->view->form = $form;
         }
-      }else if ($this->request->getPost("creation")=="S'inscrire"){
-        $this->assets->addJs('/js/birthdate.js');
-    
-        $id->setDefault('creation');
-        $form->add($id);
-        $this->view->form = $form;
       }
-      //traitement renouvellement
-      if($this->request->hasPost('id')&&$this->request->getPost('id')!="creation") {
-        $id = $this->request->getPost('id');
-            
-        $user = Users::findFirstById($id);
-        $user->setAddress(htmlspecialchars($this->request->getPost('Adresse')));
-        $user->setPostalCode(htmlspecialchars($this->request->getPost('Code_postal')));
-        $user->setCity(htmlspecialchars($this->request->getPost('Ville')));
-        $user->setPhoneNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_portable')));
-        $user->setFixNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_fixe')));
-        $user->setMail(htmlspecialchars($this->request->getPost('mail')));
-        $user->setTaille(htmlspecialchars($this->request->getPost('Taille')));
+    //cas de la création
+    }else if ($this->request->getPost("creation")=="S'inscrire")
+    {
+      $this->assets->addCss(''.$URL.'public/css/renouv.css');
+      $this->assets->addJs('/js/birthdate.js');
 
-        $user->update();
+      $id->setDefault('creation');
+      $form->add($id);
+      $this->view->form = $form;
+    }
+    ///cas de la création
+    //traitement renouvellement
+    if($this->request->hasPost('id')&&$this->request->getPost('id')!="creation"&& !empty($this->request->getPost('id'))) 
+    {
+      $id = $this->request->getPost('id');
+          
+      $user = Users::findFirstById($id);
+      $user->setAddress(htmlspecialchars($this->request->getPost('Adresse')));
+      $user->setPostalCode(htmlspecialchars($this->request->getPost('Code_postal')));
+      $user->setCity(htmlspecialchars($this->request->getPost('Ville')));
+      $user->setPhoneNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_portable')));
+      $user->setFixNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_fixe')));
+      $user->setMail(htmlspecialchars($this->request->getPost('mail')));
+      $user->setTaille(htmlspecialchars($this->request->getPost('Taille')));
 
-        $user->getMedical()->update(
-          [
-            htmlspecialchars($this->request->getPost('nom_medical')),
-            htmlspecialchars($this->request->getPost('Prenom_medical')),
-            htmlspecialchars($this->request->getPost('n°_de_telephone_medical')),
-            htmlspecialchars($this->request->getPost('qualité')),
-            htmlspecialchars($this->request->getPost('probleme_medical'))
-          ]
-        );
-        $user->getParents()->update(
-          [
-            htmlspecialchars($this->request->getPost('NOM_pere')),
-            htmlspecialchars($this->request->getPost('Prenom_pere')),
-            htmlspecialchars($this->request->getPost('mail_pere')),
-            htmlspecialchars($this->request->getPost('Profession_pere')),
-            htmlspecialchars($this->request->getPost('Entreprise_pere')),
-            htmlspecialchars($this->request->getPost('NOM_mere')),
-            htmlspecialchars($this->request->getPost('Prenom_mere')),
-            htmlspecialchars($this->request->getPost('mail_mere')),
-            htmlspecialchars($this->request->getPost('Profession_mere')),
-            htmlspecialchars($this->request->getPost('Entreprise_mere'))
-          ]
-        );
+      $user->update();
 
-        $user->getAutorisation()->update(
-          [
-            htmlspecialchars($this->request->getPost('a1')),
-            htmlspecialchars($this->request->getPost('b1'))
-          ]
-        );
-        if ($user->update()){
-          var_dump("l'utilisateur est enregistre");
-          return $this->response->redirect('user/inscription');
-        }
+      $user->getMedical()->update(
+        [
+          htmlspecialchars($this->request->getPost('nom_medical')),
+          htmlspecialchars($this->request->getPost('Prenom_medical')),
+          htmlspecialchars($this->request->getPost('n°_de_telephone_medical')),
+          htmlspecialchars($this->request->getPost('qualité')),
+          htmlspecialchars($this->request->getPost('probleme_medical'))
+        ]
+      );
+      $user->getParents()->update(
+        [
+          htmlspecialchars($this->request->getPost('NOM_pere')),
+          htmlspecialchars($this->request->getPost('Prenom_pere')),
+          htmlspecialchars($this->request->getPost('mail_pere')),
+          htmlspecialchars($this->request->getPost('Profession_pere')),
+          htmlspecialchars($this->request->getPost('Entreprise_pere')),
+          htmlspecialchars($this->request->getPost('NOM_mere')),
+          htmlspecialchars($this->request->getPost('Prenom_mere')),
+          htmlspecialchars($this->request->getPost('mail_mere')),
+          htmlspecialchars($this->request->getPost('Profession_mere')),
+          htmlspecialchars($this->request->getPost('Entreprise_mere'))
+        ]
+      );
+
+      $user->getAutorisation()->update(
+        [
+          htmlspecialchars($this->request->getPost('a1')),
+          htmlspecialchars($this->request->getPost('b1'))
+        ]
+      );
+      if ($user->update()){
+        var_dump("l'utilisateur est enregistre");
+        return $this->response->redirect('user/inscription');
       }
-      //Traitement creation
-      if($this->request->hasPost('id')&&$this->request->getPost('id')=="creation") {
-        $user = new Users();
-            
+    }
+    ///traitement renouvellement
+    //Traitement creation
+    elseif($this->request->hasPost('id')&&$this->request->getPost('id')=="creation") 
+    {
+      $user = new Users();    
         $user->setLastname(htmlspecialchars($this->request->getPost('nom')));
         $user->setFirstname(htmlspecialchars($this->request->getPost('Prenom')));
         $user->setAddress(htmlspecialchars($this->request->getPost('Adresse')));
@@ -722,9 +880,9 @@ class UserController extends ControllerBase
         $user->setCity(htmlspecialchars($this->request->getPost('Ville')));
         $user->setSexe(htmlspecialchars($this->request->getPost('Sexe')));
         $user->setBirthdate(htmlspecialchars($this->request->getPost('Date_de_naissance')));
-        $birthdate = htmlspecialchars($this->request->getPost('Date_de_naissance'));
-        $annee_de_naissance = substr($birthdate, 0, 4);
-        $cat = date("Y") - $annee_de_naissance;
+        $birthdate = htmlspecialchars(date("Y-m-d", strtotime($this->request->getPost('Date_de_naissance'))));
+        $annee_de_naissance = substr($birthdate, 0, 4); 
+        $cat = intval(date("Y")) - intval($annee_de_naissance);
         if($cat>19) {
           $user->setCategorie("SENIOR");
         } elseif ($this->request->getPost('Sexe')=="Féminin"&&$cat>=15&&$cat<=17) {
@@ -782,64 +940,106 @@ class UserController extends ControllerBase
         $user->setFixNumber(htmlspecialchars($this->request->getPost('N°_de_telephone_fixe')));
         $user->setMail(htmlspecialchars($this->request->getPost('mail')));
         $user->setTaille(htmlspecialchars($this->request->getPost('Taille')));
-    
-        $user_medical = new Medical();
-    
-          $user_medical->setUserId($user->getId());
-          $user_medical->setFirstname(htmlspecialchars($this->request->getPost('nom_medical')));
-          $user_medical->setLastname(htmlspecialchars($this->request->getPost('Prenom_medical')));
-          $user_medical->setPhoneNumber(htmlspecialchars($this->request->getPost('n°_de_telephone_medical')));
-          $user_medical->setQuality(htmlspecialchars($this->request->getPost('qualite_medical')));
-          $user_medical->setProbleme(htmlspecialchars($this->request->getPost('probleme_medical')));
-     
-        $user->Medical = $user_medical;          
-    
-        $user_parents = new Parents();
-          $user_parents->setUserId($user->getId());
-          $user_parents->setNomDuPere(htmlspecialchars($this->request->getPost('NOM_pere')));
-          $user_parents->setPrenomDuPere(htmlspecialchars($this->request->getPost('Prenom_pere')));
-          $user_parents->setMailDuPere(htmlspecialchars($this->request->getPost('mail_pere')));
-          $user_parents->setProfessionDuPere(htmlspecialchars($this->request->getPost('Profession_pere')));
-          $user_parents->setEntrepriseDuPere(htmlspecialchars($this->request->getPost('Entreprise_pere')));
-          $user_parents->setNomDeLaMere(htmlspecialchars($this->request->getPost('NOM_mere')));
-          $user_parents->setPrenomDeLaMere(htmlspecialchars($this->request->getPost('Prenom_mere')));
-          $user_parents->setMailDeLaMere(htmlspecialchars($this->request->getPost('mail_mere')));
-          $user_parents->setProfessionDeLaMere(htmlspecialchars($this->request->getPost('Profession_mere')));
-          $user_parents->setEntrepriseDeLaMere(htmlspecialchars($this->request->getPost('Entreprise_mere')));
-    
-        $user->Parents = $user_parents;
-    
-        $user_autorisation = new Autorisation();
-    
-          $user_autorisation->setUserId($user->getId());
-          $user_autorisation->setQuitterLeGymnase(htmlspecialchars($this->request->getPost('quitter_le_gymnase')));
-          $user_autorisation->setActesMedical(htmlspecialchars($this->request->getPost('actes_medical')));
 
-          $user->Autorisation = $user_autorisation;
+
+      $user_medical = new Medical();
+        $user_medical->setUserId($user->getId());
+        $user_medical->setFirstname(htmlspecialchars($this->request->getPost('nom_medical')));
+        $user_medical->setLastname(htmlspecialchars($this->request->getPost('Prenom_medical')));
+        $user_medical->setPhoneNumber(htmlspecialchars($this->request->getPost('n°_de_telephone_medical')));
+        $user_medical->setQuality(htmlspecialchars($this->request->getPost('qualite_medical')));
+        $user_medical->setProbleme(htmlspecialchars($this->request->getPost('probleme_medical')));
     
-          #check if there is any file
-          if($this->request->hasFiles() == true) {
-            $uploads = $this->request->getUploadedFiles();
-            $isUploaded = false;
-            #do a loop to handle each file individually
-            foreach ($uploads as $upload){
-              #define a “unique” name and a path to where our file must go
-              $path = ‘temp/’.md5(uniqid(rand(), true)).’-’.strtolower($upload->getname());
-              #move the file and simultaneously check if everything was ok
-              ($upload->moveTo($path)) ? $isUploaded = true : $isUploaded = false;
+      $user->Medical = $user_medical;          
+
+      $user_parents = new Parents();
+        $user_parents->setUserId($user->getId());
+        $user_parents->setNomDuPere(htmlspecialchars($this->request->getPost('NOM_pere')));
+        $user_parents->setPrenomDuPere(htmlspecialchars($this->request->getPost('Prenom_pere')));
+        $user_parents->setMailDuPere(htmlspecialchars($this->request->getPost('mail_pere')));
+        $user_parents->setProfessionDuPere(htmlspecialchars($this->request->getPost('Profession_pere')));
+        $user_parents->setEntrepriseDuPere(htmlspecialchars($this->request->getPost('Entreprise_pere')));
+        $user_parents->setNomDeLaMere(htmlspecialchars($this->request->getPost('NOM_mere')));
+        $user_parents->setPrenomDeLaMere(htmlspecialchars($this->request->getPost('Prenom_mere')));
+        $user_parents->setMailDeLaMere(htmlspecialchars($this->request->getPost('mail_mere')));
+        $user_parents->setProfessionDeLaMere(htmlspecialchars($this->request->getPost('Profession_mere')));
+        $user_parents->setEntrepriseDeLaMere(htmlspecialchars($this->request->getPost('Entreprise_mere')));
+
+      $user->Parents = $user_parents;
+
+      $user_autorisation = new Autorisation();
+        $user_autorisation->setUserId($user->getId());
+        $user_autorisation->setQuitterLeGymnase(htmlspecialchars($this->request->getPost('quitter_le_gymnase')));
+        $user_autorisation->setActesMedical(htmlspecialchars($this->request->getPost('actes_medical')));
+
+      $user->Autorisation = $user_autorisation;
+
+      if(isset($_FILES['photo']))
+      {
+        if($_FILES['photo']['size'] <= 3000000)
+        {
+          $infosfichiers = pathinfo($_FILES['photo']['name']);
+          $extension_uploads = $infosfichiers['extension'];
+          $extensions_autoriseess = array('jpg', 'jpeg', 'png');
+          if (in_array($extension_uploads, $extensions_autoriseess))
+          {
+            if(!file_exists("/var/www/html/projet5/public/uploadFiles/".$_POST['nom'].$_POST['Prenom'].""))
+            {
+              mkdir("/var/www/html/projet5/public/uploadFiles/".$_POST['nom'].$_POST['Prenom']."", 0777, true);
             }
+            $names = "/var/www/html/projet5/public/uploadFiles/".$_POST['nom'].$_POST['Prenom']."/photo.jpg";
+            $t = 1;
+            while(file_exists($names))
+            {
+              $names = "/var/www/html/projet5/public/uploadFiles/".$_POST['nom'].$_POST['Prenom']."/photo".$t.".jpg";
+              $t++;
+            }
+            move_uploaded_file($_FILES['photo']['tmp_name'], $names);
+            $documents = new Documents();
+            $documents->setPhoto($names);
+          }else{
+            exit("un problème technique est survenu");
           }
-          $this->view->user = $user;
-          $user->save();
-          if($user->save()) {
-            var_dump("l'utilisateur est enregistre");
-            return $this->response->redirect('mail/index?email='.$this->request->getPost('mail').'&nom='.$this->request->getPost('nom').'&prenom='.$this->request->getPost('Prenom').'');
-          }
-          /* $this->flashSession->success('Your information was stored correctly!');*/
-          //return $this->response->redirect('user/inscription');
+        }
       }
-    ///formulaire commun creation et renouvellement
+      if(isset($_FILES['certificat_medical']))
+      {
+        if($_FILES['certificat_medical']['size'] <= 3000000)
+        {
+          $infosfichier = pathinfo($_FILES['certificat_medical']['name']);
+          $extension_upload = $infosfichier['extension'];
+          $extensions_autorisees = array('jpg', 'jpeg', 'png');
+          if (in_array($extension_upload, $extensions_autorisees))
+          {
+            $name = "/var/www/html/projet5/public/uploadFiles/".$_POST['nom'].$_POST['Prenom']."/certificat_medical.jpg";
+            $i = 1;
+            while(file_exists($name))
+            {
+              $name = "/var/www/html/projet5/public/uploadFiles/".$_POST['nom'].$_POST['Prenom']."/certificat_medical".$i.".jpg";
+              $i++;
+            }
+            move_uploaded_file($_FILES['certificat_medical']['tmp_name'], $name);
+            $documents->setCertificat($name);
+            $user->Documents = $documents;
+
+          }else{
+            exit("un problème technique est survenu");
+          }
+        }
+      }
+      $user->save();
+      $messages = $validate->validate($_POST);
+      $this->view->messages = $messages;
+      if(empty($messages))
+      {
+        if($user->save()) {
+          return $this->response->redirect('mail/index?email='.$this->request->getPost('mail').'&nom='.$this->request->getPost('nom').'&prenom='.$this->request->getPost('Prenom').'');
+          return $this->response->redirect('user/inscription');    
+        }
+      }
+    }
   }
+  ///traitement creation
   public function deleteAction()
   {
     $identifiant = $this->session->get('identifiant');
@@ -975,6 +1175,22 @@ class UserController extends ControllerBase
     } else {
       echo "vous devez être authentifié";
       exit();
+    }
+  }
+  public function downloadAction() 
+  {
+    $file = urldecode($this->request->get('file'));
+
+    if (file_exists($file)) {
+      header('Content-Description: File Transfer');
+      header('Content-Type: application/octet-stream');
+      header('Content-Disposition: attachment; filename="'.basename($file).'"');
+      header('Expires: 0');
+      header('Cache-Control: must-revalidate');
+      header('Pragma: public');
+      header('Content-Length: ' . filesize($file));
+      readfile($file);
+      exit;
     }
   }
 }

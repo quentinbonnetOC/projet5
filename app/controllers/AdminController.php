@@ -29,9 +29,11 @@ class AdminController extends ControllerBase
 		//ceci est la page d'identification administrateur
         if ($this->request->isPost()) {
 			if(empty($this->request->getPost('identifiant'))||empty($this->request->getPost('motdepasse'))){
+				$_SESSION["flashSession"] = "Veuillez saisir un identifiant et un mot de passe";
 				$this->flashSession->warning("Veuillez saisir un identifiant et un mot de passe");
-				return $this->response->redirect('/'.$_SESSION['URL'].'');				
+				return $this->response->redirect(''.$_SESSION['URL'].'');				
 			}else{
+				//Récupération de l'admin depuis la bdd en fonction de l'identifiant renseigné dans le formulaire
 				$admin = Admin::findFirst([
 					"conditions" =>  "identifiant = :identifiant:",
 					"bind" => [
@@ -40,6 +42,7 @@ class AdminController extends ControllerBase
 				]);
 				$password = $this->request->getPost('motdepasse');
 				if ($admin) {
+					// Vérifiaction du mot de passe 
 					if ($this->security->checkHash($password, $admin->mdp)) {
 						$this->session->set('identifiant', htmlspecialchars($this->request->getPost('identifiant')));
 						$this->session->set('mdp', htmlspecialchars($this->request->getPost('motdepasse')));
@@ -52,11 +55,13 @@ class AdminController extends ControllerBase
 					
 					} else {
 						$this->security->hash(rand());
+						$_SESSION['flashSession'] = "Erreur de mot de passe";  
 						$this->flashSession->error("Erreur de mot de passe");
 						return $this->response->redirect('/'.$_SESSION['URL'].'');
 					}	
 				}else {
 					$this->security->hash(rand());
+					$_SESSION['flashSession'] = "Erreur d'identifiant";  
 					$this->flashSession->error("Erreur d'identifiant");
 					return $this->response->redirect('/'.$_SESSION['URL'].'');
 				}
@@ -128,7 +133,6 @@ class AdminController extends ControllerBase
 
 	public function addAction()
 	{
-
 	}
 	public function ajouterAction()
 	{

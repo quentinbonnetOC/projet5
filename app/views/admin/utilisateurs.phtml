@@ -1,18 +1,20 @@
 <?php $this->assets->outputCss(); ?>
 <?php $this->assets->outputCss(); ?>
-<div class="d-flex">
-  <div class="dropdown mr-1">
-    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-      <a class="dropdown-item" href="/admin">Accueil</a><br>
-      <a class="dropdown-item" href="/user">Mes adhérants</a><br>
-      <a class="dropdown-item" href="/information">Mes informations</a><br>
-      <a class="dropdown-item" href="/parametres">Mes parametres</a><br>
-      <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
+<nav>
+  <div class="d-flex">
+    <div class="dropdown mr-1">
+      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+        <a class="dropdown-item" href="/admin">Accueil</a><br>
+        <a class="dropdown-item" href="/user">Mes adhérants</a><br>
+        <a class="dropdown-item" href="/information">Mes informations</a><br>
+        <a class="dropdown-item" href="/parametres">Mes parametres</a><br>
+        <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
+      </div>
     </div>
   </div>
-</div>
+</nav>
 <a href="add">ajouter</a>
 <table class="display" id="myTable">
   <thead>
