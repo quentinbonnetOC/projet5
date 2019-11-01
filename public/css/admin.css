@@ -2,7 +2,11 @@
 {
 	background-color: rgb(206, 206, 206);
 	margin-top: 0.3%;
-
+}
+h1
+{
+	font-size: 20px;
+	text-align: center;
 }
 h3
 {
@@ -10,30 +14,69 @@ h3
 }
 .created
 {
+	width: 100%;
+	text-align: right;
 	font-size: 90%;
-	margin-left: 63%;
 	font-style: italic;
 }
-.logo2
+#logos
 {
-	margin-left: 72%;
+	display: flex;
+	justify-content: space-between;
+}
+#divHeaderChild
+{
+	display: flex;
+	justify-content: space-between;
+	/* text-align: right; */
+}
+.d-flex
+{
+	justify-content: space-between;
+}
+.btn > a
+{
+	text-decoration: none;
+	color: white;
 }
 #myCategorieTable_wrapper
 {
 	margin-top: 5%;
-	width: 50%;
-	float: left;
+	max-width: 50%;
+}
+#chart_div
+{
+	max-width: 50%;
 }
 th, tr, td
 {
 	border : 2px solid black;
 }
-#chart_div
+#data
 {
-	float: right;
-	margin-top: 11%;
+	display: flex;
+	justify-content: center;
 }
 rect
 {
 	display: none;
+}
+.row >.col-md-6, .row > .col-md-5, .row > .col-md-7
+{
+	display: none;
+}
+@media screen and (max-width: 425px){
+	#data
+	{
+		flex-direction: column;
+	}
+	.logo
+	{
+		margin-right: auto;
+		margin-left: auto;
+	}
+	.logo2
+	{
+		display: none;
+	}
 }

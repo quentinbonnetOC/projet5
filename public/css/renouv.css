@@ -7,71 +7,6 @@ p
 	font-size: 20px;
 	font-weight: bold;
 }
-
-/* input
-{
-	background-color: white;
-	margin-left: 15px;
-	margin-right: 10px;
-}
-input#a1, input#b1, input#Sexe
-{
-	width: 17px;
-	height: 18px;	
-}
-input#nom, input#Prenom, input#Ville
-{
-	width: 20%;
-}
-input#Adresse
-{
-	width: 60%;
-}
-input#Code_postal
-{
-	width: 7%;
-}
-input#Date_de_naissance
-{
-	width: 13%;
-}
-input#N°_de_telephone_portable, input#N°_de_telephone_fixe, input#n°_de_telephone_medical
-{
-	width: 11%;
-}
-input#mail, input#mail_pere, input#mail_mere
-{
-	width: 25%;
-}
-input#Taille
-{
-	width: 5%;
-}
-input#qualite
-{
-	width: 10%;
-}
-input#nom_medical
-{
-	width: 15%;
-}
-input#Prenom_medical
-{
-	width: 22%;
-}
-label, input
-{
-	margin-bottom: 2%;
-	margin-top: -5%;
-}
-label
-{
-	text-decoration: underline;
-}
-.sexe, .autorisation, .feminin, .masculin
-{
-	text-decoration: none;
-} */
 @media screen and (min-width: 768px){
 	.infos {
 		display: block;
@@ -93,20 +28,11 @@ input:read-only
 {
 	background-color : grey;	
 }
-/*.parents, .autorisations
-{
-	display: none;
-}*/
  form
 {
 	width: 75%;
     margin-left: 25%;
 } 
-/* input#certificat_medical, input#photo
-{
-	font-size: 15px;
-	height: 27px;
-} */
 p.certif
 {
 	height: 40px;

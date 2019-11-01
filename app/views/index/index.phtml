@@ -54,7 +54,7 @@
         <p><?php $this->flashSession->output() ?>
         </p>
       </div>
-      <?= $this->tag->form(['admin', 'method' => 'post']); ?>
+      <?= $this->tag->form([''.$_SESSION['URL'].'admin', 'method' => 'post']); ?>
       <div class="form-group">
         <label for="idt">identifiant : </label><br />
         <?= $this->tag->textField([
@@ -69,7 +69,7 @@
           'class' => 'form-control'
         ]); ?>
       </div>
-      <a href="/admin/mdp_forget?new=false">Mot de passe oublié</a>
+      <a href="<?php echo($_SESSION['URL']);?>admin/mdp_forget?new=false">Mot de passe oublié</a>
       <div class="button">
         <?= $this->tag->submitButton(
           [

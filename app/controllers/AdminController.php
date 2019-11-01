@@ -23,14 +23,14 @@ use Phalcon\Validation\Validator\Regex as RegexValidator;
 class AdminController extends ControllerBase
 {
     public function indexAction()
-    {   	
-    	$this->assets->addCss('css/admin.css');
-		$this->assets->addCss('css/menu.css');
+    {  
+    	$this->assets->addCss(''.$_SESSION['URL'].'public/css/admin.css');
+		$this->assets->addCss(''.$_SESSION['URL'].'public/css/menu.css');
 		//ceci est la page d'identification administrateur
         if ($this->request->isPost()) {
 			if(empty($this->request->getPost('identifiant'))||empty($this->request->getPost('motdepasse'))){
 				$this->flashSession->warning("Veuillez saisir un identifiant et un mot de passe");
-				return $this->response->redirect('/');				
+				return $this->response->redirect('/'.$_SESSION['URL'].'');				
 			}else{
 				$admin = Admin::findFirst([
 					"conditions" =>  "identifiant = :identifiant:",
@@ -53,12 +53,12 @@ class AdminController extends ControllerBase
 					} else {
 						$this->security->hash(rand());
 						$this->flashSession->error("Erreur de mot de passe");
-						return $this->response->redirect('/');
+						return $this->response->redirect('/'.$_SESSION['URL'].'');
 					}	
 				}else {
 					$this->security->hash(rand());
 					$this->flashSession->error("Erreur d'identifiant");
-					return $this->response->redirect('/');
+					return $this->response->redirect('/'.$_SESSION['URL'].'');
 				}
 			}		
 			$identifiant = $this->session->get('identifiant');
@@ -79,8 +79,8 @@ class AdminController extends ControllerBase
 	}
 	public function utilisateursAction()
 	{
-		$this->assets->addCss('css/utilisateurs.css');
-		$this->assets->addCss('css/menu.css');
+		$this->assets->addCss('/'.$_SESSION['URL'].'/public/css/utilisateurs.css');
+		$this->assets->addCss('/'.$_SESSION['URL'].'/public/css/menu.css');
 				
 		$identifiant = $this->session->get('identifiant');
 		$mdp = $this->session->get('mdp');
@@ -91,11 +91,11 @@ class AdminController extends ControllerBase
                 $this->view->utilisateurs = $utilisateurs;
 			}else{ 
 				$this->flashSession->warning("Vous n'avez pas acces à cette page");
-				return $this->response->redirect('/admin/index');
+				return $this->response->redirect('/'.$_SESSION['URL'].'/admin/index');
 			}
 		}else{
 			$this->flashSession->warning("Veuillez vous authentifiez");
-			return $this->response->redirect('/');
+			return $this->response->redirect('/'.$_SESSION['URL'].'');
 		}
 
 	}
@@ -116,14 +116,14 @@ class AdminController extends ControllerBase
 		$modification->setMdp($this->security->hash($password));
 
 		$modification->update();
-		return $this->response->redirect('admin/utilisateurs');
+		return $this->response->redirect('/'.$_SESSION['URL'].'/admin/utilisateurs');
 	}
 	public function deleteAction()
 	{
 		$id = $_GET['id'];
 		$delete = Admin::findFirstById($id);
 		$delete->delete();
-		return $this->response->redirect('admin/utilisateurs');
+		return $this->response->redirect('/'.$_SESSION['URL'].'/admin/utilisateurs');
 	}
 
 	public function addAction()
@@ -144,7 +144,7 @@ class AdminController extends ControllerBase
 		$ajouter->setPhoneNumber(htmlspecialchars($this->request->getPost('phone_number')));
 
 		$ajouter->save();
-		return $this->response->redirect('admin/utilisateurs');
+		return $this->response->redirect('/'.$_SESSION['URL'].'/admin/utilisateurs');
 	}
 	public function mdp_forgetAction()
 	{
@@ -167,7 +167,7 @@ class AdminController extends ControllerBase
 			]);
 			if($mdp_forget){
 				$this->flashSession->succes("Vous aller recevoir un email afin de réinitialiser votre mot de passe");
-				return $this->response->redirect('/');
+				return $this->response->redirect(''.$_SESSION['URL'].'/');
 				$this->session->set('mail', $mdp_forget->email);
 				$this->session->set('nb', rand());
 	
@@ -206,7 +206,7 @@ class AdminController extends ControllerBase
 				exit();
 			}else{
 				$this->flashSession->warning("l'adresse mail n'existe pas");
-				return $this->response->redirect('/');
+				return $this->response->redirect(''.$_SESSION['URL'].'/');
 			}
 		}
 	}
@@ -248,16 +248,16 @@ class AdminController extends ControllerBase
 					$new_password->update();
 					if($new_password->update()){
 						$this->flashSession->succes("Votre mot de passe a bien été modifié");
-						return $this->response->redirect('/');	
+						return $this->response->redirect(''.$_SESSION['URL'].'/');	
 						$this->session->destroy();
 						exit();						
 					}else{ 
 						$this->flashSession->warning("Un problème technique a empecher la création d'un nouveau mot de passe");
-						return $this->response->redirect('/');
+						return $this->response->redirect(''.$_SESSION['URL'].'/');
 					}
 				}else{
 					$this->flashSession->warning("les mots de passe ne sont pas identiques");
-					return $this->response->redirect('/');
+					return $this->response->redirect(''.$_SESSION['URL'].'/');
 				}		
 			}
 		}else{ ?>
@@ -309,14 +309,14 @@ class AdminController extends ControllerBase
 					$modif_mdp->update();
 					if($modif_mdp->update()){
 						$this->flashSession->succes("Votre mot de passe a bien été modifié");
-						return $this->response->redirect('/admin/index');			
+						return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');			
 					}else{
 						$this->flashSession->warning("Le mot de passe est incorrect");
-						return $this->response->redirect('/admin/index');	
+						return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');	
 					}
 				} 
 				$this->flashSession->warning("les mots de passe ne sont pas identiques");
-				return $this->response->redirect('/admin/index');
+				return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');
 			}
 		}
 	}
@@ -391,7 +391,7 @@ class AdminController extends ControllerBase
 			$profil->update();
 			if($profil->update()){
 				$this->flashSession->succes("Votre profil a bien été modifié");
-				return $this->response->redirect('/admin/index');
+				return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');
 				$this->session->set('identifiant', $this->request->getPost('identifiant'));
 				exit();
 			}
@@ -401,6 +401,6 @@ class AdminController extends ControllerBase
 	{
 		$this->session->destroy();
 		$this->flashSession->succes("vous avez bien été déconnecté");
-		return $this->response->redirect('/');		
+		return $this->response->redirect(''.$_SESSION['URL'].'/');		
 	}
 }

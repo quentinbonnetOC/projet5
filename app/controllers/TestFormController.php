@@ -8,41 +8,37 @@ use Phalcon\Validation\Validator\StringLength;
 
 class TestFormController extends Form
 {
-
     public function indexAction()
     {
         $form = new Form();
 
-$name = new Text(
-        'name'
-    );
-$name->addValidator(
-    new PresenceOf(
-        [
-            'message' => 'The name is required',
-        ]
-    )
-);
-$form->add($name);
+        $name = new Text(
+            'name'
+        );
+        $name->addValidator(
+            new PresenceOf(
+                [
+                    'message' => 'The name is required',
+                ]
+            )
+        );
+        $form->add($name);
 
-$form->add(
-    new Text(
-        'telephone'
-    )
-);
-
-$form->add(
-    new Select(
-        'telephoneType',
-        [
-            'H' => 'Home',
-            'C' => 'Cell',
-        ]
-    )
-);
-
-$this->view->form = $form;
-
+        $form->add(
+            new Text(
+                'telephone'
+            )
+        );
+        $form->add(
+            new Select(
+                'telephoneType',
+                [
+                    'H' => 'Home',
+                    'C' => 'Cell',
+                ]
+            )
+        );
+        $this->view->form = $form;
     }
 
 }

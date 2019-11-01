@@ -6,7 +6,7 @@ class IndexController extends ControllerBase
 	{
 		/*Ceci charge la page d'acceueil (view/index/index) */		
 		$request_uri = $_SESSION['request_uri'];
-		$this->assets->addCss(''.$request_uri.'css/accueil.css');
+		$this->assets->addCss(''.$_SESSION['URL'].'public/css/accueil.css');
 		$lastId = Dateinsc::maximum(
             [
                 "column" => "id"
@@ -26,7 +26,6 @@ class IndexController extends ControllerBase
     		$this->view->date2 = $dateFr2;
     	}else{
     		$this->view->date2 = "";
-		}
-				
+		}			
 	}
 }

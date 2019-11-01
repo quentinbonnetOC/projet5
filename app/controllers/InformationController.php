@@ -19,7 +19,6 @@ class InformationController extends \Phalcon\Mvc\Controller
     	$informations->save();
         return $this->response->redirect('information/index');
     	/*}*/
-    
     }
     public function deleteAction()
     {
@@ -27,8 +26,5 @@ class InformationController extends \Phalcon\Mvc\Controller
         $delete = Informations::findFirstById($id);
         $delete->delete();
         return $this->response->redirect('information/index');
-
     }
 }
-
-?>

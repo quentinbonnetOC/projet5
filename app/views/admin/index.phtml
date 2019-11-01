@@ -1,64 +1,4 @@
-<head> 
 <?php $this->assets->outputCss(); ?> 
-</head>
-
-<body>
-<header><img src="/img/log.png" class="logo">
-<img src="/img/log.png" class="logo2">
-<h3 class="nom_du_club">ASUL Lyon Basket</h3> 
-<h3 class="created">Créé par Quentin BONNET</h3></header>
-<div>
-  <p class="bienvenue" style="text-align:right">Bienvenue Mme/M. <?php echo strtoupper($this->session->get('name'))." "."(".$this->session->get('identifiant').")" ?></p>
-  <a style="text-align:right" href="/admin/delete_session">Déconnection</a>
-  
- <div>
-  <div class="d-flex" style="float:right">
-    <div class="dropdown mr-1">
-      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">Profil
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-        <a class="dropdown-item" href="/admin/change_mdp">Changer mon mot de passe</a><br>
-        <a class="dropdown-item" href="/admin/changeProfil">Modifier mon profil</a><br>
-      </div>
-    </div>
-  </div>	
-</div>
-
-</div>
-<div class="d-flex">
-  <div class="dropdown mr-1">
-    <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-      <a class="dropdown-item" href="/admin">Accueil</a><br>
-      <a class="dropdown-item" href="/user">Mes adhérants</a><br>
-      <a class="dropdown-item" href="/information">Mes informations</a><br>
-      <a class="dropdown-item" href="/parametres">Mes parametres</a><br>
-     <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
-    </div>
-  </div>
- </div>	
-
-<h1>Accueil</h1>
-<h2>Bienvenue sur votre espace administrateurs M./Mme <?php echo strtoupper($name); ?></h2>
-
-<table id="myCategorieTable">
-  <thead>
-    <th>Equipes</th>
-   <th>Nombre d'inscrit</th>
-  </thead>
-  <tbody>
-  <?php
-  
-  foreach ($categories as $key => $categorie) {?>
-    <tr><td><?php echo $key; ?></td>
-    <td><?php echo $categorie; ?></td></tr>
-    <?php
-  } ?>
-  </tbody>
-</table>
-
-<!-- google chart -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
@@ -79,12 +19,63 @@
   <?php
   }
   ?>
-  var options = {
-    'width':500,
-    'height':300
-  };
   var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
+  chart.draw(data);
   }
 </script>
-<div id="chart_div"></div>
+<header>
+  <div id="logos">
+    <img src="<?php echo($_SESSION['URL']);?>public/img/log.png" alt="logo" class="logo">
+    <img src="<?php echo($_SESSION['URL']);?>public/img/log.png" alt="logo" class="logo2">
+  </div>
+  <h3 class="created">Créé par Quentin BONNET</h3>
+  <div id="divHeaderChild">
+    <p class="bienvenue">Bienvenue Mme/M. <?php echo strtoupper($this->session->get('name'))." "."(".$this->session->get('identifiant').")" ?></p>
+    <button type="button" class="btn btn-danger"><a href="<?php echo($_SESSION['URL']);?>/admin/delete_session">Déconnection</a></button>
+  </div>
+</header>
+<nav>
+  <div class="d-flex">
+    <div class="dropdown mr-1">
+      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">menu</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+        <a class="dropdown-item" href="/admin">Accueil</a><br>
+        <a class="dropdown-item" href="/user">Mes adhérants</a><br>
+        <a class="dropdown-item" href="/information">Mes informations</a><br>
+        <a class="dropdown-item" href="/parametres">Mes parametres</a><br>
+      <?php if ($this->session->get('fonction')=="super-admin"){?> <a class="dropdown-item" href="/admin/utilisateurs">Utilisateur</a><?php }?>
+      </div>
+    </div>
+    <div class="dropdown mr-1">
+      <button type="button" class="btn btn-secondary dropdown-toggle" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-offset="10,20">Profil</button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+        <a class="dropdown-item" href="/admin/change_mdp">Changer mon mot de passe</a><br>
+        <a class="dropdown-item" href="/admin/changeProfil">Modifier mon profil</a><br>
+      </div>
+    </div>
+  </div>	
+</nav>
+<section>
+  <h1>Bienvenue sur votre espace administrateurs M./Mme <?php echo strtoupper($name); ?></h1>
+  <div id="data">
+    <table id="myCategorieTable">
+      <thead>
+        <th>Equipes</th>
+        <th>Nombre d'inscrit</th>
+      </thead>
+      <tbody>
+      <?php foreach ($categories as $key => $categorie) { ?>
+        <tr>
+          <td><?php echo $key; ?></td>
+          <td><?php echo $categorie; ?></td>
+        </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+    <!-- google chart -->
+  
+    <div id="chart_div"></div>
+  </div>
+</section>
+</div>
+

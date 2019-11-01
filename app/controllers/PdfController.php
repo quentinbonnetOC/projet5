@@ -4,7 +4,6 @@ use mikehaertl\pdftk\Pdf;
 
 class PdfController extends \Phalcon\Mvc\Controller
 {
-
     public function indexAction()
     {
         // Fill form with data array

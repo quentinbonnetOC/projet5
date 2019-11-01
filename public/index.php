@@ -6,9 +6,9 @@ error_reporting(E_ALL);
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/app');
 if($_SERVER['SERVER_NAME']=="localhost"){ 
-    $_SESSION['request_uri'] = $_SERVER['REQUEST_URI']."public/";
+    $_SESSION['URL'] = "/projet5/";
 }else if($_SERVER['SERVER_NAME']=="projet5.quentin-bonnet.fr"){
-    $_SESSION['request_uri'] = "/public/";
+    $_SESSION['URL'] = "/";
 
 }else{
     var_dump($_SERVER['SERVER_NAME']);die();

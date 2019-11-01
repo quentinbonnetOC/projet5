@@ -2,7 +2,6 @@
 
 class MailController extends \Phalcon\Mvc\Controller
 {
-
     public function indexAction()
     {
         //Variables du formulaire
@@ -31,8 +30,5 @@ class MailController extends \Phalcon\Mvc\Controller
         //Envoi du mail
         mail($email, $objet, $contenu, $entetes);
         return $this->response->redirect('user/inscription');
-
-        
     }
 }
-

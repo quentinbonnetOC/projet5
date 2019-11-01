@@ -2,10 +2,17 @@ td, body
 {
 	background-color: rgb(206, 206, 206);
 }
-body
+.container
 {
-	margin-left: -35% !important;
 	margin-top: 5% !important;
+}
+.btn, tbody
+{
+	font-size: 12px;
+}
+thead tr 
+{
+	font-size: 14px;
 }
 img
 {

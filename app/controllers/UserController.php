@@ -26,9 +26,9 @@ class UserController extends ControllerBase
 {
   public function indexAction()
   {
-    $this->assets->addCss('css/main.css');
-    $this->assets->addCss('css/menu.css');
-    $this->assets->addCss('css/user.css');
+    $this->assets->addCss('/'.$_SESSION['URL'].'/css/main.css');
+    $this->assets->addCss('/'.$_SESSION['URL'].'/css/menu.css');
+    $this->assets->addCss('/'.$_SESSION['URL'].'/css/user.css');
 
     $identifiant = $this->session->get('identifiant');
     $mdp = $this->session->get('mdp');

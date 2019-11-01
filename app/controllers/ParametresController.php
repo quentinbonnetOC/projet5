@@ -2,7 +2,6 @@
 
 class ParametresController extends \Phalcon\Mvc\Controller
 {
-
     public function indexAction()
     {
         $this->assets->addCss('css/menu.css');
@@ -10,7 +9,6 @@ class ParametresController extends \Phalcon\Mvc\Controller
         $idmax = Dateinsc::maximum(
         [
             "column" => "id"
-
         ]);   
     	$date1 = Dateinsc::findFirstById($idmax-1);
     	if ($date1!=false){
@@ -38,4 +36,3 @@ class ParametresController extends \Phalcon\Mvc\Controller
 	
     }
 }
-

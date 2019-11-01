@@ -59,7 +59,9 @@
       <td><?php echo $birthdateFr ; ?>
       </td>
       <td><?php echo $user->getCategorie(); ?>
-        <!-- Button trigger modal -->
+      
+      
+      <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#categories<?php echo $user->getId(); ?>">
           modifier
         </button>
@@ -71,7 +73,8 @@
               <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalCenterTitle">Catégories</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                  <!-- <span aria-hidden="true">&times;</span> -->
+                  <span aria-hidden="true">X</span>
                 </button>
               </div>
               <div class="modal-body">
@@ -207,9 +210,9 @@
       <td><?php echo $user->getTaille(); ?>
       </td>
       <td><a href="/user/update?id=<?php echo $user->getID(); ?>"><img
-            src="/img/modif.png"></a></td>
+            src="/<?php echo($_SESSION['URL']);?>/public/img/modif.png"></a></td>
       <td><a href="/user/delete?id=<?php echo $user->getID(); ?>"><img
-            src="/img/supprimer.png"></a></td>
+            src="/<?php echo($_SESSION['URL']);?>/public/img/supprimer.png"></a></td>
       <td>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter<?php echo $user->getId(); ?>">
           Voir plus

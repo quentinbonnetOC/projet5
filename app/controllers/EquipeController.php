@@ -2,7 +2,6 @@
 
 class EquipeController extends \Phalcon\Mvc\Controller
 {
-
     public function indexAction()
     {
     	$identifiant = $this->session->get('identifiant');
