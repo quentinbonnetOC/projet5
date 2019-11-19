@@ -32,7 +32,9 @@ class AdminController extends ControllerBase
 				$_SESSION["flashSession"] = "Veuillez saisir un identifiant et un mot de passe";
 				$this->flashSession->warning("Veuillez saisir un identifiant et un mot de passe");
 				return $this->response->redirect(''.$_SESSION['URL'].'');				
-			}else{
+			}
+			else
+			{
 				//Récupération de l'admin depuis la bdd en fonction de l'identifiant renseigné dans le formulaire
 				$admin = Admin::findFirst([
 					"conditions" =>  "identifiant = :identifiant:",
@@ -50,37 +52,48 @@ class AdminController extends ControllerBase
 						$this->session->set('fonction', $admin->getFonction());
 						$identifiant = $this->session->get('identifiant');
 						$mdp = $this->session->get('mdp');
-						
 						$fonction = $this->session->get('fonction');	
-					
-					} else {
+						admin(); // on accede à la page admin
+
+					} 
+					else 
+					{
 						$this->security->hash(rand());
 						$_SESSION['flashSession'] = "Erreur de mot de passe";  
 						$this->flashSession->error("Erreur de mot de passe");
 						return $this->response->redirect('/'.$_SESSION['URL'].'');
 					}	
-				}else {
+				} 
+				else 
+				{
 					$this->security->hash(rand());
 					$_SESSION['flashSession'] = "Erreur d'identifiant";  
 					$this->flashSession->error("Erreur d'identifiant");
 					return $this->response->redirect('/'.$_SESSION['URL'].'');
 				}
-			}		
-			$identifiant = $this->session->get('identifiant');
-			$mdp = $this->session->get('mdp');
-			$name = $this->session->get('name');
-			$this->view->name = $name;
-			$users = Users::find();
-			$categories = array();
-			foreach ($users as $key => $user) {
-				if (!array_key_exists($user->categorie, $categories)) {
-					$categories[$user->categorie] = 1;
-				} else {
-					$categories[$user->categorie] += 1;
-				}
 			}
-			$this->view->categories = $categories;
 		}
+	}
+	private function admin()
+	{
+		$identifiant = $this->session->get('identifiant');
+		$mdp = $this->session->get('mdp');
+		$name = $this->session->get('name');
+		$this->view->name = $name;
+		$users = Users::find();
+		$categories = array();
+		foreach ($users as $user) 
+		{
+			if (!array_key_exists($user->categorie, $categories)) 
+			{
+				$categories[$user->categorie] = 1;
+			} 
+			else 
+			{
+				$categories[$user->categorie] += 1;
+			}
+		}
+		$this->view->categories = $categories;
 	}
 	public function utilisateursAction()
 	{
@@ -91,14 +104,19 @@ class AdminController extends ControllerBase
 		$mdp = $this->session->get('mdp');
 		$fonction = $this->session->get('fonction');
 		if(isset($identifiant)&&isset($mdp)){
-            if ($fonction=="super-admin") {
+			if ($fonction=="super-admin") 
+			{
                 $utilisateurs = Admin::find();
                 $this->view->utilisateurs = $utilisateurs;
-			}else{ 
+			}
+			else
+			{ 
 				$this->flashSession->warning("Vous n'avez pas acces à cette page");
 				return $this->response->redirect('/'.$_SESSION['URL'].'/admin/index');
 			}
-		}else{
+		}
+		else
+		{
 			$this->flashSession->warning("Veuillez vous authentifiez");
 			return $this->response->redirect('/'.$_SESSION['URL'].'');
 		}
@@ -162,20 +180,20 @@ class AdminController extends ControllerBase
 
 		$this->view->form = $form;
 
-		if($_POST['envoyer']){
+		if($_POST['envoyer'])
+		{
 			$mdp_forget = Admin::findFirst([
 				"conditions" =>  "email = :email:",
 				"bind" => [
 					"email" => $this->request->getPost('email'),
 				]
 			]);
-			if($mdp_forget){
+			if($mdp_forget)
+			{
 				$this->flashSession->succes("Vous aller recevoir un email afin de réinitialiser votre mot de passe");
 				return $this->response->redirect(''.$_SESSION['URL'].'/');
 				$this->session->set('mail', $mdp_forget->email);
 				$this->session->set('nb', rand());
-	
-				
 				//Variables du formulaire
 				$mail = $mdp_forget->email;
 				$nom = $mdp_forget->nom;
@@ -206,9 +224,10 @@ class AdminController extends ControllerBase
 										
 				//Envoi du mail
 				mail($mail, $objet, $contenu, $entetes);
-
 				exit();
-			}else{
+			}
+			else
+			{
 				$this->flashSession->warning("l'adresse mail n'existe pas");
 				return $this->response->redirect(''.$_SESSION['URL'].'/');
 			}
@@ -216,7 +235,8 @@ class AdminController extends ControllerBase
 	}
 	public function mdp_forget_traitementAction()
 	{
-		if($this->session->has('mail')&&$_GET['id']==$this->session->get('nb')){
+		if($this->session->has('mail')&&$_GET['id']==$this->session->get('nb'))
+		{
 			$form = new form;
 
 			$nouveau_mdp = new password(
@@ -233,7 +253,8 @@ class AdminController extends ControllerBase
 
 			$this->view->form = $form;
 
-			if(isset($_POST['envoyer'])){
+			if(isset($_POST['envoyer']))
+			{
 				$new_Mdp = $this->request->getPost('password');
 				$confirm_New_Mdp = $this->request->getPost('confirm_nouveau_mdp');
 				//$mail = $this->session->get('mail');
@@ -250,21 +271,28 @@ class AdminController extends ControllerBase
 						);
 					$new_password->setMdp($this->security->hash(htmlspecialchars($this->request->getPost('password')))); 
 					$new_password->update();
-					if($new_password->update()){
+					if($new_password->update())
+					{
 						$this->flashSession->succes("Votre mot de passe a bien été modifié");
 						return $this->response->redirect(''.$_SESSION['URL'].'/');	
 						$this->session->destroy();
 						exit();						
-					}else{ 
+					}
+					else
+					{ 
 						$this->flashSession->warning("Un problème technique a empecher la création d'un nouveau mot de passe");
 						return $this->response->redirect(''.$_SESSION['URL'].'/');
 					}
-				}else{
+				}
+				else
+				{
 					$this->flashSession->warning("les mots de passe ne sont pas identiques");
 					return $this->response->redirect(''.$_SESSION['URL'].'/');
 				}		
 			}
-		}else{ ?>
+		}
+		else
+		{ ?>
 			<script> alert("ALERTE !!! Une tentative intrusion a été détecté. Votre adresse IP a été enregistré.");</script>
 			<?php exit();
 
@@ -294,12 +322,14 @@ class AdminController extends ControllerBase
 
 		$this->view->form = $form; 
 
-		if(isset($_POST['envoyer'])){
+		if(isset($_POST['envoyer']))
+		{
 			$identifiants = $this->session->get('identifiant');
 			$mdp_saisi = $this->request->getPost('old_Mdp');
 			$new_Mdp = $this->request->getPost('new_Mdp');
 			$confirm_New_Mdp = $this->request->getPost('confirm_New_Mdp');
-			if($new_Mdp==$confirm_New_Mdp){	
+			if($new_Mdp == $confirm_New_Mdp)
+			{	
 				$modif_mdp = Admin::findFirst(
 					[
 						'conditions' => "identifiant LIKE :identifiants:",
@@ -308,13 +338,17 @@ class AdminController extends ControllerBase
 						],
 					]
 					);
-				if ($this->security->checkHash($mdp_saisi, $modif_mdp->getMdp())) {
+				if ($this->security->checkHash($mdp_saisi, $modif_mdp->getMdp())) 
+				{
 					$modif_mdp->setMdp($this->security->hash(htmlspecialchars($this->request->getPost('new_Mdp')))); 
 					$modif_mdp->update();
-					if($modif_mdp->update()){
+					if($modif_mdp->update())
+					{
 						$this->flashSession->succes("Votre mot de passe a bien été modifié");
 						return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');			
-					}else{
+					}
+					else
+					{
 						$this->flashSession->warning("Le mot de passe est incorrect");
 						return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');	
 					}
@@ -386,14 +420,16 @@ class AdminController extends ControllerBase
 		$phone_number->setAttribute('required', 'required');
 		$form->add($phone_number);
 		$this->view->form = $form;
-        if ($_POST['envoyer']) {
+		if ($_POST['envoyer']) 
+		{
             $profil->setIdentifiant($this->request->getPost('identifiant'));
             $profil->setNom($this->request->getPost('lastname'));
             $profil->setPrenom($this->request->getPost('firstname'));
             $profil->setEmail($this->request->getPost('email'));
 			$profil->setPhoneNumber($this->request->getPost('phone_number'));
 			$profil->update();
-			if($profil->update()){
+			if($profil->update())
+			{
 				$this->flashSession->succes("Votre profil a bien été modifié");
 				return $this->response->redirect(''.$_SESSION['URL'].'/admin/index');
 				$this->session->set('identifiant', $this->request->getPost('identifiant'));

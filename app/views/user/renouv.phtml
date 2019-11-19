@@ -1,153 +1,294 @@
 <?= $this->assets->outputCss(); ?>
 <?= $this->assets->outputJs(); ?>
 <?php 
-$x = 0;
-foreach ($user as $users) { $x++;?>
-
-    <form method="post" id="example-form<?php echo $x;?>" enctype="multipart/form-data">
-    <div class="tata">
-        <h3>Identité</h3>
-        <section id="identite">
-            <label for="name">Nom : </label>
-            <?php echo $form->render("nom".$x.""); ?>
-        </section>
-    </div>
-            </form>
-<?php };die();?>
-<?php if(!empty($user)){ ?>
+if(isset($nb)&& $nb>1)
+{ ?>
 <div class="accordion" id="accordionExample">
     <?php 
-    foreach ($user as $users) { ?>
+    for ($i=1 ; $i <= $nb; $i++) { ?>
         <div class="card">
-            <div class="card-header" id="headingOne<?php echo($x);?>">
+            <div class="card-header" id="headingOne<?php echo($i);?>">
                 <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo($x);?>" aria-expanded="true" aria-controls="collapseOne">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne<?php echo($i);?>" aria-expanded="true" aria-controls="collapseOne">
                     <?php
-                        echo $users->lastname;
+                        echo $values["lastname"][$i];
                         echo " ";
-                        echo $users->firstname; 
+                        echo $values["firstname"][$i]; 
                     ?>
                     </button>
                 </h5>
             </div>
-            <div id="collapseOne<?php echo($x);?>" class="collapse" aria-labelledby="headingOne<?php echo($x);?>" data-parent="#accordionExample">
+            <div id="collapseOne<?php echo($i);?>" class="collapse" aria-labelledby="headingOne<?php echo($i);?>" data-parent="#accordionExample">
                 <div class="card-body">
                     <?php
                         $licencie = 1;
                     ?>
-                    <form method="post" id="example-form<?php echo $x;?>" enctype="multipart/form-data">
+                    <form method="post" id="example-form<?php echo $i;?>" enctype="multipart/form-data">
                         <div class="tata">
                             <h3>Identité</h3>
                             <section id="identite">
                                 <label for="name">Nom : </label>
-                                <?php echo $form->render("nom"); ?>
+                                <?php echo $form->render("nom", 
+                                    [
+                                        'value' => $values["lastname"][$i]
+                                    ]
+                                ); ?>
+                                
                                 <label for="Prenom">Prénom : </label>
-                                <?php echo $form->render("Prenom"); ?>                
+                                <?php echo $form->render("Prenom",
+                                    [
+                                        'value' => $values["firstname"][$i]
+                                    ]
+                                ); ?>    
                                 <label for="Address">Adresse : </label>
-                                <?php echo $form->render("Adresse"); ?>            
+                                <?php echo $form->render("Adresse",
+                                    [
+                                        'value' => $values["address"][$i]
+                                    ]
+                                ); ?> 
                                 <label for="Code_postal">Code postal : </label>
-                                <?php echo $form->render("Code_postal"); ?>   
+                                <?php echo $form->render("Code_postal",
+                                    [
+                                        'value' => $values["postal_code"][$i]
+                                    ]
+                                ); ?>   
                                 <label for="Ville">Ville : </label>
-                                <?php echo $form->render("Ville"); ?>
-                                <label>Sexe : </label>         
+                                <?php echo $form->render("Ville",
+                                    [
+                                        'value' => $values["city"][$i]
+                                    ]
+                                ); ?>
+                                <label>Sexe : </label>    
+                                   
                                 <div class="form-check">
-                                    <?php echo $form->render("Feminin"); ?>
+                                    <?php if($values["Sexe"][$i]=="Feminin")
+                                    {
+                                        echo $form->render("Feminin",
+                                            [
+                                                'checked' => "checked"
+                                            ]
+                                        );
+                                    }else{
+                                        echo $form->render("Feminin");
+                                    }?>
                                     <label for="Feminin" class="form-check-label feminin">Féminin</label>
                                 </div>
                                 <div class="form-check">
-                                    <?php echo $form->render("Masculin"); ?>
+                                    <?php if($values["Sexe"][$i]=="Masculin")
+                                    {
+                                        echo $form->render("Masculin",
+                                            [
+                                                'checked' => "checked"
+                                            ]
+                                        );
+                                    }else{
+                                        echo $form->render("Masculin");
+                                    }?>
                                     <label for="Masculin" class="form-check-label masculin">Masculin</label>
                                 </div>
                             </section>
                             <h3>Identité (Suite)</h3>
                             <section id="identite_suite">
                                 <label for="Date_de_naissance">Date de naissance : </label>
-                                <?php echo $form->render("Date_de_naissance"); ?>        
+                                <?php echo $form->render("Date_de_naissance",
+                                    [
+                                        'value' => $values['birthdate'][$i]
+                                    ]
+                                ); ?>        
                                 <label for="N°_de_telephone_portable">N° de téléphone portable : </label>
-                                <?php echo $form->render("N°_de_telephone_portable"); ?>     
+                                <?php echo $form->render("N°_de_telephone_portable",
+                                    [
+                                        'value' => $values['phone_number'][$i]
+                                    ]
+                                ); ?>     
                                 <label for="N°_de_telephone_fixe">N° de téléphone fixe : </label>
-                                <?php echo $form->render("N°_de_telephone_fixe"); ?>
+                                <?php echo $form->render("N°_de_telephone_fixe",
+                                    [
+                                        'value' => $values['fix_phone'][$i]
+                                    ]
+                                ); ?>
                                 <label for="mail">Mail : </label>
-                                <?php echo $form->render("mail"); ?>
+                                <?php echo $form->render("mail",
+                                    [
+                                        'value' => $values['mail'][$i]
+                                    ]
+                                ); ?>
                                 <label for="Taille">Taille : </label>
-                                <?php echo $form->render("Taille"); ?>
+                                <?php echo $form->render("Taille",
+                                    [
+                                        'value' => $values['taille'][$i]
+                                    ]
+                                ); ?>
                             </section>
                             <h3>Médical</h3>
                             <section id="medical">
                                 <h2>MÉDICAL</h2>
-                                <?php $medical = $users->getMedical(); ?>
                                 <p class="title_medical">Personnes à contacter en cas d"urgence</p>
                                 <label for="nom_medical">Nom :</label>
-                                <?php echo $form->render("nom_medical"); ?>
+                                <?php echo $form->render("nom_medical",
+                                    [
+                                        'value' => $values['medical_firstname'][$i]
+                                    ]
+                                ); ?>
                                 <label for="Prenom_medical">Prénom : </label>
-                                <?php echo $form->render("Prenom_medical"); ?>
+                                <?php echo $form->render("Prenom_medical",
+                                    [
+                                        'value' => $values['medical_lastname'][$i]
+                                    ]
+                                ); ?>
                                 <label for="n°_de_telephone_medical">N° de téléphone : </label>
-                                <?php echo $form->render("n°_de_telephone_medical"); ?>
+                                <?php echo $form->render("n°_de_telephone_medical",
+                                    [
+                                        'value' => $values['medical_phone_number'][$i]
+                                    ]
+                                ); ?>
                                 <label for="qualite_medical">Qualité : </label>
-                                <?php echo $form->render("qualite_medical"); ?>  
+                                <?php echo $form->render("qualite_medical",
+                                    [
+                                        'value' => $values['quality'][$i]
+                                    ]
+                                ); ?> 
+                                <!-- <label for="probleme">Probleme médical : </label>
+                                <?php /*echo $form->render("probleme",
+                                    [
+                                        'value' => $values["probleme"][$i]
+                                    ]
+                                ); */?> -->
                             </section>
                             <h3>Parents (Père)</h3>
                             <section id="parents_pere">
                                 <h2>PARENTS</h2>
                                 <p>Père</p>
-                                <?php $parents = $users->getParents(); ?>
-
                                 <label for="Nom">Nom : </label>
-                                <?php echo $form->render("NOM_pere");?>
+                                <?php echo $form->render("NOM_pere",
+                                    [
+                                        'value' => $values['nom_du_pere'][$i]
+                                    ]
+                                );?>
                                             
                                 <label for="Prenom">Prénom : </label>
-                                <?php echo $form->render("Prenom_pere");?>
+                                <?php echo $form->render("Prenom_pere",
+                                    [
+                                        'value' => $values['prenom_du_pere'][$i]
+                                    ]
+                                );?>
 
                                 <label for="mail">e-mail : </label>
-                                <?php echo $form->render("mail_pere");?>
+                                <?php echo $form->render("mail_pere",
+                                    [
+                                        'value' => $values['mail_du_pere'][$i]
+                                    ]
+                                );?>
                                             
                                 <label for="Profession">Profession : </label>
-                                <?php echo $form->render("Profession_pere");?>
+                                <?php echo $form->render("Profession_pere",
+                                    [
+                                        'value' => $values['profession_du_pere'][$i]
+                                    ]
+                                );?>
                                             
                                 <label for="Entreprise">Entreprise : </label>
-                                <?php echo $form->render("Entreprise_pere");?>
+                                <?php echo $form->render("Entreprise_pere",
+                                    [
+                                        'value' => $values['entreprise_du_pere'][$i]
+                                    ]
+                                );?>
                             </section>
                             <h3>Parents (Mère)</h3>
                             <section id="parents_mere">
                                 <p>Mère</p>
 
                                 <label for="Nom">Nom : </label>
-                                <?php echo $form->render("NOM_mere");?>
+                                <?php echo $form->render("NOM_mere",
+                                    [
+                                        'value' => $values['nom_de_la_mere'][$i]
+                                    ]
+                                );?>
                                             
                                 <label for="Prenom">Prénom : </label>
-                                <?php echo $form->render("Prenom_mere");?>
+                                <?php echo $form->render("Prenom_mere",
+                                    [
+                                        'value' => $values['prenom_de_la_mere'][$i]
+                                    ]
+                                );?>
                                             
                                 <label for="mail">e-mail : </label>
-                                <?php echo $form->render("mail_mere");?>
+                                <?php echo $form->render("mail_mere",
+                                    [
+                                        'value' => $values['mail_de_la_mere'][$i]
+                                    ]
+                                );?>
                                             
                                 <label for="Profession">Profession : </label>
-                                <?php echo $form->render("Profession_mere");?>
+                                <?php echo $form->render("Profession_mere",
+                                    [
+                                        'value' => $values['profession_de_la_mere'][$i]
+                                    ]
+                                );?>
 
                                 <label for="Entreprise">Entreprise : </label>
-                                <?php echo $form->render("Entreprise_mere");?>
+                                <?php echo $form->render("Entreprise_mere",
+                                    [
+                                        'value' => $values['entreprise_de_la_mere'][$i]
+                                    ]
+                                );?>
                             </section>
                             <h3>Autorisations</h3>
                             <section>
                                 <h2>AUTORISATIONS</h2>
                                 <p>J'autorise mon enfant à quitter seul le gymnase</p>
-                                <?php $autorisations = $users->getAutorisation(); ?>
                                 <div class="form-check">
-                                    <?php echo $form->render("quitter_le_gymnase_oui");?>
+                                    <?php if($values['quitter_le_gymnase'][$i]=="oui")
+                                    {
+                                        echo $form->render("quitter_le_gymnase_oui",
+                                            [
+                                                'checked' => 'checked'
+                                            ]);
+                                    }else{ 
+                                        echo $form->render("quitter_le_gymnase_oui");
+                                    } ?>
                                     <label for="quitter_le_gymnase_oui" class="form-check-label autorisation">oui</label>
                                 </div>
                                 <div class="form-check">   
-                                    <?php echo $form->render("quitter_le_gymnase_non");?>
+                                    <?php if($values["quitter_le_gymnase"][$i]=="non")
+                                    {
+                                        echo $form->render("quitter_le_gymnase_non",
+                                            [
+                                                'checked' => 'checked'
+                                            ]
+                                        );
+                                    }else{
+                                        echo $form->render("quitter_le_gymnase_non");
+                                    }?>
                                     <label for="quitter_le_gymnase_non" class="form-check-label autorisation">non</label>
                                 </div>        
                                 <p>En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes
                                                 médicalements
                                                 nécessaire ? </p>
                                 <div class="form-check">
-                                    <?php echo $form->render("actes_medical_oui");?>
+                                    <?php if($values['actes_medical'][$i]== "oui")
+                                    {
+                                        echo $form->render("actes_medical_oui",
+                                            [
+                                                'checked' => 'checked'
+                                            ]
+                                        );
+                                    }else{
+                                        echo $form->render("actes_medical_oui"); 
+                                    }?>
                                     <label for="actes_medical_oui" class="autorisation">oui</label>
                                 </div>
                                 <div class="form-check">
-                                    <?php echo $form->render("actes_medical_non");?>
+                                    <?php if($values['actes_medical'][$i]=="non")
+                                    {
+                                        echo $form->render("actes_medical_non",
+                                            [
+                                                'checked' => 'checked'
+                                            ]
+                                        );
+                                    }else{
+                                        echo $form->render("actes_medical_non");
+                                    }?>
                                     <label for="actes_medical_non" class="autorisation">non</label>
                                 </div>
                             </section>
@@ -176,8 +317,7 @@ foreach ($user as $users) { $x++;?>
             </div>
         </div>
         <script>
-            var string1 = "";
-            var form1 = $("#example-form<?php echo($x);?>");
+            var form1 = $("#example-form<?php echo($i);?>");
             form1.children(".tata").steps({
                 headerTag: "h3",
                 bodyTag: "section",
@@ -226,15 +366,16 @@ foreach ($user as $users) { $x++;?>
                 },
                 onFinished :function(event, currentIndex){
                     alert("toto");
-                    $("form[name=formRenouv<?php echo $x; ?>]").submit();
+                    $("form[name=formRenouv<?php echo $i; ?>]").submit();
                 }
             });
         </script>
-        <?php $x++;?>
-
     <?php }?>
 </div>
-<?php }else{ ?>
+<?php 
+}
+else
+{ ?>
     <h1 class="title">FICHE DE RENSEIGNEMENTS </h1>
     <!-- informations latérales -->
     <link rel="stylesheet" href="public/css/renouvbis.css">
@@ -254,7 +395,7 @@ foreach ($user as $users) { $x++;?>
         </div>
     </div>
     <!-- -->
-    <form method="post" id="example-form" name="formRenouv" enctype="multipart/form-data">
+    <form method="post" id="example-form" name="formRenouv" enctype="multipart/form-data" action="#">
         <div class="tata" id="tata">
             <h3>
                 Identité
@@ -316,7 +457,7 @@ foreach ($user as $users) { $x++;?>
             <h3>Médical</h3>
             <section>
                 <div class="medical">
-                    <p class="title_medical">Personnes à contacter en cas d"urgence</p>
+                    <p class="title_medical">Personnes à contacter en cas d'urgence</p>
                     <div class="form-group">
                         <label for="nom_medical">Nom :</label>
                         <?php echo $form->render("nom_medical"); ?>
@@ -339,7 +480,6 @@ foreach ($user as $users) { $x++;?>
                     </div>
                 </div>
             </section>
-            <!-- <div id="test"></div> -->
             <h3 id="parents">Parents (Père)</h3>
             <section id="parent">
                 <p>Père</p>
@@ -391,7 +531,7 @@ foreach ($user as $users) { $x++;?>
             <h3>Autorisations</h3>
             <section>
                 <div class="autorisations">
-                    <p>J"autorise mon enfant à quitter seul le gymnase</p>
+                    <p>J'autorise mon enfant à quitter seul le gymnase</p>
                     <div class="form-check">
                         <?php echo $form->render("quitter_le_gymnase_oui"); ?>
                         <label for="quitter_le_gymnase_oui" class="form-check-label autorisation">oui</label>
@@ -401,16 +541,16 @@ foreach ($user as $users) { $x++;?>
                         <label for="quitter_le_gymnase_non" class="form-check-label autorisation">non</label>
                     </div>
                     <p>
-                        En cas d"urgence, j"autorise les responsable de l"ASUL Basket à faire pratiquer tous actes médicalements
+                        En cas d'urgence, j'autorise les responsable de l'ASUL Basket à faire pratiquer tous actes médicalements
                         nécessaire ? 
                     </p>
                     <div class="form-check">
                         <?php echo $form->render("actes_medical_oui"); ?>
-                        <label for="b1" class="form-check-label autorisation">oui</label>
+                        <label for="actes_medical_oui" class="form-check-label autorisation">oui</label>
                     </div>
                     <div class="form-check">
                         <?php echo $form->render("actes_medical_non"); ?>
-                        <label for="b1" class="form-check-label autorisation">non</label>
+                        <label for="actes_medical_non" class="form-check-label autorisation">non</label>
                     </div>
                 </div>
             </section>
@@ -444,7 +584,10 @@ foreach ($user as $users) { $x++;?>
     </div>
 <?php } ?>
 <script>
-    var string2 = "";
+    var valide; //true = ok je passe à l'étape suivante; false = erreur dans la saisie du formulaire;
+    var i = 0;  
+    var diff; //égal l'age 
+    //Jquery Steps settings         
     var form2 = $("#example-form");
     form2.children(".tata").steps({
         headerTag: "h3",
@@ -452,24 +595,88 @@ foreach ($user as $users) { $x++;?>
         transitionEffect: "slideLeft",
         stepsOrientation: "vertical",
         transitionEffectSpeed: 000,
+        onStepChanging: function (event, currentIndex, newIndex) {
+            var form = document.forms['formRenouv'];
+            //function qui vérifie que tous les champs de l'étape soient renseignés
+            function validation(numberLastField)
+            {
+                for (i ; i <= numberLastField; i++)
+                {
+                    if(form[i].value=="")
+                    {
+                        valide = false;
+                    }
+                } 
+            }
+            if(currentIndex == 0)
+            {
+                validation(4);
+                if(!form[5].checked && !form[6].checked)
+                {
+                    valide = false;                    
+                }
+            }
+            else if(currentIndex > 0)
+            {
+                if(currentIndex == 1)
+                {
+                    i = i + 2; //pour ignorer les champs radio
+                    var birthdate = document.getElementById("Date_de_naissance").value;
+                    var date = new Date();
+                    var yearNow = date.getFullYear();
+                    birthdate = birthdate.substring(0, 4);
+                    birthdate = parseInt(birthdate);
+                    diff = yearNow - birthdate;
+                }
+                else if(currentIndex == 5)
+                {
+                    if(!form[27].checked && !form[28].checked)
+                    {
+                        valide = false;
+                    }
+                    if(!form[27].checked && !form[28].checked)
+                    {
+                        valide = false;
+                    }                        
+                }
+                if (diff > 18) {
+                    if(currentIndex == 1 ||currentIndex == 2)
+                    {
+                        validation(5*newIndex);
+                    }
+                }
+                else if(diff < 18)
+                {
+                    validation(5*newIndex);
+                }   
+            }
+            if(valide == false)
+            {
+                return false;
+            }   
+            else
+            {
+                return true;
+            }
+        },
         onStepChanged: function(event, currentIndex, priorIndex){
-            switch (currentIndex+1) {
-                case 1:
+            switch (currentIndex) {
+                case 0:
                     $("div.progress > div.progress-bar").css("width", "15%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "15");
                     $("div.progress > div.progress-bar").text("15%");
                     break;
-                case 2:
+                case 1:
                     $("div.progress > div.progress-bar").css("width", "30%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "30");
                     $("div.progress > div.progress-bar").text("30%");
                     break;
-                case 3:
+                case 2:
                     $("div.progress > div.progress-bar").css("width", "45%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "45");
                     $("div.progress > div.progress-bar").text("45%");
                     break;
-                 case 4:
+                 case 3:
                     $("div.progress > div.progress-bar").css("width", "60%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "60");
                     $("div.progress > div.progress-bar").text("60%");
@@ -482,20 +689,20 @@ foreach ($user as $users) { $x++;?>
                     if (diff > 18) {
                         document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
                         document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
-                        document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
+                        // document.querySelector('div.actions > ul > li[aria-hidden=false] > a').click();
                     }
                     break;
-                case 5:
+                case 4:
                     $("div.progress > div.progress-bar").css("width", "75%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "75");
                     $("div.progress > div.progress-bar").text("75%");
                     break;
-                case 6:
+                case 5:
                     $("div.progress > div.progress-bar").css("width", "90%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "90");
                     $("div.progress > div.progress-bar").text("90%");
                     break;
-                case 7:
+                case 6:
                     $("div.progress > div.progress-bar").css("width", "100%");
                     $("div.progress > div.progress-bar").attr("aria-valuenow", "100");
                     $("div.progress > div.progress-bar").text("100%");
@@ -506,7 +713,6 @@ foreach ($user as $users) { $x++;?>
             
         },
         onFinished :function(event, currentIndex){
-            // alert("toto");
             $("form[name=formRenouv]").submit();
         }
     });
