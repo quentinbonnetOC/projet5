@@ -1,5 +1,4 @@
 <?php
-
 class ParametresController extends \Phalcon\Mvc\Controller
 {
     public function indexAction()

@@ -1,5 +1,4 @@
 <?php
-
 class InformationController extends \Phalcon\Mvc\Controller
 {
 

@@ -1,5 +1,4 @@
 <?php
-
 use mikehaertl\pdftk\Pdf;
 
 class PdfController extends \Phalcon\Mvc\Controller

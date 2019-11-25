@@ -1,5 +1,4 @@
 <?php
-
 class EquipeController extends \Phalcon\Mvc\Controller
 {
     public function indexAction()
